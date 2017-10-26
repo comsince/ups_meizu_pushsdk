@@ -1,9 +1,9 @@
 # 集成推送平台PushSDK设计文档
 
 此文档在与向开发这介绍魅族统一推送平台PushSDK如何对各个厂家的PushSDK进行整合以及我们在统一接口设计中遵循的规则，由于各个厂家的API接口
-功能差异巨大我们只对各个厂商共用的接口进行统一封装，其他个性化的接口我们已经舍弃。UpsPushSDK设计初衷不仅仅是在帮助开发者接入魅族的统一推送
-平台，同时也希望我们的能够尽量简化接口的同时，能够将厂商所有的个性化接口全部提供给开发者，及时开发者不使用魅族统一推送平台也能通过各个厂商提供
-推送服务平台快速接入
+功能差异巨大我们只对各个厂商共用的接口进行统一封装，当然你也可以直接使用厂商提供的接口。UpsPushSDK设计初衷不仅仅是在帮助开发者接入魅族的统一推送
+平台，也希望我们能够尽量简化接口的同时，能够将厂商所有的个性化接口全部提供给开发者，即使开发者不使用魅族统一推送平台也能通过各个厂商提供
+推送服务平台快速接入。
 
 ## 背景
 目前各个主流厂商为了优化手机耗电情况,实行静默后台策略,导致很多应用无法常驻后台,导致基于长连接的推送应用也无法常驻后台
@@ -11,7 +11,7 @@
 才能在各个平台的手机上接收推送消息.此项目为了屏蔽不同厂商PushSDK的接入流程,为开发这提供统一的接口,方便开发者一次集成
  即可完成不同厂商的PushSDK的接入.
 
-## 接入说明 
+## 一 接入说明 
 
 接入文档尚在建立中
  
@@ -220,6 +220,30 @@ UpsPushMessageReceiver是一个抽象的BroadcastReceiver类，为了统一各�
  |message|表示执行请求返回的成功与错误信息|
  |commandType|表示请求服务类型,目前包括四种UpsManager.REGISTER,UpsManager.UNREGISTER,UpsManager.SUBALIAS,UpsManager.UNSUBALIAS|
  |commandResult|表示执行成功后，服务端返回的结果参数，例如订阅成功后，返回的pushId.|
-
-
+ |company|厂商类型包括：UpsPushMessage.MEIZU,UpsPushMessage.HUAWEI,UpsPushMessage.XIAOMI|
+ |extra|代表各个平台传递对象，魅族为空，小米为MiPushCommandMessage，华为为Bundle，需要通过company进行类型转换如下代码：|
  
+ ```
+ if(company==UpsPushMessage.MEIZU){ 
+         string extra = extra;
+     } else if(company==UpsPushMessage.XIAOMI){
+         MiPushCommandMessage miPushCommandMessage = (MiPushCommandMessage)extra;
+     } else if(company==UpsPushMessage.HUAWEI){
+         Bundle bundle = (Bundle)extra;
+     }
+ ```
+
+
+## 技术实现
+ 
+### UpsManager 接口代理
+ 
+ UpsManager调用的定义的API最终会调用各个厂商提供的API,我们展示屏蔽了具体进行厂商判断的细节，以及对接魅族统一推送平台的接口。
+ 以下为订阅逻辑的逻辑图:
+ 
+ ![image](attach/ups_meizu_pushsdk_register.png)
+ 
+ 具体步骤基本和厂商sdk的逻辑一致，只是增加了上报魅族统一推送平台订阅状态的逻辑，该逻辑我们可以考虑是否支持上报，即使此步骤执行不成功，UpsReceiver也会回调
+ 各个厂商的状态，完全不必担心此逻辑会影响厂商的具体的订阅发起与回调逻辑。
+ 
+ **NOTE:** 以上步骤值讨论了订阅的逻辑，其他如别名订阅与此大致一致。
