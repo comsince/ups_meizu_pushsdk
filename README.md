@@ -234,9 +234,9 @@ UpsPushMessageReceiver是一个抽象的BroadcastReceiver类，为了统一各�
  ```
 
 
-## 技术实现
+## 五 技术实现
  
-### UpsManager 接口代理
+### 5.1 UpsManager 接口代理
  
  UpsManager调用的定义的API最终会调用各个厂商提供的API,我们展示屏蔽了具体进行厂商判断的细节，以及对接魅族统一推送平台的接口。
  以下为订阅逻辑的逻辑图:
