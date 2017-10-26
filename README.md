@@ -241,7 +241,7 @@ UpsPushMessageReceiver是一个抽象的BroadcastReceiver类，为了统一各�
  UpsManager调用的定义的API最终会调用各个厂商提供的API,我们展示屏蔽了具体进行厂商判断的细节，以及对接魅族统一推送平台的接口。
  以下为订阅逻辑的逻辑图:
  
- ![image](attach/ups_meizu_pushsdk_register.png)
+![image](attach/ups_meizu_pushsdk_register.png)
  
  具体步骤基本和厂商sdk的逻辑一致，只是增加了上报魅族统一推送平台订阅状态的逻辑，该逻辑我们可以考虑是否支持上报，即使此步骤执行不成功，UpsReceiver也会回调
  各个厂商的状态，完全不必担心此逻辑会影响厂商的具体的订阅发起与回调逻辑。
