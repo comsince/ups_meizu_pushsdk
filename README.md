@@ -23,9 +23,9 @@
 | 接口名称      | 接口说明| 使用建议|是否已经废弃|对应UpsPushReceiver回调方法|
 | :--------: | :--------:| :--: |:--: |:--: |
 |register(Context context,String appId,String appKey)|新版订阅接口|建议Application onCreate调用|否|onUpsCommandResult(Context context, UpsCommandMessage upsPushMessage)|
-|unRegister(Context context,String appId,String appKey)|新版反订阅接口|取消所有推送时使用,慎用,如果取消,将有可能停止所有推送|否|onUpsCommandResult(Context context, UpsCommandMessage upsPushMessage)|
-|subScribeAlias(Context context,String appId,String appKey,String pushId,String alias)|订阅别名|无|否|onUpsCommandResult(Context context, UpsCommandMessage upsPushMessage)|
-|unSubScribeAlias(Context context,String appId,String appKey,String pushId,String alias)|取消别名|无|否|onUpsCommandResult(Context context, UpsCommandMessage upsCommandMessage)|
+|unRegister(Context context)|反订阅接口|取消所有推送时使用,慎用,如果取消,将有可能停止所有推送|否|onUpsCommandResult(Context context, UpsCommandMessage upsPushMessage)|
+|subScribeAlias(Context context,String alias)|订阅别名|无|否|onUpsCommandResult(Context context, UpsCommandMessage upsPushMessage)|
+|unSubScribeAlias(Context context,String alias)|取消别名|无|否|onUpsCommandResult(Context context, UpsCommandMessage upsCommandMessage)|
 
 ### 2.2 UpsPushMessageReceiver 广播接收器 
 
