@@ -30,7 +30,7 @@
 ### 2.2 UpsPushMessageReceiver 广播接收器 
 
 UpsPushMessageReceiver是一个抽象的BroadcastReceiver类，为了统一各个厂商的回调，必须定义通用的方法，在包装数据格式时只是原样返回，不做任何修饰，
-里面定义了五个方法，分别为onThroughMessage,onNotificationClicked,onNotificationArrived,onNotificationDeleted,onUpsCommandResult
+里面定义了五个方法，分别为`onThroughMessage`,`onNotificationClicked`,`onNotificationArrived`,`onNotificationDeleted`,`onUpsCommandResult`
  
  
 | 接口名称      | 接口说明| 使用建议|是否已经废弃|
@@ -115,19 +115,90 @@ UpsPushMessageReceiver是一个抽象的BroadcastReceiver类，为了统一各�
 
 接收通知栏消息点击回调
 
-**NOTE:** 同上
+| 参数列表      | 参数说明| 
+| :--------: | :--------:| 
+|context| Android平台上app的上下文，建议传入当前app的application context|                                                                                
+|upsPushMessage|服务端返回的结果全部封装在upsPushMessage对象中，可以从对象中和获取例如`content` `title` `extra` `pushType` `company`|
 
+**NOTE:** UpsPushMessage 参数说明
+在设计UpsPushMessage时我们尽量保证将厂商提供的参数信息回调给用户，方便开发者能够使用各个厂商的个性化功能
+
+| 参数名      | 参数说明| 
+| :--------: | :--------:| 
+|title|消息的标题，如果时通知栏消息，则为通知栏标题|
+|content|消息内容,如果时通知栏则为消息通知栏内容，如果为透传消息，则为透传消息体|
+|pushType|消息类型,0代表通知栏消息，1代表透传消息|
+|company|厂商类型包括：UpsPushMessage.MEIZU,UpsPushMessage.HUAWEI,UpsPushMessage.XIAOMI|
+|extra|代表各个平台的传递的对象，魅族代表selfDefineContentString，小米代表MiPushMessage，华为代表bundle,需要通过判断company进行对象类型转化，如下：|
+
+```
+    if(company==UpsPushMessage.MEIZU){ 
+        string extra = extra;
+    } else if(company==UpsPushMessage.XIAOMI){
+        MiPushMessage miPushMssage = (MiPushMessage)extra;
+    } else if(company==UpsPushMessage.HUAWEI){
+        Bundle bundle = (Bundle)extra;
+    }
+```
 ### 4.3 public void onNotificationArrived(Context context, UpsPushMessage upsPushMessage)
 
 接收通知栏消息到达回调
 
-**NOTE:** 同上
+| 参数列表      | 参数说明| 
+| :--------: | :--------:| 
+|context| Android平台上app的上下文，建议传入当前app的application context|                                                                                
+|upsPushMessage|服务端返回的结果全部封装在upsPushMessage对象中，可以从对象中和获取例如`content` `title` `extra` `pushType` `company`|
+
+**NOTE:** UpsPushMessage 参数说明
+在设计UpsPushMessage时我们尽量保证将厂商提供的参数信息回调给用户，方便开发者能够使用各个厂商的个性化功能
+
+| 参数名      | 参数说明| 
+| :--------: | :--------:| 
+|title|消息的标题，如果时通知栏消息，则为通知栏标题|
+|content|消息内容,如果时通知栏则为消息通知栏内容，如果为透传消息，则为透传消息体|
+|pushType|消息类型,0代表通知栏消息，1代表透传消息|
+|company|厂商类型包括：UpsPushMessage.MEIZU,UpsPushMessage.HUAWEI,UpsPushMessage.XIAOMI|
+|extra|代表各个平台的传递的对象，魅族代表selfDefineContentString，小米代表MiPushMessage，华为代表bundle,需要通过判断company进行对象类型转化，如下：|
+
+```
+    if(company==UpsPushMessage.MEIZU){ 
+        string extra = extra;
+    } else if(company==UpsPushMessage.XIAOMI){
+        MiPushMessage miPushMssage = (MiPushMessage)extra;
+    } else if(company==UpsPushMessage.HUAWEI){
+        Bundle bundle = (Bundle)extra;
+    }
+```
 
 ### 4.4 public void onNotificationDeleted(Context context, UpsPushMessage upsPushMessage)
 
 接收通知栏消息删除回调
 
-**NOTE:** 同上
+| 参数列表      | 参数说明| 
+| :--------: | :--------:| 
+|context| Android平台上app的上下文，建议传入当前app的application context|                                                                                
+|upsPushMessage|服务端返回的结果全部封装在upsPushMessage对象中，可以从对象中和获取例如`content` `title` `extra` `pushType` `company`|
+
+**NOTE:** UpsPushMessage 参数说明
+在设计UpsPushMessage时我们尽量保证将厂商提供的参数信息回调给用户，方便开发者能够使用各个厂商的个性化功能
+
+| 参数名      | 参数说明| 
+| :--------: | :--------:| 
+|title|消息的标题，如果时通知栏消息，则为通知栏标题|
+|content|消息内容,如果时通知栏则为消息通知栏内容，如果为透传消息，则为透传消息体|
+|pushType|消息类型,0代表通知栏消息，1代表透传消息|
+|company|厂商类型包括：UpsPushMessage.MEIZU,UpsPushMessage.HUAWEI,UpsPushMessage.XIAOMI|
+|extra|代表各个平台的传递的对象，魅族代表selfDefineContentString，小米代表MiPushMessage，华为代表bundle,需要通过判断company进行对象类型转化，如下：|
+
+```
+    if(company==UpsPushMessage.MEIZU){ 
+        string extra = extra;
+    } else if(company==UpsPushMessage.XIAOMI){
+        MiPushMessage miPushMssage = (MiPushMessage)extra;
+    } else if(company==UpsPushMessage.HUAWEI){
+        Bundle bundle = (Bundle)extra;
+    }
+```
 
 ### 4.5 public void onUpsCommandResult(Context context, UpsCommandMessage upsCommandMessage)
 
