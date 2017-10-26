@@ -1,1 +1,1 @@
-include ':app', ':upspushsdklib'
+include ':PushDemo', ':upspushsdklib'
