@@ -55,6 +55,11 @@
             android:name="MZ_APP_KEY"
             android:value="${MZ_APP_KEY}"/>
 
+        <!-- APPID 华为移动服务配置 请将value替换成实际的appid -->
+        <meta-data
+            android:name="com.huawei.hms.client.appid"
+            android:value="${HW_APP_ID}" />
+
     </application>
 
 </manifest>

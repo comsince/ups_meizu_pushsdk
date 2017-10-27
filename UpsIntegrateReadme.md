@@ -6,6 +6,11 @@
 
 ### 小米
 
+
+#### 混淆配置
+
+基于aar整体打包的方式
+
 #### AppID和APPKey本地配置
 
 ```
@@ -65,7 +70,12 @@
 
 #### AppID和APPKey本地配置
 
-无此配置项目，即是不需要配置
+```
+<!-- APPID 华为移动服务配置 请将value替换成实际的appid -->
+        <meta-data
+            android:name="com.huawei.hms.client.appid"
+            android:value="此处为华为开发者联盟为开发者应用分配的appid" />
+```
 
 #### Android Manifest 配置
 
