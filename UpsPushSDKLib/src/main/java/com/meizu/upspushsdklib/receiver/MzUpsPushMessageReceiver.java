@@ -9,9 +9,6 @@ import com.meizu.cloud.pushsdk.platform.message.SubAliasStatus;
 import com.meizu.cloud.pushsdk.platform.message.SubTagsStatus;
 import com.meizu.cloud.pushsdk.platform.message.UnRegisterStatus;
 
-/**
- * Created by liaojinlong on 17-10-26.
- */
 
 public final class MzUpsPushMessageReceiver extends MzPushMessageReceiver{
     @Override
