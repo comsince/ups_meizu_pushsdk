@@ -9,6 +9,7 @@
     <uses-permission android:name="com.meizu.upspushdemo.permission.MIPUSH_RECEIVE" />
 
     <application
+        android:name="com.meizu.upspushdemo.UpsDemoApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -25,11 +26,11 @@
 
         <meta-data
             android:name="XM_APP_ID"
-            android:value="2882303761517631454"/>
+            android:value="\02882303761517631454"/>
 
         <meta-data
             android:name="XM_APP_KEY"
-            android:value="5581763188454"/>
+            android:value="\05581763188454"/>
 
 
         <meta-data

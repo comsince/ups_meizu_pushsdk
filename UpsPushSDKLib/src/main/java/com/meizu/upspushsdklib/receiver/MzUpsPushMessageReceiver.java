@@ -2,12 +2,14 @@ package com.meizu.upspushsdklib.receiver;
 
 import android.content.Context;
 
+import com.meizu.cloud.pushinternal.DebugLogger;
 import com.meizu.cloud.pushsdk.MzPushMessageReceiver;
 import com.meizu.cloud.pushsdk.platform.message.PushSwitchStatus;
 import com.meizu.cloud.pushsdk.platform.message.RegisterStatus;
 import com.meizu.cloud.pushsdk.platform.message.SubAliasStatus;
 import com.meizu.cloud.pushsdk.platform.message.SubTagsStatus;
 import com.meizu.cloud.pushsdk.platform.message.UnRegisterStatus;
+import com.meizu.upspushsdklib.UpsPushManager;
 
 
 public final class MzUpsPushMessageReceiver extends MzPushMessageReceiver{
@@ -28,7 +30,7 @@ public final class MzUpsPushMessageReceiver extends MzPushMessageReceiver{
 
     @Override
     public void onRegisterStatus(Context context, RegisterStatus registerStatus) {
-
+        DebugLogger.i(UpsPushManager.TAG,"registerStatus "+registerStatus);
     }
 
     @Override

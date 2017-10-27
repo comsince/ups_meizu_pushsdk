@@ -26,8 +26,8 @@
 | :--------: | :--------:| :--: |:--: |:--: |
 |register(Context context,String appId,String appKey)|订阅接口|建议Application onCreate调用|否|onUpsCommandResult(Context context, UpsCommandMessage upsCommandMessage)|
 |unRegister(Context context)|反订阅接口|取消所有推送时使用,慎用,如果取消,将有可能停止所有推送|否|onUpsCommandResult(Context context, UpsCommandMessage upsCommandMessage)|
-|subScribeAlias(Context context,String alias)|订阅别名|无|否|onUpsCommandResult(Context context, UpsCommandMessage upsCommandMessage)|
-|unSubScribeAlias(Context context,String alias)|取消别名|无|否|onUpsCommandResult(Context context, UpsCommandMessage upsCommandMessage)|
+|setAlias(Context context,String alias)|订阅别名|无|否|onUpsCommandResult(Context context, UpsCommandMessage upsCommandMessage)|
+|unSetAlias(Context context,String alias)|取消别名|无|否|onUpsCommandResult(Context context, UpsCommandMessage upsCommandMessage)|
 
 ### 2.2 UpsPushMessageReceiver 广播接收器 
 
@@ -64,14 +64,14 @@ UpsPushMessageReceiver是一个抽象的BroadcastReceiver类，为了统一各�
 | :--------: | :--------:| 
 |context| Android平台上app的上下文，建议传入当前app的application context|                                                                                
 
-### 3.3 public static void subScribeAlias(Context context,String alias)
+### 3.3 public static void setAlias(Context context,String alias)
 
 | 参数列表      | 参数说明| 
 | :--------: | :--------:| 
 |context| Android平台上app的上下文，建议传入当前app的application context|                                                                                
 |alias|应用别名|
 
-### 3.4 public static void unSubScribeAlias(Context context,String alias)
+### 3.4 public static void unSetAlias(Context context,String alias)
 
 | 参数列表      | 参数说明| 
 | :--------: | :--------:| 
