@@ -3,10 +3,24 @@
     package="com.meizu.upspushdemo">
 
     <!-- 小米个性化配置 需要到应用的主manifest中去配置-->
-    <!-- the following 2 com.meizu.upspushdemo should be changed to your package name -->
-    <permission android:name="com.meizu.upspushdemo.permission.MIPUSH_RECEIVE"
+    <!-- the following 2 ${PACKAGE_NAME} should be changed to your package name -->
+    <permission android:name="${PACKAGE_NAME}.permission.MIPUSH_RECEIVE"
                 android:protectionLevel="signature" />
-    <uses-permission android:name="com.meizu.upspushdemo.permission.MIPUSH_RECEIVE" />
+    <uses-permission android:name="${PACKAGE_NAME}.permission.MIPUSH_RECEIVE" />
+
+
+    <!-- 魅族个性化配置 需要到应用的主manifest中去配置-->
+    <!-- the following 4 ${PACKAGE_NAME} should be changed to your package name -->
+    <uses-permission android:name="com.meizu.flyme.push.permission.RECEIVE"></uses-permission>
+    <permission android:name="${PACKAGE_NAME}.push.permission.MESSAGE" android:protectionLevel="signature"/>
+    <uses-permission android:name="${PACKAGE_NAME}.push.permission.MESSAGE"></uses-permission>
+
+    <uses-permission android:name="com.meizu.c2dm.permission.RECEIVE" />
+    <permission android:name="${PACKAGE_NAME}.permission.C2D_MESSAGE"
+                android:protectionLevel="signature"></permission>
+    <uses-permission android:name="${PACKAGE_NAME}.permission.C2D_MESSAGE"/>
+
+
 
     <application
         android:name="com.meizu.upspushdemo.UpsDemoApplication"
@@ -26,20 +40,20 @@
 
         <meta-data
             android:name="XM_APP_ID"
-            android:value="\02882303761517631454"/>
+            android:value="${XM_APP_ID}"/>
 
         <meta-data
             android:name="XM_APP_KEY"
-            android:value="\05581763188454"/>
+            android:value="${XM_APP_KEY}"/>
 
 
         <meta-data
             android:name="MZ_APP_ID"
-            android:value="111518"/>
+            android:value="${MZ_APP_ID}"/>
 
         <meta-data
             android:name="MZ_APP_KEY"
-            android:value="81db366f80b84a4f84915de07358bdea"/>
+            android:value="${MZ_APP_KEY}"/>
 
     </application>
 

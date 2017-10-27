@@ -91,6 +91,24 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name="com.meizu.upspushsdklib.receiver.MzUpsPushMessageReceiver">
+            <intent-filter>
+                <!-- 接收push消息 -->
+                <action android:name="com.meizu.flyme.push.intent.MESSAGE" />
+                <!-- 接收register消息-->
+                <action android:name="com.meizu.flyme.push.intent.REGISTER.FEEDBACK"/>
+                <!-- 接收unregister消息-->
+                <action android:name="com.meizu.flyme.push.intent.UNREGISTER.FEEDBACK"/>
+
+                <action android:name="com.meizu.c2dm.intent.REGISTRATION" />
+                <action android:name="com.meizu.c2dm.intent.RECEIVE" />
+
+                <!--<category android:name="${PACKAGE_NAME}"></category>-->
+            </intent-filter>
+
+
+        </receiver>
+
         <!--  华为核心推送组件配置-->
 
 

@@ -1,5 +1,13 @@
 apply plugin: 'com.android.application'
 
+def mzAppId = project.getProperties().get("MZ_APP_ID") ?:"111518"
+def mzAppKey = project.getProperties().get("MZ_APP_KEY") ?: "81db366f80b84a4f84915de07358bdea"
+def xmAppId = project.getProperties().get("XM_APP_ID") ?:"\\02882303761517631454"
+def xmAppKey = project.getProperties().get("XM_APP_KEY") ?: "\\05581763188454"
+def appPackageName = project.getProperties().get("PACKAGE_NAME")?:"com.meizu.pushdemo"
+
+println("mzappID = ${mzAppId} mzappKey = ${mzAppKey} xmappID = ${xmAppId} xmappKey = ${xmAppKey}  appPackageName = ${appPackageName}")
+
 android {
     compileSdkVersion 25
     buildToolsVersion '25.0.0'
@@ -10,6 +18,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders = [XM_APP_ID: xmAppId, XM_APP_KEY: xmAppKey,MZ_APP_ID: mzAppId, MZ_APP_KEY: mzAppKey, PACKAGE_NAME: appPackageName]
     }
     buildTypes {
         release {
