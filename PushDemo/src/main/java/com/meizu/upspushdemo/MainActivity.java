@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
 import com.meizu.cloud.pushsdk.PushManager;
+import com.meizu.upspushsdklib.hw.HwPushClient;
 import com.meizu.upspushsdklib.util.UpsConstants;
 import com.meizu.upspushsdklib.util.UpsUtils;
 import com.xiaomi.mipush.sdk.MiPushClient;
@@ -22,12 +22,17 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private String mzAppId;
     private String mzAppKey;
 
+    private HwPushClient hwPushClient;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
         initMetaData();
+        hwPushClient = new HwPushClient(this);
+        hwPushClient.connect();
     }
 
     private void initView(){
@@ -46,6 +51,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         xmAppKey = UpsUtils.getMetaStringValueByName(this,UpsConstants.XM_APP_KEY);
         mzAppId = UpsUtils.getMetaIntValueByName(this, UpsConstants.MZ_APP_ID);
         mzAppKey = UpsUtils.getMetaStringValueByName(this,UpsConstants.MZ_APP_KEY);
+        UpsUtils.getMetaIntValueByName(this,"com.huawei.hms.client.appid");
     }
 
 
@@ -57,6 +63,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
             case R.id.btn_register:
                 MiPushClient.registerPush(this,xmAppId,xmAppKey);
                 PushManager.register(this,mzAppId,mzAppKey);
+                hwPushClient.getTokenSync();
                 break;
             case R.id.btn_set_alias:
                 break;
@@ -66,4 +73,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 break;
         }
     }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        hwPushClient.disconnect();
+    }
+
 }

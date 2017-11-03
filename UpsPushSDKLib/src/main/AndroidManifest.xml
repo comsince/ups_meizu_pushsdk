@@ -112,6 +112,21 @@
         </receiver>
 
         <!--  华为核心推送组件配置-->
+
+        <activity
+            android:name="com.huawei.hms.activity.BridgeActivity"
+            android:configChanges="orientation|locale|screenSize|layoutDirection|fontScale"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:hardwareAccelerated="true"
+            android:theme="@android:style/Theme.Translucent" >
+            <meta-data
+                android:name="hwc-theme"
+                android:value="androidhwext:style/Theme.Emui.Translucent" />
+        </activity>
+
+
+
         <!-- 第三方相关 :接收Push消息（注册、Push消息、Push连接状态）广播 -->
         <receiver android:name="com.meizu.upspushsdklib.receiver.HwUpsPushMessageReceiver" >
             <intent-filter>
