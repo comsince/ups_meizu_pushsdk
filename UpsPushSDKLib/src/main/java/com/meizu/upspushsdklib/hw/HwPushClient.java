@@ -25,6 +25,13 @@ public class HwPushClient implements HuaweiApiClient.ConnectionCallbacks, Huawei
     private HuaweiApiClient client;
 
     public HwPushClient(Context context) {
+        //检测传进的context是否为activity
+        if(context == null){
+            throw new IllegalArgumentException(" context not null");
+        }
+        if(context instanceof Activity){
+            throw new IllegalArgumentException(" context must type of Activity");
+        }
         this.mContext = context;
         buildHwApiClient(mContext.getApplicationContext());
     }
