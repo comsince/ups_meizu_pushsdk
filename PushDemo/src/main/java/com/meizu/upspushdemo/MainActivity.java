@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import com.meizu.cloud.pushsdk.PushManager;
+import com.meizu.upspushsdklib.UpsPushManager;
 import com.meizu.upspushsdklib.hw.HwPushClient;
 import com.meizu.upspushsdklib.util.UpsConstants;
 import com.meizu.upspushsdklib.util.UpsUtils;
@@ -61,9 +62,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
             case R.id.btn_unregister:
                 break;
             case R.id.btn_register:
-                MiPushClient.registerPush(this,xmAppId,xmAppKey);
-                PushManager.register(this,mzAppId,mzAppKey);
-                hwPushClient.getTokenSync();
+//                MiPushClient.registerPush(this,xmAppId,xmAppKey);
+//                PushManager.register(this,mzAppId,mzAppKey);
+//                hwPushClient.getTokenSync();
+                UpsPushManager.register(this,"appID","appKey");
                 break;
             case R.id.btn_set_alias:
                 break;

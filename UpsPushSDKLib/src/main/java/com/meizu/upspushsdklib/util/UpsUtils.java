@@ -5,6 +5,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 
 import com.meizu.cloud.pushinternal.DebugLogger;
+import com.meizu.cloud.pushsdk.util.MzSystemUtils;
 import com.meizu.upspushsdklib.UpsPushManager;
 
 
@@ -63,5 +64,17 @@ public class UpsUtils {
             DebugLogger.e(UpsPushManager.TAG,"getMetaValueByName exception "+e);
         }
         return value;
+    }
+
+
+    /**
+     * 返回机型信息
+     * */
+    public static String deviceModel(){
+        return android.os.Build.MODEL;
+    }
+
+    public static boolean isMeizu(){
+        return MzSystemUtils.isBrandMeizu();
     }
 }
