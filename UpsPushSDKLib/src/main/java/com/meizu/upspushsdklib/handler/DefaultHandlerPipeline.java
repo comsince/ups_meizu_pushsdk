@@ -1,13 +1,6 @@
 package com.meizu.upspushsdklib.handler;
 
 import android.content.Context;
-import android.text.TextUtils;
-
-import com.meizu.cloud.pushinternal.DebugLogger;
-import com.meizu.upspushsdklib.UpsPushManager;
-import com.meizu.upspushsdklib.util.UpsConstants;
-import com.meizu.upspushsdklib.util.UpsUtils;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executor;
@@ -138,40 +131,24 @@ public final class DefaultHandlerPipeline implements HandlerPipeline {
 
         @Override
         public void register(HandlerContext ctx, String appId, String appKey) {
-            if(UpsUtils.isMeizu()){
-                DebugLogger.e(UpsPushManager.TAG,"current device model is MEIZU");
-                String mzAppId =  getAppId(context,Company.MEIZU.name());
-                String mzAppKey = getAppKey(context,Company.MEIZU.name());
-                if(TextUtils.isEmpty(mzAppId) || TextUtils.isEmpty(mzAppKey)){
-                    //本地获取配置信息
-                    mzAppId = UpsUtils.getMetaIntValueByName(context, UpsConstants.MZ_APP_ID);
-                    mzAppKey = UpsUtils.getMetaStringValueByName(context,UpsConstants.MZ_APP_KEY);
-                    putAppId(context,Company.MEIZU.name(),appId);
-                    putAppKey(context,Company.MEIZU.name(),appKey);
-                }
-
-                if(TextUtils.isEmpty(mzAppId) || TextUtils.isEmpty(mzAppKey)){
-                    //从统一push平台获取
-                }
-
-                ctx.fireRegister(mzAppId,mzAppKey);
-            }
+            ctx.fireRegister(appId,appKey);
         }
 
         @Override
         public void unRegister(HandlerContext ctx) {
-            ctx.fireUnRegister();
+
         }
 
         @Override
         public void setAlias(HandlerContext ctx, String alias) {
-            ctx.fireSetAlias(alias);
+
         }
 
         @Override
         public void unSetAlias(HandlerContext ctx, String alias) {
-            ctx.fireUnSetAlias(alias);
+
         }
+
 
         @Override
         public String name() {
@@ -203,17 +180,17 @@ public final class DefaultHandlerPipeline implements HandlerPipeline {
 
         @Override
         public void unRegister(HandlerContext ctx) {
-            throw new UnsupportedOperationException();
+
         }
 
         @Override
-        public void setAlias(HandlerContext ctx,String alias) {
-            throw new UnsupportedOperationException();
+        public void setAlias(HandlerContext ctx, String alias) {
+
         }
 
         @Override
-        public void unSetAlias(HandlerContext ctx,String alias) {
-            throw new UnsupportedOperationException();
+        public void unSetAlias(HandlerContext ctx, String alias) {
+
         }
 
         @Override

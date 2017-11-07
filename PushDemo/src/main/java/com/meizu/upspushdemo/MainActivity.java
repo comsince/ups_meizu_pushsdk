@@ -65,7 +65,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 //                MiPushClient.registerPush(this,xmAppId,xmAppKey);
 //                PushManager.register(this,mzAppId,mzAppKey);
 //                hwPushClient.getTokenSync();
-                UpsPushManager.register(this,"appID","appKey");
+                UpsPushManager.register(this,"","");
                 break;
             case R.id.btn_set_alias:
                 break;

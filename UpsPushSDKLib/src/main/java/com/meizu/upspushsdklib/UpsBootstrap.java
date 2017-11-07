@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.meizu.cloud.pushsdk.base.ExecutorProxy;
 import com.meizu.upspushsdklib.handler.DefaultHandlerPipeline;
+import com.meizu.upspushsdklib.handler.impl.AppSettingHandler;
 import com.meizu.upspushsdklib.handler.impl.HuaWeiHandler;
 import com.meizu.upspushsdklib.handler.impl.MeizuHandler;
 import com.meizu.upspushsdklib.handler.impl.XiaoMiHandler;
@@ -31,6 +32,7 @@ class UpsBootstrap {
         executor = ExecutorProxy.get();
         defaultHandlerPipeline = new DefaultHandlerPipeline(context);
         defaultHandlerPipeline
+                .addLast(new AppSettingHandler())
                 .addLast(new MeizuHandler())
                 .addLast(new XiaoMiHandler())
                 .addLast(new HuaWeiHandler());
