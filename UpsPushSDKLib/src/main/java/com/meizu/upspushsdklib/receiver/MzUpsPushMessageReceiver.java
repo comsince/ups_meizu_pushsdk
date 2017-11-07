@@ -35,7 +35,7 @@ public final class MzUpsPushMessageReceiver extends MzPushMessageReceiver{
 
     @Override
     public void onUnRegisterStatus(Context context, UnRegisterStatus unRegisterStatus) {
-
+        DebugLogger.i(UpsPushManager.TAG," unRegisterStatus "+unRegisterStatus);
     }
 
     @Override
@@ -45,6 +45,6 @@ public final class MzUpsPushMessageReceiver extends MzPushMessageReceiver{
 
     @Override
     public void onSubAliasStatus(Context context, SubAliasStatus subAliasStatus) {
-
+         DebugLogger.i(UpsPushManager.TAG,"subAliasStatus "+subAliasStatus);
     }
 }

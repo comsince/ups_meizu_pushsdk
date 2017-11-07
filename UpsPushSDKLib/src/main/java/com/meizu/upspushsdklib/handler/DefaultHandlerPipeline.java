@@ -136,17 +136,17 @@ public final class DefaultHandlerPipeline implements HandlerPipeline {
 
         @Override
         public void unRegister(HandlerContext ctx) {
-
+            ctx.fireUnRegister();
         }
 
         @Override
         public void setAlias(HandlerContext ctx, String alias) {
-
+             ctx.fireSetAlias(alias);
         }
 
         @Override
         public void unSetAlias(HandlerContext ctx, String alias) {
-
+             ctx.fireUnSetAlias(alias);
         }
 
 

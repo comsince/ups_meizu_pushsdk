@@ -60,6 +60,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_unregister:
+                UpsPushManager.unRegister(this);
                 break;
             case R.id.btn_register:
 //                MiPushClient.registerPush(this,xmAppId,xmAppKey);
@@ -68,8 +69,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 UpsPushManager.register(this,"","");
                 break;
             case R.id.btn_set_alias:
+                UpsPushManager.setAlias(this,"ups");
                 break;
             case R.id.btn_unset_alias:
+                UpsPushManager.unSetAlias(this,"ups");
                 break;
             default:
                 break;

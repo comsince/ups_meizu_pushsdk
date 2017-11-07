@@ -4,7 +4,6 @@ package com.meizu.upspushsdklib.handler.impl;
 import android.content.Context;
 
 import com.meizu.cloud.pushsdk.util.PushPreferencesUtils;
-import com.meizu.upspushsdklib.handler.Company;
 import com.meizu.upspushsdklib.handler.HandlerContext;
 import com.meizu.upspushsdklib.handler.UpsHandler;
 

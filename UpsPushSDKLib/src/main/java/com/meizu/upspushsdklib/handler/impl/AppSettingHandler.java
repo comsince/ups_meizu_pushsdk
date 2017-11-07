@@ -23,8 +23,9 @@ public class AppSettingHandler extends AbstractHandler{
                 //本地获取配置信息
                 mzAppId = UpsUtils.getMetaIntValueByName(context, UpsConstants.MZ_APP_ID);
                 mzAppKey = UpsUtils.getMetaStringValueByName(context,UpsConstants.MZ_APP_KEY);
-                putAppId(context,Company.MEIZU.name(),appId);
-                putAppKey(context,Company.MEIZU.name(),appKey);
+                DebugLogger.e(UpsPushManager.TAG,"store mzAppId "+mzAppId+" mzAppKey "+mzAppKey+" from manifest");
+                putAppId(context,Company.MEIZU.name(),mzAppId);
+                putAppKey(context,Company.MEIZU.name(),mzAppKey);
             }
 
             if(TextUtils.isEmpty(mzAppId) || TextUtils.isEmpty(mzAppKey)){
@@ -35,6 +36,20 @@ public class AppSettingHandler extends AbstractHandler{
         }
     }
 
+    @Override
+    public void unRegister(HandlerContext ctx) {
+        ctx.fireUnRegister();
+    }
+
+    @Override
+    public void setAlias(HandlerContext ctx, String alias) {
+        ctx.fireSetAlias(alias);
+    }
+
+    @Override
+    public void unSetAlias(HandlerContext ctx, String alias) {
+        ctx.fireUnSetAlias(alias);
+    }
 
     @Override
     public boolean isCurrentModel() {
