@@ -2,14 +2,23 @@ package com.meizu.upspushsdklib.receiver;
 
 import android.content.Context;
 
-import com.meizu.cloud.pushinternal.DebugLogger;
 import com.meizu.cloud.pushsdk.MzPushMessageReceiver;
+import com.meizu.cloud.pushsdk.handler.MzPushMessage;
 import com.meizu.cloud.pushsdk.platform.message.PushSwitchStatus;
 import com.meizu.cloud.pushsdk.platform.message.RegisterStatus;
 import com.meizu.cloud.pushsdk.platform.message.SubAliasStatus;
 import com.meizu.cloud.pushsdk.platform.message.SubTagsStatus;
 import com.meizu.cloud.pushsdk.platform.message.UnRegisterStatus;
+import com.meizu.upspushsdklib.CommandType;
+import com.meizu.upspushsdklib.Company;
+import com.meizu.upspushsdklib.PushType;
+import com.meizu.upspushsdklib.UpsCommandMessage;
 import com.meizu.upspushsdklib.UpsPushManager;
+import com.meizu.upspushsdklib.UpsPushMessage;
+import com.meizu.upspushsdklib.UpsPushMessageType;
+import com.meizu.upspushsdklib.receiver.dispatcher.CommandMessageDispatcher;
+import com.meizu.upspushsdklib.receiver.dispatcher.UpsPushMessageDispatcher;
+import com.meizu.upspushsdklib.util.UpsLogger;
 
 
 public final class MzUpsPushMessageReceiver extends MzPushMessageReceiver{
@@ -30,12 +39,30 @@ public final class MzUpsPushMessageReceiver extends MzPushMessageReceiver{
 
     @Override
     public void onRegisterStatus(Context context, RegisterStatus registerStatus) {
-        DebugLogger.i(UpsPushManager.TAG,"registerStatus "+registerStatus);
+        UpsLogger.i(this,"MzUpsPushMessageReceiver registerStatus "+registerStatus);
+        UpsCommandMessage upsCommandMessage = UpsCommandMessage.builder()
+                .code(Integer.valueOf(registerStatus.getCode()))
+                .company(Company.MEIZU)
+                .commandResult(registerStatus.getPushId())
+                .commandType(CommandType.REGISTER)
+                .extra(registerStatus)
+                .build();
+
+        CommandMessageDispatcher.create(context,upsCommandMessage).dispatch();
     }
 
     @Override
     public void onUnRegisterStatus(Context context, UnRegisterStatus unRegisterStatus) {
-        DebugLogger.i(UpsPushManager.TAG," unRegisterStatus "+unRegisterStatus);
+        UpsLogger.i(this,"MzUpsPushMessageReceiver unRegisterStatus "+unRegisterStatus);
+        UpsCommandMessage upsCommandMessage = UpsCommandMessage.builder()
+                .code(Integer.valueOf(unRegisterStatus.getCode()))
+                .company(Company.MEIZU)
+                .commandResult(String.valueOf(unRegisterStatus.isUnRegisterSuccess()))
+                .commandType(CommandType.UNREGISTER)
+                .extra(unRegisterStatus)
+                .build();
+
+        CommandMessageDispatcher.create(context,upsCommandMessage).dispatch();
     }
 
     @Override
@@ -45,6 +72,44 @@ public final class MzUpsPushMessageReceiver extends MzPushMessageReceiver{
 
     @Override
     public void onSubAliasStatus(Context context, SubAliasStatus subAliasStatus) {
-         DebugLogger.i(UpsPushManager.TAG,"subAliasStatus "+subAliasStatus);
+         UpsLogger.i(this,"MzUpsPushMessageReceiver subAliasStatus "+subAliasStatus);
+    }
+
+    @Override
+    public void onNotificationClicked(Context context, MzPushMessage mzPushMessage) {
+        UpsLogger.i(this,"MzUpsPushMessageReceiver onNotificationClicked "+mzPushMessage);
+        UpsPushMessageDispatcher.dispatch(context,
+                UpsPushMessage.builder()
+                        .title(mzPushMessage.getTitle())
+                        .content(mzPushMessage.getContent())
+                        .company(Company.MEIZU)
+                        .pushType(PushType.NOTIFICATION_MESSAGE)
+                        .extra(mzPushMessage).build(),
+                UpsPushMessageType.NOTIFICATION_CLICK);
+    }
+
+    @Override
+    public void onNotificationArrived(Context context, MzPushMessage mzPushMessage) {
+        UpsLogger.i(this,"MzUpsPushMessageReceiver onNotificationArrived "+mzPushMessage);
+        UpsPushMessageDispatcher.dispatch(context,
+                UpsPushMessage.builder()
+                        .title(mzPushMessage.getTitle())
+                        .content(mzPushMessage.getContent())
+                        .company(Company.MEIZU)
+                        .pushType(PushType.NOTIFICATION_MESSAGE)
+                        .extra(mzPushMessage).build(),
+                UpsPushMessageType.NOTIFICATION_ARRIVED);
+    }
+
+    @Override
+    public void onMessage(Context context, String message, String platformExtra) {
+        UpsLogger.i(this,"MzUpsPushMessageReceiver onMessage "+message);
+        UpsPushMessageDispatcher.dispatch(context,
+                UpsPushMessage.builder()
+                        .content(message)
+                        .company(Company.MEIZU)
+                        .pushType(PushType.THROUGH_MESSAGE)
+                        .extra(platformExtra).build(),
+                UpsPushMessageType.THROUGH_MESSAGE);
     }
 }

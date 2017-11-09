@@ -1,9 +1,5 @@
 package com.meizu.upspushsdklib.handler;
 
-/**
- * Created by liaojinlong on 17-11-6.
- */
-
 public interface UpsHandler {
     /**
      * 订阅接口

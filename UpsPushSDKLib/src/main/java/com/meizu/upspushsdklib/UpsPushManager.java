@@ -2,6 +2,8 @@ package com.meizu.upspushsdklib;
 
 import android.content.Context;
 
+import com.meizu.upspushsdklib.handler.UpsBootstrap;
+
 public class UpsPushManager {
     public static final String TAG = "UpsPushManager";
 

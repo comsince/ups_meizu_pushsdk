@@ -1,6 +1,6 @@
 package com.meizu.upspushsdklib.handler.impl;
 
-import com.meizu.upspushsdklib.handler.Company;
+import com.meizu.upspushsdklib.Company;
 
 public class HuaWeiHandler extends AbstractHandler{
 

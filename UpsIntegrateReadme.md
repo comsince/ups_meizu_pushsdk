@@ -99,3 +99,18 @@
 ```
 
 #### UpsPushReceiver 配置
+
+
+### 统一推送配置
+
+#### AndroidManifest 配置
+
+```
+        <!-- 统一推送配置 -->
+        <receiver android:name=".UpsReceiver">
+            <intent-filter>
+            <!-- 接收push消息 -->
+            <action android:name="com.meizu.ups.push.intent.MESSAGE" />
+            </intent-filter>
+        </receiver>
+```

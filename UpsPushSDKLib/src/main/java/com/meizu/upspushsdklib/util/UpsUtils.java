@@ -3,6 +3,7 @@ package com.meizu.upspushsdklib.util;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 
 import com.meizu.cloud.pushinternal.DebugLogger;
 import com.meizu.cloud.pushsdk.util.MzSystemUtils;
@@ -67,6 +68,8 @@ public class UpsUtils {
     }
 
 
+
+
     /**
      * 返回机型信息
      * */
@@ -74,7 +77,18 @@ public class UpsUtils {
         return android.os.Build.MODEL;
     }
 
+    /**
+     * 是否为魅族手机
+     * */
     public static boolean isMeizu(){
         return MzSystemUtils.isBrandMeizu();
+    }
+
+    /**
+     * 判断是否为小米手机
+     * 具体参见 < link herf = "https://dev.mi.com/doc/p=254/index.html"/>
+     * */
+    public static boolean isXiaoMi(){
+        return "Xiaomi".equals(Build.MODEL) || "Xiaomi".equals(Build.MANUFACTURER);
     }
 }

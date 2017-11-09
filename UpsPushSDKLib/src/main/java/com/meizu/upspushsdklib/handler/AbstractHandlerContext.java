@@ -1,7 +1,7 @@
 package com.meizu.upspushsdklib.handler;
 
 
-public abstract class AbstractHandlerContext implements HandlerContext{
+abstract class AbstractHandlerContext implements HandlerContext{
 
 
 

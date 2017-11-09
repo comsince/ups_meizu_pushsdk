@@ -3,7 +3,7 @@ package com.meizu.upspushsdklib.handler.impl;
 import android.content.Context;
 
 import com.meizu.cloud.pushsdk.PushManager;
-import com.meizu.upspushsdklib.handler.Company;
+import com.meizu.upspushsdklib.Company;
 
 
 public class MeizuHandler extends AbstractHandler{

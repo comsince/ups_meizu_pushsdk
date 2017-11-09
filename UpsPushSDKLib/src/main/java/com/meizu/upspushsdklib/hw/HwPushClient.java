@@ -11,10 +11,9 @@ import com.huawei.hms.api.HuaweiApiClient;
 import com.huawei.hms.support.api.client.PendingResult;
 import com.huawei.hms.support.api.push.HuaweiPush;
 import com.huawei.hms.support.api.push.TokenResult;
-import com.meizu.cloud.pushinternal.DebugLogger;
+import com.meizu.upspushsdklib.util.UpsLogger;
 
 import static android.os.Looper.getMainLooper;
-import static com.meizu.upspushsdklib.UpsPushManager.TAG;
 
 public class HwPushClient implements HuaweiApiClient.ConnectionCallbacks, HuaweiApiClient.OnConnectionFailedListener {
 
@@ -58,7 +57,7 @@ public class HwPushClient implements HuaweiApiClient.ConnectionCallbacks, Huawei
      */
     public void getTokenSync() {
         if(!client.isConnected()) {
-            DebugLogger.i(TAG, "获取token失败，原因：HuaweiApiClient未连接");
+            UpsLogger.i(this, "获取token失败，原因：HuaweiApiClient未连接");
             client.connect();
             return;
         }
@@ -66,12 +65,12 @@ public class HwPushClient implements HuaweiApiClient.ConnectionCallbacks, Huawei
         //需要在子线程中调用函数
         new Thread() {
             public void run() {
-                DebugLogger.i(TAG, "同步接口获取push token");
+                UpsLogger.i(this, "同步接口获取push token");
                 PendingResult<TokenResult> tokenResult = HuaweiPush.HuaweiPushApi.getToken(client);
                 TokenResult result = tokenResult.await();
                 if(result.getTokenRes().getRetCode() == 0) {
                     //当返回值为0的时候表明获取token结果调用成功
-                    DebugLogger.i(TAG, "获取push token 成功，等待广播");
+                    UpsLogger.i(this, "获取push token 成功，等待广播");
                 }
             }
         }.start();
@@ -95,18 +94,18 @@ public class HwPushClient implements HuaweiApiClient.ConnectionCallbacks, Huawei
 
     @Override
     public void onConnected() {
-        DebugLogger.i(TAG,"hwClient connected");
+        UpsLogger.i(this,"hwClient connected");
     }
 
     @Override
     public void onConnectionSuspended(int i) {
         //HuaweiApiClient断开连接的时候，业务可以处理自己的事件
-        DebugLogger.i(TAG, "HuaweiApiClient onConnectionSuspended code "+ i);
+        UpsLogger.i(this, "HuaweiApiClient onConnectionSuspended code "+ i);
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        DebugLogger.i(TAG, "HuaweiApiClient connection failed code " + connectionResult.getErrorCode());
+        UpsLogger.i(this, "HuaweiApiClient connection failed code " + connectionResult.getErrorCode());
         if(HuaweiApiAvailability.getInstance().isUserResolvableError(connectionResult.getErrorCode())) {
             final int errorCode = connectionResult.getErrorCode();
             new Handler(getMainLooper()).post(new Runnable() {

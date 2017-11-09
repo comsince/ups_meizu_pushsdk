@@ -1,8 +1,5 @@
-package com.meizu.upspushsdklib.handler;
+package com.meizu.upspushsdklib;
 
-/**
- * Created by liaojinlong on 17-11-6.
- */
 
 public enum Company {
     DEFAULT(0),

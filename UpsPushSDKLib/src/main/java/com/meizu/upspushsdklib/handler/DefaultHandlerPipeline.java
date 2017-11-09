@@ -1,12 +1,15 @@
 package com.meizu.upspushsdklib.handler;
 
 import android.content.Context;
+
+import com.meizu.upspushsdklib.Company;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executor;
 
 
-public final class DefaultHandlerPipeline implements HandlerPipeline {
+final class DefaultHandlerPipeline implements HandlerPipeline {
 
     private final Map<String, AbstractHandlerContext> name2ctx =
             new HashMap<String, AbstractHandlerContext>(4);
