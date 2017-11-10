@@ -25,7 +25,7 @@ class UpsNotificationClickHandler extends AbstractUpsReceiverHandler<UpsPushMess
 
     @Override
     public boolean messageMatch(Intent intent) {
-        UpsLogger.e(this,"start UpsNotificationClickHandler");
+        UpsLogger.i(this,"start UpsNotificationClickHandler");
         return UpsConstants.UPS_MEIZU_PUSH_ON_MESSAGE_ACTION.equals(intent.getAction())
                 && UpsConstants.UPS_MEIZU_PUSH_METHOD_ON_NOTIFICATION_CLICK.equals(getIntentMethod(intent));
     }

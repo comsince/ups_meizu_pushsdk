@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 public class UpsCommandMessage implements Serializable{
     private int code;
-    private String message;
+    private String message = "";
     /**
      * 表示请求服务类型,目前包括四种CommandType.REGISTER,UpsManager.CommandType,CommandType.SUBALIAS,CommandType.UNSUBALIAS
      * */

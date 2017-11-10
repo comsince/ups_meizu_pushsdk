@@ -2,8 +2,6 @@ package com.meizu.upspushsdklib.handler.impl;
 
 import android.content.Context;
 import android.text.TextUtils;
-
-import com.meizu.upspushsdklib.UpsPushManager;
 import com.meizu.upspushsdklib.Company;
 import com.meizu.upspushsdklib.handler.HandlerContext;
 import com.meizu.upspushsdklib.util.UpsConstants;

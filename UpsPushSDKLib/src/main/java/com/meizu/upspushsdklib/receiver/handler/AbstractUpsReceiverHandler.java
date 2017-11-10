@@ -2,8 +2,6 @@ package com.meizu.upspushsdklib.receiver.handler;
 
 import android.content.Context;
 import android.content.Intent;
-
-import com.meizu.upspushsdklib.UpsPushManager;
 import com.meizu.upspushsdklib.util.UpsConstants;
 import com.meizu.upspushsdklib.util.UpsLogger;
 
@@ -35,7 +33,7 @@ abstract class AbstractUpsReceiverHandler<T> implements UpsReceiverHandler{
         if(messageMatch(intent)){
             UpsLogger.e(this,"current Handler name is "+getProcessorName());
             T message = getMessage(intent);
-            UpsLogger.i(this,"current message "+message);
+            UpsLogger.e(this,"current message "+message);
             sendMessage(message);
             flag = true;
         }

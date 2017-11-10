@@ -23,8 +23,10 @@ public class UpsReceiverHandlerProxy {
     public UpsReceiverHandlerProxy(Context context) {
         this.mContext = context.getApplicationContext();
         UpsReceiverListener upsReceiverListener = new DefaultReceiverListener();
-        addHandler(new UpsNotificationClickHandler(mContext,upsReceiverListener));
         addHandler(new UpsCommandMessageHandler(mContext,upsReceiverListener));
+        addHandler(new UpsNotificationClickHandler(mContext,upsReceiverListener));
+        addHandler(new UpsNotificationArrivedHandler(mContext,upsReceiverListener));
+        addHandler(new UpsNotificationDeleteHandler(mContext,upsReceiverListener));
     }
 
     public static UpsReceiverHandlerProxy with(Context context) {

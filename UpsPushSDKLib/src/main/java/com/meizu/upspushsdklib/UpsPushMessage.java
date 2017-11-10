@@ -124,21 +124,20 @@ public class UpsPushMessage implements Serializable{
             return this;
         }
 
-        @Override
-        public String toString() {
-            return "Builder{" +
-                    "title='" + title + '\'' +
-                    ", content='" + content + '\'' +
-                    ", pushType=" + pushType +
-                    ", company=" + company +
-                    ", extra=" + extra +
-                    '}';
-        }
-
         public UpsPushMessage build(){
            return new UpsPushMessage(this);
         }
     }
 
 
+    @Override
+    public String toString() {
+        return "UpsPushMessage{" +
+                "title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", pushType=" + pushType +
+                ", company=" + company +
+                ", extra=" + extra +
+                '}';
+    }
 }

@@ -28,10 +28,13 @@ public abstract class CommandMessageDispatcher<T> {
                 commandMessageDispatcher = new UpsPlatformRegister(context,upsCommandMessage);
                 break;
             case UNREGISTER:
+                commandMessageDispatcher = new UpsPlatformUnRegister(context,upsCommandMessage);
                 break;
             case SUBALIAS:
+                commandMessageDispatcher = new UpsPlatformSetAlias(context,upsCommandMessage);
                 break;
             case UNSUBALIAS:
+                commandMessageDispatcher = new UpsPlatformUnSetAlias(context,upsCommandMessage);
                 break;
         }
         return commandMessageDispatcher;

@@ -2,10 +2,11 @@ package com.meizu.upspushsdklib.receiver.dispatcher;
 
 import android.content.Context;
 
+import com.meizu.cloud.pushsdk.platform.message.RegisterStatus;
 import com.meizu.upspushsdklib.UpsCommandMessage;
 
 
-class UpsPlatformRegister extends CommandMessageDispatcher<UpsPlatformRegister.UpsPlatformRegisterMessage>{
+class UpsPlatformRegister extends CommandMessageDispatcher<RegisterStatus>{
 
 
     public UpsPlatformRegister(Context context, UpsCommandMessage upsCommandMessage) {
@@ -13,12 +14,8 @@ class UpsPlatformRegister extends CommandMessageDispatcher<UpsPlatformRegister.U
     }
 
     @Override
-    public UpsPlatformRegisterMessage upsPlatformMessage() {
+    public RegisterStatus upsPlatformMessage() {
         return null;
     }
 
-
-    class UpsPlatformRegisterMessage extends UpsPlatformMessage{
-
-    }
 }
