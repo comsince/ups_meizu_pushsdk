@@ -21,23 +21,23 @@ public abstract class AbstractHandler implements UpsHandler{
 
     @Override
     public void setAlias(HandlerContext ctx, String alias) {
-        String mzAppId = getAppId(ctx.pipeline().context(), name());
-        String mzAppKey = getAppKey(ctx.pipeline().context(), name());
-        onSetAlias(ctx.pipeline().context(),mzAppId,mzAppKey,alias);
+        String appId = getAppId(ctx.pipeline().context(), name());
+        String appKey = getAppKey(ctx.pipeline().context(), name());
+        onSetAlias(ctx.pipeline().context(),appId,appKey,alias);
     }
 
     @Override
     public void unSetAlias(HandlerContext ctx, String alias) {
-        String mzAppId = getAppId(ctx.pipeline().context(), name());
-        String mzAppKey = getAppKey(ctx.pipeline().context(), name());
-        onUnsetAlias(ctx.pipeline().context(),mzAppId,mzAppKey,alias);
+        String appId = getAppId(ctx.pipeline().context(), name());
+        String appKey = getAppKey(ctx.pipeline().context(), name());
+        onUnsetAlias(ctx.pipeline().context(),appId,appKey,alias);
     }
 
     @Override
     public void unRegister(HandlerContext ctx) {
-        String mzAppId = getAppId(ctx.pipeline().context(), name());
-        String mzAppKey = getAppKey(ctx.pipeline().context(), name());
-        onUnRegister(ctx.pipeline().context(),mzAppId,mzAppKey);
+        String appId = getAppId(ctx.pipeline().context(), name());
+        String appKey = getAppKey(ctx.pipeline().context(), name());
+        onUnRegister(ctx.pipeline().context(),appId,appKey);
     }
 
     public void onRegister(Context context, String appId, String appKey){}
@@ -48,6 +48,12 @@ public abstract class AbstractHandler implements UpsHandler{
 
     public void onUnsetAlias(Context context, String appId, String appKey, String alias){}
 
+    /**
+     * 通过机型存储对应的平台的appId和appKey
+     * @param context
+     * @param appId
+     * @param deviceModel 机型信息
+     * */
     protected void putAppId(Context context, String deviceModel, String appId){
         PushPreferencesUtils.putStringByKey(context,APP_PUSH_SETTING_PREFERENCE_NAME,deviceModel+"."+context.getPackageName()+"."+KEY_APP_ID_PRFIX,appId);
     }

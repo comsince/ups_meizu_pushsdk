@@ -23,7 +23,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private String mzAppId;
     private String mzAppKey;
 
-    private HwPushClient hwPushClient;
+    //private HwPushClient hwPushClient;
 
 
     @Override
@@ -32,8 +32,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_main);
         initView();
         initMetaData();
-        hwPushClient = new HwPushClient(this);
-        hwPushClient.connect();
+        //hwPushClient = new HwPushClient(this);
+        //hwPushClient.connect();
     }
 
     private void initView(){
@@ -83,7 +83,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        hwPushClient.disconnect();
+        //hwPushClient.disconnect();
     }
 
 }

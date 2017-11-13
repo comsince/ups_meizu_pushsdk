@@ -26,6 +26,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.huawei.android.hms:push:2.5.2.300'
-    compile 'com.meizu.flyme.internet:push-internal:3.5.0-20171107.091339-15@aar'
+    compile 'com.meizu.flyme.internet:push-internal:3.5.0-20171110.090924-24@aar'
 
 }

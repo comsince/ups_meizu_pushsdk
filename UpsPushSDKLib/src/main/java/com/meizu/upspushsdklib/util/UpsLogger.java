@@ -22,11 +22,14 @@ public class UpsLogger {
         DebugLogger.w(getLogTAG(tag),message);
     }
 
+
     private static String getLogTAG(Object prefix){
         String tag = "";
         if(prefix != null){
             if(prefix instanceof Class){
                 tag = ((Class) prefix).getSimpleName();
+            } else if(prefix instanceof String){
+                tag = (String) prefix;
             } else {
                 tag = prefix.getClass().getSimpleName();
             }

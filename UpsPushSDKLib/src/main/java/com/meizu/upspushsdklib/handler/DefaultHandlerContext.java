@@ -2,7 +2,7 @@ package com.meizu.upspushsdklib.handler;
 
 final class DefaultHandlerContext extends AbstractHandlerContext{
 
-    private final UpsHandler handler;
+    private UpsHandler handler;
 
     public DefaultHandlerContext(DefaultHandlerPipeline pipeline,String name, UpsHandler handler) {
         super(name, pipeline);

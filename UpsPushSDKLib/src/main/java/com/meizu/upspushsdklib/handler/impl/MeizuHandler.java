@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.meizu.cloud.pushsdk.PushManager;
 import com.meizu.upspushsdklib.Company;
+import com.meizu.upspushsdklib.util.UpsUtils;
 
 
 public class MeizuHandler extends AbstractHandler{
@@ -30,7 +31,7 @@ public class MeizuHandler extends AbstractHandler{
 
     @Override
     public boolean isCurrentModel() {
-        return true;
+        return UpsUtils.isMeizu();
     }
 
     @Override

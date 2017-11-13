@@ -19,7 +19,7 @@ public class UpsPushManager {
     }
 
     /**
-     * 反订阅
+     * 反订阅, 在魅族平台即是反订阅,在小米平台即是反订阅push
      * @param context
      * */
     public static void unRegister(Context context){

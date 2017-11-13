@@ -11,8 +11,8 @@ import java.util.concurrent.Executor;
 
 final class DefaultHandlerPipeline implements HandlerPipeline {
 
-    private final Map<String, AbstractHandlerContext> name2ctx =
-            new HashMap<String, AbstractHandlerContext>(4);
+    private Map<String, AbstractHandlerContext> name2ctx =
+            new HashMap<String, AbstractHandlerContext>();
     private AbstractHandlerContext head;
     private AbstractHandlerContext tail;
 

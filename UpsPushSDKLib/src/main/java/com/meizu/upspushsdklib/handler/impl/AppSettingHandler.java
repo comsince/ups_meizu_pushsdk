@@ -31,6 +31,23 @@ public class AppSettingHandler extends AbstractHandler{
             }
 
             ctx.fireRegister(mzAppId,mzAppKey);
+        } else if(UpsUtils.isXiaoMi()){
+            UpsLogger.e(this,"current device model is XIAOMI");
+            String xmAppId =  getAppId(context, Company.XIAOMI.name());
+            String xmAppKey = getAppKey(context,Company.XIAOMI.name());
+            if(TextUtils.isEmpty(xmAppId) || TextUtils.isEmpty(xmAppKey)){
+                //本地获取配置信息
+                xmAppId = UpsUtils.getMetaStringValueByName(context, UpsConstants.XM_APP_ID);
+                xmAppKey = UpsUtils.getMetaStringValueByName(context,UpsConstants.XM_APP_KEY);
+                UpsLogger.e(this,"store xmAppId "+xmAppId+" xmAppKey "+xmAppKey+" from manifest");
+                putAppId(context,Company.XIAOMI.name(),xmAppId);
+                putAppKey(context,Company.XIAOMI.name(),xmAppKey);
+            }
+
+            if(TextUtils.isEmpty(xmAppId) || TextUtils.isEmpty(xmAppKey)){
+                //从统一push平台获取
+            }
+            ctx.fireRegister(xmAppId,xmAppKey);
         }
     }
 
@@ -51,7 +68,7 @@ public class AppSettingHandler extends AbstractHandler{
 
     @Override
     public boolean isCurrentModel() {
-        return UpsUtils.isMeizu();
+        return true;
     }
 
     @Override

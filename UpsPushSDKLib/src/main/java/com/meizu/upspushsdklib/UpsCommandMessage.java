@@ -35,6 +35,10 @@ public class UpsCommandMessage implements Serializable{
         this.extra = builder.extra;
     }
 
+    public UpsCommandMessage(){
+
+    }
+
     public int getCode() {
         return code;
     }
