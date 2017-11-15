@@ -38,6 +38,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".TestActivity"/>
+
         <meta-data
             android:name="XM_APP_ID"
             android:value="${XM_APP_ID}"/>
@@ -64,7 +66,7 @@
         <!-- 华为移动服务配置,将xxx替换为实际包名 -->
         <provider
             android:name="com.huawei.hms.update.provider.UpdateProvider"
-            android:authorities="com.meizu.upspushdemo.hms.update.provider"
+            android:authorities="${PACKAGE_NAME}.hms.update.provider"
             android:exported="false"
             android:grantUriPermissions="true" >
         </provider>

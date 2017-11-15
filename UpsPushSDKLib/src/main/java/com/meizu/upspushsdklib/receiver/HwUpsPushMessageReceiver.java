@@ -1,12 +1,9 @@
 package com.meizu.upspushsdklib.receiver;
 
 
-import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Bundle;
-
 import com.huawei.hms.support.api.push.PushReceiver;
-import com.meizu.cloud.pushinternal.DebugLogger;
 import com.meizu.upspushsdklib.CommandType;
 import com.meizu.upspushsdklib.Company;
 import com.meizu.upspushsdklib.PushType;
@@ -60,11 +57,22 @@ public final class HwUpsPushMessageReceiver extends PushReceiver{
     @Override
     public void onEvent(Context context, Event event, Bundle extras) {
         UpsLogger.i(this,"onNotification event "+event);
+        //只有带自定义参数时，此方法才回调
         if (Event.NOTIFICATION_OPENED.equals(event) || Event.NOTIFICATION_CLICK_BTN.equals(event)) {
             int notifyId = extras.getInt(BOUND_KEY.pushNotifyId, 0);
+            String message = extras.getString(BOUND_KEY.pushMsgKey);
+
             UpsLogger.i(UpsPushManager.TAG, "收到通知栏消息点击事件,notifyId:" + notifyId);
+            UpsPushMessageDispatcher.dispatch(context, UpsPushMessage.builder()
+                            .content(message)
+                            .noifyId(notifyId)
+                            .company(Company.HUAWEI)
+                            .extra(extras)
+                            .pushType(PushType.NOTIFICATION_MESSAGE)
+                            .build(),
+                    UpsPushMessageType.NOTIFICATION_CLICK);
         }
-        String message = extras.getString(BOUND_KEY.pushMsgKey);
+
         super.onEvent(context, event, extras);
     }
 

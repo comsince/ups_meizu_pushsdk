@@ -2,6 +2,7 @@ package com.meizu.upspushdemo;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import com.meizu.cloud.pushsdk.PushManager;
 import com.meizu.upspushsdklib.UpsPushManager;
 import com.meizu.upspushsdklib.hw.HwPushClient;
 import com.meizu.upspushsdklib.util.UpsConstants;
+import com.meizu.upspushsdklib.util.UpsLogger;
 import com.meizu.upspushsdklib.util.UpsUtils;
 import com.xiaomi.mipush.sdk.MiPushClient;
 
@@ -66,11 +68,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.btn_unregister:
-                UpsPushManager.unRegister(this);
-                break;
             case R.id.btn_register:
                 UpsPushManager.register(this,"","");
+                break;
+            case R.id.btn_unregister:
+                UpsPushManager.unRegister(this);
+                intentToUri();
                 break;
             case R.id.btn_set_alias:
                 UpsPushManager.setAlias(this,"ups");
@@ -83,6 +86,15 @@ public class MainActivity extends Activity implements View.OnClickListener{
         }
     }
 
+    private void intentToUri(){
+        Intent intent = new Intent(this,TestActivity.class);
+        intent.putExtra("key","value");
+        UpsLogger.i(this,"intent uri "+intent.toUri(Intent.URI_INTENT_SCHEME));
+
+        Intent hwIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.baidu.com"));
+        hwIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        UpsLogger.i(this,"hw uri "+hwIntent.toUri(Intent.URI_INTENT_SCHEME));
+    }
 
     @Override
     protected void onResume() {

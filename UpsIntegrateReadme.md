@@ -114,3 +114,51 @@
             </intent-filter>
         </receiver>
 ```
+
+
+### 消息自定义行为分析
+现在各个厂商目前支持以下三种类型
+#### 打开应用
+  各个厂商使用方法一致
+#### 打开应用内页面
+
+* 魅族
+ 打开页面只需要填写应用页面的全路径名称，例如```com.meizu.upspushdemo.TestActivty```
+* 小米
+  打开页面需要获取Intent uri，具体获取方法如下
+```
+ Intent intent = new Intent(this,TestActivity.class);
+ intent.putExtra("key","value");
+ UpsLogger.i(this,"intent uri "+intent.toUri(Intent.URI_INTENT_SCHEME));
+```
+
+  intent uri 例子如下：
+```
+ intent:#Intent;component=com.meizu.upspushdemo/.TestActivity;S.key=value;end
+```  
+
+* 华为
+
+华为拼接的intent uri有点不同，主要是`component`缩写为`compo`，格式如下：
+
+```
+intent:#Intent;compo=com.meizu.upspushdemo/.TestActivity;S.key=传递给应用;end
+```
+  
+#### 打开web页面
+
+魅族小米基本一致
+* 华为
+华为需要intent toUri转换，获取方法：
+
+```
+ Intent hwIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.baidu.com"));
+ hwIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+ UpsLogger.i(this,"hw uri "+hwIntent.toUri(Intent.URI_INTENT_SCHEME));
+```
+
+规则如下：
+
+```
+intent://www.baidu.com#Intent;scheme=http;launchFlags=0x10000000;end
+```

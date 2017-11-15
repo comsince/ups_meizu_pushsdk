@@ -200,14 +200,6 @@ public class UpsCommandMessage implements Parcelable{
             return  new UpsCommandMessage(this);
         }
 
-        public String toJson(){
-            Map<String,Object> jsonMap = new HashMap<>();
-            jsonMap.put("code",code);
-            jsonMap.put("message",message);
-            jsonMap.put("company",company.name());
-            jsonMap.put("commandResult",commandResult);
-            return Util.mapToJSONObject(jsonMap).toString();
-        }
     }
 
     @Override
