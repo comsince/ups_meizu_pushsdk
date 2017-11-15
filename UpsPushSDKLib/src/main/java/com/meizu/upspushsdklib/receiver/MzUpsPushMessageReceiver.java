@@ -93,6 +93,7 @@ public final class MzUpsPushMessageReceiver extends MzPushMessageReceiver{
         UpsPushMessageDispatcher.dispatch(context,
                 UpsPushMessage.builder()
                         .title(mzPushMessage.getTitle())
+                        .noifyId(mzPushMessage.getNotifyId())
                         .content(mzPushMessage.getContent())
                         .company(Company.MEIZU)
                         .pushType(PushType.NOTIFICATION_MESSAGE)
@@ -107,6 +108,7 @@ public final class MzUpsPushMessageReceiver extends MzPushMessageReceiver{
                 UpsPushMessage.builder()
                         .title(mzPushMessage.getTitle())
                         .content(mzPushMessage.getContent())
+                        .noifyId(mzPushMessage.getNotifyId())
                         .company(Company.MEIZU)
                         .pushType(PushType.NOTIFICATION_MESSAGE)
                         .extra(mzPushMessage).build(),

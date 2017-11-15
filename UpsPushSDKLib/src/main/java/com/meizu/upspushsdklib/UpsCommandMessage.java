@@ -1,9 +1,16 @@
 package com.meizu.upspushsdklib;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.meizu.cloud.pushsdk.pushtracer.utils.Util;
+
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 
-public class UpsCommandMessage implements Serializable{
+public class UpsCommandMessage implements Parcelable{
     private int code;
     private String message = "";
     /**
@@ -38,6 +45,31 @@ public class UpsCommandMessage implements Serializable{
     public UpsCommandMessage(){
 
     }
+
+    protected UpsCommandMessage(Parcel in) {
+        code = in.readInt();
+        message = in.readString();
+        commandResult = in.readString();
+        company = Company.valueOf(in.readString());
+        commandType = CommandType.valueOf(in.readString());
+        if(company == Company.HUAWEI){
+            extra = in.readParcelable(Object.class.getClassLoader());
+        } else {
+            extra = in.readSerializable();
+        }
+    }
+
+    public static final Creator<UpsCommandMessage> CREATOR = new Creator<UpsCommandMessage>() {
+        @Override
+        public UpsCommandMessage createFromParcel(Parcel in) {
+            return new UpsCommandMessage(in);
+        }
+
+        @Override
+        public UpsCommandMessage[] newArray(int size) {
+            return new UpsCommandMessage[size];
+        }
+    };
 
     public int getCode() {
         return code;
@@ -89,6 +121,26 @@ public class UpsCommandMessage implements Serializable{
 
     public static Builder builder(){
         return new Builder();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(code);
+        dest.writeString(message);
+        dest.writeString(commandResult);
+        dest.writeString(company.name());
+        dest.writeString(commandType.name());
+
+        if(company == Company.HUAWEI){
+            dest.writeParcelable((Parcelable) extra,flags);
+        } else {
+            dest.writeSerializable((Serializable) extra);
+        }
     }
 
     public static class Builder{
@@ -146,6 +198,15 @@ public class UpsCommandMessage implements Serializable{
 
         public UpsCommandMessage build(){
             return  new UpsCommandMessage(this);
+        }
+
+        public String toJson(){
+            Map<String,Object> jsonMap = new HashMap<>();
+            jsonMap.put("code",code);
+            jsonMap.put("message",message);
+            jsonMap.put("company",company.name());
+            jsonMap.put("commandResult",commandResult);
+            return Util.mapToJSONObject(jsonMap).toString();
         }
     }
 

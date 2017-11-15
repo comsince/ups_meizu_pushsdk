@@ -16,7 +16,7 @@ class UpsCommandMessageHandler extends AbstractUpsReceiverHandler<UpsCommandMess
 
     @Override
     public boolean messageMatch(Intent intent) {
-        UpsLogger.e(this,"start UpsCommandMessageHandler");
+        UpsLogger.i(this,"start UpsCommandMessageHandler");
         return UpsConstants.UPS_MEIZU_PUSH_ON_MESSAGE_ACTION.equals(intent.getAction())
                 && UpsConstants.UPS_MEIZU_PUSH_METHOD_ON_COMMAND_RESULT.equals(getIntentMethod(intent));
     }
@@ -28,7 +28,7 @@ class UpsCommandMessageHandler extends AbstractUpsReceiverHandler<UpsCommandMess
 
     @Override
     public UpsCommandMessage getMessage(Intent intent) {
-        return (UpsCommandMessage) intent.getSerializableExtra(UpsConstants.UPS_MEIZU_PUSH_EXTRA_UPS_MESSAGE);
+        return (UpsCommandMessage) intent.getParcelableExtra(UpsConstants.UPS_MEIZU_PUSH_EXTRA_UPS_MESSAGE);
     }
 
     @Override

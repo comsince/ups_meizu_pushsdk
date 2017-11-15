@@ -48,6 +48,9 @@ public class AppSettingHandler extends AbstractHandler{
                 //从统一push平台获取
             }
             ctx.fireRegister(xmAppId,xmAppKey);
+        } else if(UpsUtils.isHuaWei()){
+            UpsLogger.e(this,"current device model is huawei");
+            ctx.fireRegister(null,null);
         }
     }
 

@@ -28,7 +28,7 @@ public class UpsNotificationArrivedHandler extends AbstractUpsReceiverHandler<Up
 
     @Override
     public UpsPushMessage getMessage(Intent intent) {
-        return (UpsPushMessage) intent.getSerializableExtra(UpsConstants.UPS_MEIZU_PUSH_EXTRA_UPS_MESSAGE);
+        return intent.getParcelableExtra(UpsConstants.UPS_MEIZU_PUSH_EXTRA_UPS_MESSAGE);
     }
 
     @Override

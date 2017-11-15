@@ -70,7 +70,7 @@
         </provider>
 
         <!-- 统一推送配置 -->
-        <receiver android:name=".UpsReceiver">
+        <receiver android:name="com.meizu.upspushdemo.UpsReceiver">
             <intent-filter>
             <!-- 接收push消息 -->
             <action android:name="com.meizu.ups.push.intent.MESSAGE" />

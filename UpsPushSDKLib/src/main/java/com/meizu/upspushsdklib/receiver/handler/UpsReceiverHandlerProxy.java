@@ -27,6 +27,7 @@ public class UpsReceiverHandlerProxy {
         addHandler(new UpsNotificationClickHandler(mContext,upsReceiverListener));
         addHandler(new UpsNotificationArrivedHandler(mContext,upsReceiverListener));
         addHandler(new UpsNotificationDeleteHandler(mContext,upsReceiverListener));
+        addHandler(new UpsThroughMessageHandler(mContext,upsReceiverListener));
     }
 
     public static UpsReceiverHandlerProxy with(Context context) {

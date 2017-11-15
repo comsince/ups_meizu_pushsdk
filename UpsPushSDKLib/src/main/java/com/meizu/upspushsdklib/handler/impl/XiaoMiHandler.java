@@ -26,6 +26,8 @@ public class XiaoMiHandler extends AbstractHandler{
 
     @Override
     public void onUnRegister(Context context, String appId, String appKey) {
+        //调用unregisterPush()之后，服务器不会向app发送任何消息
+        //详情：https://dev.mi.com/console/doc/detail?pId=41#_2_0
         MiPushClient.unregisterPush(context);
     }
 

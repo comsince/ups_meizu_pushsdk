@@ -36,6 +36,9 @@ public abstract class CommandMessageDispatcher<T> {
             case UNSUBALIAS:
                 commandMessageDispatcher = new UpsPlatformUnSetAlias(context,upsCommandMessage);
                 break;
+            default:
+                commandMessageDispatcher = new DefaultCommandMessageDispatcher(context,upsCommandMessage);
+                break;
         }
         return commandMessageDispatcher;
     }
@@ -61,9 +64,22 @@ public abstract class CommandMessageDispatcher<T> {
      * 发送消息至UpsPushMessageReceiver
      * */
     private void sendMessageToUpsReceiver(){
-        Intent intent = new Intent();
+        UpsLogger.i(this,"send message "+upsCommandMessage+" to UpsReceiver");
+        Intent intent = new Intent(UpsConstants.UPS_MEIZU_PUSH_ON_MESSAGE_ACTION);
         intent.putExtra(UpsConstants.UPS_MEIZU_PUSH_METHOD,UpsConstants.UPS_MEIZU_PUSH_METHOD_ON_COMMAND_RESULT);
         intent.putExtra(UpsConstants.UPS_MEIZU_PUSH_EXTRA_UPS_MESSAGE,upsCommandMessage);
         PlatformMessageSender.sendMessageFromBroadcast(context,intent,UpsConstants.UPS_MEIZU_PUSH_ON_MESSAGE_ACTION,context.getPackageName());
+    }
+
+    static class DefaultCommandMessageDispatcher extends CommandMessageDispatcher{
+
+        public DefaultCommandMessageDispatcher(Context context, UpsCommandMessage upsCommandMessage) {
+            super(context, upsCommandMessage);
+        }
+
+        @Override
+        public Object upsPlatformMessage() {
+            return null;
+        }
     }
 }

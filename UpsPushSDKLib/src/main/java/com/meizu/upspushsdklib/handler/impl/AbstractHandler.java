@@ -6,6 +6,7 @@ import android.content.Context;
 import com.meizu.cloud.pushsdk.util.PushPreferencesUtils;
 import com.meizu.upspushsdklib.handler.HandlerContext;
 import com.meizu.upspushsdklib.handler.UpsHandler;
+import com.meizu.upspushsdklib.hw.HwPushClient;
 
 
 public abstract class AbstractHandler implements UpsHandler{
@@ -13,6 +14,7 @@ public abstract class AbstractHandler implements UpsHandler{
     private static final String APP_PUSH_SETTING_PREFERENCE_NAME = "app_push_setting";
     private static final String KEY_APP_ID_PRFIX = ".app_id";
     private static final String KEY_APP_KEY_PREIX = ".app_key";
+
 
     @Override
     public void register(HandlerContext ctx, String appId, String appKey) {

@@ -26,6 +26,9 @@ public class UpsBootstrap {
          return upsBootstrap;
     }
 
+    public static Executor executor(){
+        return ExecutorProxy.get();
+    }
 
     private UpsBootstrap(Context context){
         executor = ExecutorProxy.get();

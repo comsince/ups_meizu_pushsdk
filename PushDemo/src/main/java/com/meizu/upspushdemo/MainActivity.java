@@ -1,15 +1,21 @@
 package com.meizu.upspushdemo;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
 import com.meizu.cloud.pushsdk.PushManager;
 import com.meizu.upspushsdklib.UpsPushManager;
 import com.meizu.upspushsdklib.hw.HwPushClient;
 import com.meizu.upspushsdklib.util.UpsConstants;
 import com.meizu.upspushsdklib.util.UpsUtils;
 import com.xiaomi.mipush.sdk.MiPushClient;
+
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MainActivity extends Activity implements View.OnClickListener{
 
@@ -23,17 +29,17 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private String mzAppId;
     private String mzAppKey;
 
-    //private HwPushClient hwPushClient;
+    public static List<String> logList = new CopyOnWriteArrayList<String>();
+    private TextView mLogView = null;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UpsDemoApplication.setMainActivity(this);
         setContentView(R.layout.activity_main);
         initView();
         initMetaData();
-        //hwPushClient = new HwPushClient(this);
-        //hwPushClient.connect();
     }
 
     private void initView(){
@@ -45,6 +51,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         btnSetAlias.setOnClickListener(this);
         btnUnsetAlias = (Button) findViewById(R.id.btn_unset_alias);
         btnUnsetAlias.setOnClickListener(this);
+        mLogView = (TextView) findViewById(R.id.log);
     }
 
     private void initMetaData(){
@@ -63,9 +70,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 UpsPushManager.unRegister(this);
                 break;
             case R.id.btn_register:
-//                MiPushClient.registerPush(this,xmAppId,xmAppKey);
-//                PushManager.register(this,mzAppId,mzAppKey);
-//                hwPushClient.getTokenSync();
                 UpsPushManager.register(this,"","");
                 break;
             case R.id.btn_set_alias:
@@ -81,9 +85,24 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        refreshLogInfo();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        //hwPushClient.disconnect();
+        UpsDemoApplication.setMainActivity(null);
+    }
+
+
+    public void refreshLogInfo() {
+        String AllLog = "";
+        for (String log : logList) {
+            AllLog = AllLog + log + "\n\n";
+        }
+        mLogView.setText(AllLog);
     }
 
 }

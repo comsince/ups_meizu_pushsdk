@@ -2,13 +2,9 @@ package com.meizu.upspushsdklib.receiver;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.text.TextUtils;
-import android.util.Log;
-
 import com.meizu.upspushsdklib.CommandType;
 import com.meizu.upspushsdklib.Company;
 import com.meizu.upspushsdklib.PushType;
-import com.meizu.upspushsdklib.R;
 import com.meizu.upspushsdklib.UpsCommandMessage;
 import com.meizu.upspushsdklib.UpsPushManager;
 import com.meizu.upspushsdklib.UpsPushMessage;
@@ -16,7 +12,6 @@ import com.meizu.upspushsdklib.UpsPushMessageType;
 import com.meizu.upspushsdklib.receiver.dispatcher.CommandMessageDispatcher;
 import com.meizu.upspushsdklib.receiver.dispatcher.UpsPushMessageDispatcher;
 import com.meizu.upspushsdklib.util.UpsLogger;
-import com.xiaomi.mipush.sdk.ErrorCode;
 import com.xiaomi.mipush.sdk.MiPushClient;
 import com.xiaomi.mipush.sdk.MiPushCommandMessage;
 import com.xiaomi.mipush.sdk.MiPushMessage;
@@ -41,7 +36,7 @@ public final class XMUpsPushMessageReceiver extends PushMessageReceiver {
                         .extra(message)
                         .pushType(PushType.THROUGH_MESSAGE)
                         .build(),
-                UpsPushMessageType.NOTIFICATION_CLICK);
+                UpsPushMessageType.THROUGH_MESSAGE);
     }
 
     @Override
@@ -52,6 +47,7 @@ public final class XMUpsPushMessageReceiver extends PushMessageReceiver {
         UpsPushMessageDispatcher.dispatch(context, UpsPushMessage.builder()
                         .title(message.getTitle())
                         .content(message.getDescription())
+                        .noifyId(message.getNotifyId())
                         .company(Company.XIAOMI)
                         .extra(message)
                         .pushType(PushType.NOTIFICATION_MESSAGE)
@@ -65,7 +61,8 @@ public final class XMUpsPushMessageReceiver extends PushMessageReceiver {
                 "onNotificationMessageArrived is called. " + message.toString());
         UpsPushMessageDispatcher.dispatch(context, UpsPushMessage.builder()
                         .title(message.getTitle())
-                        .content(message.getContent())
+                        .content(message.getDescription())
+                        .noifyId(message.getNotifyId())
                         .company(Company.XIAOMI)
                         .extra(message)
                         .pushType(PushType.NOTIFICATION_MESSAGE)
@@ -84,13 +81,13 @@ public final class XMUpsPushMessageReceiver extends PushMessageReceiver {
         String cmdArg2 = ((arguments != null && arguments.size() > 1) ? arguments.get(1) : null);
 
         UpsCommandMessage upsCommandMessage = new UpsCommandMessage();
+        upsCommandMessage.setCompany(Company.XIAOMI);
         upsCommandMessage.setExtra(message);
 
         if (MiPushClient.COMMAND_REGISTER.equals(command)) {
             upsCommandMessage.setCode((int) message.getResultCode());
             upsCommandMessage.setCommandResult(cmdArg1);
             upsCommandMessage.setCommandType(CommandType.REGISTER);
-
         } else if(MiPushClient.COMMAND_UNREGISTER.equals(command)){
             upsCommandMessage.setCode((int) message.getResultCode());
             upsCommandMessage.setCommandResult(cmdArg1);
@@ -106,6 +103,10 @@ public final class XMUpsPushMessageReceiver extends PushMessageReceiver {
             upsCommandMessage.setCode((int) message.getResultCode());
             upsCommandMessage.setCommandResult(cmdArg1);
 
+        } else {
+            upsCommandMessage.setCode((int) message.getResultCode());
+            upsCommandMessage.setMessage(message.getReason());
+            upsCommandMessage.setCommandType(CommandType.ERROR);
         }
 
         CommandMessageDispatcher.create(context,upsCommandMessage).dispatch();
