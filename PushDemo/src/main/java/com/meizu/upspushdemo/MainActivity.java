@@ -80,7 +80,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 break;
             case R.id.btn_unregister:
                 UpsPushManager.unRegister(this);
-                //intentToUri();
+                intentToUri();
                 break;
             case R.id.btn_set_alias:
                 UpsPushManager.setAlias(this,"ups");

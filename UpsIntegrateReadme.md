@@ -117,7 +117,21 @@
 
 
 ## 三 消息自定义行为分析
-现在各个厂商目前支持以下三种类型
+现在各个厂商目前支持以下四种类型
+
+### 统一传参方式
+
+传参的方式目前有两种方式
+* 当执行打开应用，打开应用内页面时，将参数通过intent的方式传递给Activity，开发者通过`getIntent().getStringExtra("key")`方式获取
+  因此只需要在组建intent uri时将参数值以key-value方式拼装即可，如下：
+  
+```
+intent:#Intent;component=com.meizu.upspushdemo/.TestActivity;S.key=value;end
+```  
+
+* 当点击通知栏时，将参数回调给开发者，开发者在只需在`onNotificationArrived`,`onNotificationClicked`时接收参数，在应用客户端自定义时，这种方法较为适用
+  开发者在接收到该自定义参数时，自行决定后续动作
+
 ### 3.1  打开应用
   各个厂商使用方法一致
 ### 3.2 打开应用内页面
@@ -192,3 +206,4 @@ intent://www.baidu.com#Intent;scheme=http;launchFlags=0x10000000;end
         return message;
     }
 ```
+
