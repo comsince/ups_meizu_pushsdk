@@ -96,6 +96,7 @@ public final class MzUpsPushMessageReceiver extends MzPushMessageReceiver{
                         .noifyId(mzPushMessage.getNotifyId())
                         .content(mzPushMessage.getContent())
                         .company(Company.MEIZU)
+                        .selfDefineString(mzPushMessage.getSelfDefineContentString())
                         .pushType(PushType.NOTIFICATION_MESSAGE)
                         .extra(mzPushMessage).build(),
                 UpsPushMessageType.NOTIFICATION_CLICK);
@@ -110,6 +111,7 @@ public final class MzUpsPushMessageReceiver extends MzPushMessageReceiver{
                         .content(mzPushMessage.getContent())
                         .noifyId(mzPushMessage.getNotifyId())
                         .company(Company.MEIZU)
+                        .selfDefineString(mzPushMessage.getSelfDefineContentString())
                         .pushType(PushType.NOTIFICATION_MESSAGE)
                         .extra(mzPushMessage).build(),
                 UpsPushMessageType.NOTIFICATION_ARRIVED);

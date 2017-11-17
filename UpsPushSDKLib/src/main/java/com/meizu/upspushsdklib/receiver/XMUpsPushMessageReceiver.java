@@ -49,6 +49,7 @@ public final class XMUpsPushMessageReceiver extends PushMessageReceiver {
                         .content(message.getDescription())
                         .noifyId(message.getNotifyId())
                         .company(Company.XIAOMI)
+                        .selfDefineString(message.getContent())
                         .extra(message)
                         .pushType(PushType.NOTIFICATION_MESSAGE)
                         .build(),
@@ -63,6 +64,7 @@ public final class XMUpsPushMessageReceiver extends PushMessageReceiver {
                         .title(message.getTitle())
                         .content(message.getDescription())
                         .noifyId(message.getNotifyId())
+                        .selfDefineString(message.getContent())
                         .company(Company.XIAOMI)
                         .extra(message)
                         .pushType(PushType.NOTIFICATION_MESSAGE)

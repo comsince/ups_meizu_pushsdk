@@ -26,6 +26,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private Button btnSetAlias;
     private Button btnUnsetAlias;
 
+    private Button btnServerPush;
+
     private String xmAppId;
     private String xmAppKey;
     private String mzAppId;
@@ -34,6 +36,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     public static List<String> logList = new CopyOnWriteArrayList<String>();
     private TextView mLogView = null;
 
+    public static String xmToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
         btnUnsetAlias = (Button) findViewById(R.id.btn_unset_alias);
         btnUnsetAlias.setOnClickListener(this);
         mLogView = (TextView) findViewById(R.id.log);
+        btnServerPush = (Button) findViewById(R.id.btn_server_push);
+        btnServerPush.setOnClickListener(this);
     }
 
     private void initMetaData(){
@@ -70,16 +75,21 @@ public class MainActivity extends Activity implements View.OnClickListener{
         switch (view.getId()){
             case R.id.btn_register:
                 UpsPushManager.register(this,"","");
+                //MiPushClient.registerPush(this,xmAppId,xmAppKey);
+
                 break;
             case R.id.btn_unregister:
                 UpsPushManager.unRegister(this);
-                intentToUri();
+                //intentToUri();
                 break;
             case R.id.btn_set_alias:
                 UpsPushManager.setAlias(this,"ups");
                 break;
             case R.id.btn_unset_alias:
                 UpsPushManager.unSetAlias(this,"ups");
+                break;
+            case R.id.btn_server_push:
+                MiServerPushUtil.openLauncherActivity(xmToken);
                 break;
             default:
                 break;
@@ -116,5 +126,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
         }
         mLogView.setText(AllLog);
     }
+
+
+
 
 }

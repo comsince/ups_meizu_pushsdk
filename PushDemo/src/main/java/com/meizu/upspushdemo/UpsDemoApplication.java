@@ -6,12 +6,17 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.meizu.cloud.pushinternal.DebugLogger;
+import com.xiaomi.channel.commonutils.logger.LoggerInterface;
+import com.xiaomi.mipush.sdk.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static com.meizu.upspushsdklib.UpsPushManager.TAG;
 
 
 public class UpsDemoApplication extends Application {
@@ -26,6 +31,25 @@ public class UpsDemoApplication extends Application {
         if (sHandler == null) {
             sHandler = new DemoHandler(getApplicationContext());
         }
+
+        LoggerInterface newLogger = new LoggerInterface() {
+
+            @Override
+            public void setTag(String tag) {
+                // ignore
+            }
+
+            @Override
+            public void log(String content, Throwable t) {
+                Log.d(TAG, content, t);
+            }
+
+            @Override
+            public void log(String content) {
+                Log.d(TAG, content);
+            }
+        };
+        Logger.setLogger(this, newLogger);
     }
 
     public static DemoHandler getHandler() {

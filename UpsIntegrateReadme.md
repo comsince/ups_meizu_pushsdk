@@ -162,3 +162,33 @@ intent:#Intent;compo=com.meizu.upspushdemo/.TestActivity;S.key=传递给应用;e
 ```
 intent://www.baidu.com#Intent;scheme=http;launchFlags=0x10000000;end
 ```
+
+
+#### 应用客户端自定义
+
+目前仅仅华为与小米支持
+
+* 小米
+在推送时只要不指定notify_effect，即是代表自定义动作
+服务端推送代码如下
+
+```
+    /**
+     * 创建自定义消息内容的格式
+     * **/
+    private static Message buildCustomMessage() throws Exception {
+        //自定义消息体
+        String messagePayload = "This is a message";
+        String title = "notification title";
+        String description = "notification description";
+        Message message = new Message.Builder()
+                .title(title)
+                .description(description)
+                .payload(messagePayload)
+                .restrictedPackageName(MY_PACKAGE_NAME)
+                .passThrough(0)  //消息使用通知栏方式
+                .notifyType(1)
+                .build();
+        return message;
+    }
+```

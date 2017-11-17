@@ -29,6 +29,12 @@ public class UpsPushMessage implements Parcelable{
      * 厂商类型包括：Company.MEIZU,Company.HUAWEI,Company.XIAOMI
      * */
     private Company company;
+
+    /**
+     * 自定义字符串,在小米上即是填写的传输数据
+     * 魅族代表在选择应用自定义类型时，填写的自定义数据
+     * */
+    private String selfDefineString;
     /**
      * 代表各个平台的传递的对象，魅族代表selfDefineContentString，小米代表MiPushMessage，华为代表bundle,需要通过判断company进行对象类型转化
      * */
@@ -41,6 +47,7 @@ public class UpsPushMessage implements Parcelable{
         this.company = builder.company;
         this.extra = builder.extra;
         this.notifyId = builder.notifyId;
+        this.selfDefineString = builder.selfDefineString;
     }
 
     protected UpsPushMessage(Parcel in) {
@@ -49,6 +56,7 @@ public class UpsPushMessage implements Parcelable{
         notifyId = in.readInt();
         pushType = PushType.valueOf(in.readString());
         company = Company.valueOf(in.readString());
+        selfDefineString = in.readString();
         if(company == Company.HUAWEI){
             extra = in.readParcelable(Bundle.class.getClassLoader());
         } else {
@@ -112,6 +120,14 @@ public class UpsPushMessage implements Parcelable{
         return extra;
     }
 
+    public String getSelfDefineString() {
+        return selfDefineString;
+    }
+
+    public void setSelfDefineString(String selfDefineString) {
+        this.selfDefineString = selfDefineString;
+    }
+
     public void setExtra(Object extra) {
         this.extra = extra;
     }
@@ -132,6 +148,7 @@ public class UpsPushMessage implements Parcelable{
         dest.writeInt(notifyId);
         dest.writeString(pushType.name());
         dest.writeString(company.name());
+        dest.writeString(selfDefineString);
         if(company == Company.HUAWEI){
             dest.writeParcelable((Parcelable) extra,flags);
         } else {
@@ -162,6 +179,11 @@ public class UpsPushMessage implements Parcelable{
          * */
         private Company company;
         /**
+         * 自定义字符串,在小米上即是填写的传输数据
+         * 魅族代表在选择应用自定义类型时，填写的自定义数据
+         * */
+        private String selfDefineString;
+        /**
          * 代表各个平台的传递的对象，魅族代表selfDefineContentString，小米代表MiPushMessage，华为代表bundle,需要通过判断company进行对象类型转化
          * */
         private Object extra;
@@ -191,6 +213,11 @@ public class UpsPushMessage implements Parcelable{
             return this;
         }
 
+        public Builder selfDefineString(String selfDefineString){
+            this.selfDefineString = selfDefineString;
+            return this;
+        }
+
         public Builder extra(Object extra){
             this.extra = extra;
             return this;
@@ -209,6 +236,7 @@ public class UpsPushMessage implements Parcelable{
                 ", notifyId=" + notifyId +
                 ", pushType=" + pushType +
                 ", company=" + company +
+                ", selfDefineString='" + selfDefineString + '\'' +
                 ", extra=" + extra +
                 '}';
     }

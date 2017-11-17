@@ -24,7 +24,7 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
-
+## 华为proguard配置
 -ignorewarning
 
 -keepattributes *Annotation*
@@ -34,3 +34,9 @@
 -keepattributes SourceFile,LineNumberTable
 
 -keep class com.huawei.hms.**{*;}
+
+
+## 小米proguard配置
+
+#可以防止一个误报的 warning 导致无法成功编译，如果编译使用的 Android 版本是 23。
+-dontwarn com.xiaomi.push.**
