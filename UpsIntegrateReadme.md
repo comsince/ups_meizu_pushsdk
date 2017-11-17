@@ -117,7 +117,11 @@
 
 
 ## 三 消息自定义行为分析
-现在各个厂商目前支持以下四种类型
+现在各个厂商目前支持以下四种类型，具体使用方式详见各个平台的服务端参考文档
+
+* [魅族,提供JavaSDK](https://github.com/MEIZUPUSH/JavaSdk)
+* [小米,提供JavaSDK](https://dev.mi.com/console/doc/detail?pId=40)
+* [华为,只提供api接口参数需要自己组装](http://developer.huawei.com/consumer/cn/service/hms/catalog/huaweipush.html?page=hmssdk_huaweipush_api_reference_s2)
 
 ### 统一传参方式
 
@@ -130,15 +134,18 @@ intent:#Intent;component=com.meizu.upspushdemo/.TestActivity;S.key=value;end
 ```  
 
 * 当点击通知栏时，将参数回调给开发者，开发者在只需在`onNotificationArrived`,`onNotificationClicked`时接收参数，在应用客户端自定义时，这种方法较为适用
-  开发者在接收到该自定义参数时，自行决定后续动作
+  开发者。在接收到该自定义参数时，自行决定后续动作
 
 ### 3.1  打开应用
   各个厂商使用方法一致
 ### 3.2 打开应用内页面
 
 * 魅族
+
  打开页面只需要填写应用页面的全路径名称，例如```com.meizu.upspushdemo.TestActivty```
+ 
 * 小米
+
   打开页面需要获取Intent uri，具体获取方法如下
 ```
  Intent intent = new Intent(this,TestActivity.class);
@@ -161,8 +168,12 @@ intent:#Intent;compo=com.meizu.upspushdemo/.TestActivity;S.key=传递给应用;e
   
 ### 3.3 打开web页面
 
-魅族小米基本一致
+* 魅族小米
+
+只需填写要打开的uri即可
+
 * 华为
+
 华为需要intent toUri转换，获取方法：
 
 ```
@@ -183,6 +194,7 @@ intent://www.baidu.com#Intent;scheme=http;launchFlags=0x10000000;end
 目前仅仅华为与小米支持
 
 * 小米
+
 在推送时只要不指定notify_effect，即是代表自定义动作
 服务端推送代码如下
 
