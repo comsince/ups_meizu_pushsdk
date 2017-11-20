@@ -30,62 +30,46 @@ public class AppSettingHandler extends AbstractHandler{
         }
 
         if(UpsUtils.isMeizu()){
-            UpsLogger.e(this,"current device model is MEIZU");
-            String mzAppId =  getAppId(context, Company.MEIZU.name());
-            String mzAppKey = getAppKey(context,Company.MEIZU.name());
-            if(TextUtils.isEmpty(mzAppId) || TextUtils.isEmpty(mzAppKey)){
-                //本地获取配置信息
-                mzAppId = UpsUtils.getMetaIntValueByName(context, UpsConstants.MZ_APP_ID);
-                mzAppKey = UpsUtils.getMetaStringValueByName(context,UpsConstants.MZ_APP_KEY);
-                UpsLogger.e(this,"store mzAppId "+mzAppId+" mzAppKey "+mzAppKey+" from manifest");
-                putAppId(context,Company.MEIZU.name(),mzAppId);
-                putAppKey(context,Company.MEIZU.name(),mzAppKey);
-            }
-
-            if(TextUtils.isEmpty(mzAppId) || TextUtils.isEmpty(mzAppKey)){
-                //从统一push平台获取
-                ANResponse<String> anResponse = UpsPushAPI.getCpInfo(appId,appKey, Company.MEIZU.code(),context.getPackageName());
-                if(anResponse.isSuccess()){
-                    CompanyInfo companyInfo = new CompanyInfo(anResponse.getResult());
-                    UpsLogger.i(this,"meizu companyInfo "+companyInfo);
-                    putAppId(context,Company.MEIZU.name(),companyInfo.getCpAppId());
-                    putAppKey(context,Company.MEIZU.name(),companyInfo.getCpAppKey());
-                } else {
-                    UpsLogger.e(this,"get meizu company info error "+anResponse.getError());
-                }
-            }
-
-            ctx.fireRegister(mzAppId,mzAppKey);
+            setAppInfo(ctx,appId,appKey,Company.MEIZU);
         } else if(UpsUtils.isXiaoMi()){
-            UpsLogger.e(this,"current device model is XIAOMI");
-            String xmAppId =  getAppId(context, Company.XIAOMI.name());
-            String xmAppKey = getAppKey(context,Company.XIAOMI.name());
-            if(TextUtils.isEmpty(xmAppId) || TextUtils.isEmpty(xmAppKey)){
-                //本地获取配置信息
-                xmAppId = UpsUtils.getMetaStringValueByName(context, UpsConstants.XM_APP_ID);
-                xmAppKey = UpsUtils.getMetaStringValueByName(context,UpsConstants.XM_APP_KEY);
-                UpsLogger.e(this,"store xmAppId "+xmAppId+" xmAppKey "+xmAppKey+" from manifest");
-                putAppId(context,Company.XIAOMI.name(),xmAppId);
-                putAppKey(context,Company.XIAOMI.name(),xmAppKey);
-            }
-
-            if(TextUtils.isEmpty(xmAppId) || TextUtils.isEmpty(xmAppKey)){
-                //从统一push平台获取
-                ANResponse<String> anResponse = UpsPushAPI.getCpInfo(appId,appKey, Company.XIAOMI.code(),context.getPackageName());
-                if(anResponse.isSuccess()){
-                    CompanyInfo companyInfo = new CompanyInfo(anResponse.getResult());
-                    UpsLogger.i(this,"xiaomi companyInfo "+companyInfo);
-                    putAppId(context,Company.XIAOMI.name(),companyInfo.getCpAppId());
-                    putAppKey(context,Company.XIAOMI.name(),companyInfo.getCpAppKey());
-                } else {
-                    UpsLogger.e(this,"get xiaomi company info error "+anResponse.getError());
-                }
-            }
-            ctx.fireRegister(xmAppId,xmAppKey);
+            setAppInfo(ctx,appId,appKey,Company.XIAOMI);
         } else if(UpsUtils.isHuaWei()){
             UpsLogger.e(this,"current device model is huawei");
             ctx.fireRegister(null,null);
         }
+    }
+
+    private void setAppInfo(HandlerContext ctx,String upsAppId,String upsAppKey,Company company){
+        Context context = ctx.pipeline().context();
+        UpsLogger.e(this,"current device model is "+company.name());
+        String cpAppId =  getAppId(context, company.name());
+        String cpAppKey = getAppKey(context,company.name());
+        if(TextUtils.isEmpty(cpAppId) || TextUtils.isEmpty(cpAppKey)){
+            //本地获取配置信息
+            cpAppId = UpsUtils.getMetaIntValueByName(context, company.name()+"_APP_ID");
+            cpAppKey = UpsUtils.getMetaStringValueByName(context,company.name()+"_APP_KEY");
+            if(!TextUtils.isEmpty(cpAppId) && !TextUtils.isEmpty(cpAppKey)){
+                UpsLogger.e(this,"store cpAppId "+cpAppId+" cpAppKey "+cpAppKey+" from manifest");
+                putAppId(context,company.name(),cpAppId);
+                putAppKey(context,company.name(),cpAppKey);
+            }
+        }
+
+        if(TextUtils.isEmpty(cpAppId) || TextUtils.isEmpty(cpAppKey)){
+            //从统一push平台获取
+            ANResponse<String> anResponse = UpsPushAPI.getCpInfo(upsAppId,upsAppKey, Company.MEIZU.code(),context.getPackageName());
+            if(anResponse.isSuccess()){
+                CompanyInfo companyInfo = new CompanyInfo(anResponse.getResult());
+                UpsLogger.i(this,"cp companyInfo "+companyInfo);
+                cpAppId = companyInfo.getCpAppId();
+                cpAppKey = companyInfo.getCpAppKey();
+                putAppId(context,company.name(),cpAppId);
+                putAppKey(context,company.name(),cpAppKey);
+            } else {
+                UpsLogger.e(this,"get meizu company info error "+anResponse.getError());
+            }
+        }
+        ctx.fireRegister(cpAppId,cpAppKey);
     }
 
     @Override

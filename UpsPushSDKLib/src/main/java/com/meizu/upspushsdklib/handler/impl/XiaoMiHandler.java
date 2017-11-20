@@ -1,8 +1,10 @@
 package com.meizu.upspushsdklib.handler.impl;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.meizu.upspushsdklib.Company;
+import com.meizu.upspushsdklib.util.UpsLogger;
 import com.meizu.upspushsdklib.util.UpsUtils;
 import com.xiaomi.mipush.sdk.MiPushClient;
 
@@ -21,7 +23,11 @@ public class XiaoMiHandler extends AbstractHandler{
 
     @Override
     public void onRegister(Context context, String appId, String appKey) {
-        MiPushClient.registerPush(context,appId,appKey);
+        if(TextUtils.isEmpty(appId) || TextUtils.isEmpty(appKey)){
+            UpsLogger.e(this,"xm appId or appKey not null");
+        } else {
+            MiPushClient.registerPush(context,appId,appKey);
+        }
     }
 
     @Override

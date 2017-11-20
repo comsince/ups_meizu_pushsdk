@@ -68,10 +68,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
     }
 
     private void initMetaData(){
-        xmAppId = UpsUtils.getMetaStringValueByName(this, UpsConstants.XM_APP_ID);
-        xmAppKey = UpsUtils.getMetaStringValueByName(this,UpsConstants.XM_APP_KEY);
-        mzAppId = UpsUtils.getMetaIntValueByName(this, UpsConstants.MZ_APP_ID);
-        mzAppKey = UpsUtils.getMetaStringValueByName(this,UpsConstants.MZ_APP_KEY);
+        xmAppId = UpsUtils.getMetaStringValueByName(this, UpsConstants.XIAOMI_APP_ID);
+        xmAppKey = UpsUtils.getMetaStringValueByName(this,UpsConstants.XIAOMI_APP_KEY);
+        mzAppId = UpsUtils.getMetaIntValueByName(this, UpsConstants.MEIZU_APP_ID);
+        mzAppKey = UpsUtils.getMetaStringValueByName(this,UpsConstants.MEIZU_APP_KEY);
         UpsUtils.getMetaIntValueByName(this,"com.huawei.hms.client.appid");
     }
 
@@ -85,7 +85,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 break;
             case R.id.btn_unregister:
                 UpsPushManager.unRegister(this);
-                intentToUri();
+                //intentToUri();
                 break;
             case R.id.btn_set_alias:
                 UpsPushManager.setAlias(this,"ups");
