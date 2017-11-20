@@ -6,13 +6,15 @@ import android.content.Intent;
 
 import com.meizu.cloud.pushsdk.platform.PlatformMessageSender;
 import com.meizu.upspushsdklib.CommandType;
+import com.meizu.upspushsdklib.Company;
 import com.meizu.upspushsdklib.UpsCommandMessage;
+import com.meizu.upspushsdklib.handler.impl.AbstractHandler;
 import com.meizu.upspushsdklib.util.UpsConstants;
 import com.meizu.upspushsdklib.util.UpsLogger;
 
 public abstract class CommandMessageDispatcher<T> {
-    private Context context;
-    private UpsCommandMessage upsCommandMessage;
+    protected Context context;
+    protected UpsCommandMessage upsCommandMessage;
 
 
     public CommandMessageDispatcher(Context context,UpsCommandMessage upsCommandMessage){
@@ -58,6 +60,15 @@ public abstract class CommandMessageDispatcher<T> {
      * 向平台发起订阅请求,发起网络请求属于同步接口
      * */
     public abstract T upsPlatformMessage();
+
+
+    public String getUpsAppId(){
+        return AbstractHandler.getAppId(context, Company.DEFAULT.name());
+    }
+
+    public String getUpsAppKey(){
+        return AbstractHandler.getAppKey(context,Company.DEFAULT.name());
+    }
 
 
     /**

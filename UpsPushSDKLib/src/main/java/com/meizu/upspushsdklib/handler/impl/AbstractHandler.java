@@ -14,6 +14,8 @@ public abstract class AbstractHandler implements UpsHandler{
     private static final String APP_PUSH_SETTING_PREFERENCE_NAME = "app_push_setting";
     private static final String KEY_APP_ID_PRFIX = ".app_id";
     private static final String KEY_APP_KEY_PREIX = ".app_key";
+    private static final String KEY_APP_UPS_PUSH_ID = ".ups_push_id";
+    public static final String KEY_APP_UPS_PUSH_ID_EXPIRE_TIME = "ups_pushId_expire_time";
 
 
     @Override
@@ -64,12 +66,27 @@ public abstract class AbstractHandler implements UpsHandler{
         PushPreferencesUtils.putStringByKey(context,APP_PUSH_SETTING_PREFERENCE_NAME,deviceModel+"."+context.getPackageName()+"."+KEY_APP_KEY_PREIX,appKey);
     }
 
-    protected String getAppId(Context context,String deviceModel){
+    public static String getAppId(Context context,String deviceModel){
         return PushPreferencesUtils.getStringBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,deviceModel+"."+context.getPackageName()+"."+KEY_APP_ID_PRFIX);
     }
 
-    protected String getAppKey(Context context,String deviceModel){
+    public static String getAppKey(Context context,String deviceModel){
         return PushPreferencesUtils.getStringBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,deviceModel+"."+context.getPackageName()+"."+KEY_APP_KEY_PREIX);
     }
 
+    public static void putUpsPushId(Context context,String pushId){
+        PushPreferencesUtils.putStringByKey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+"."+KEY_APP_UPS_PUSH_ID,pushId);
+    }
+
+    public static String getUpsPushId(Context context){
+       return PushPreferencesUtils.getStringBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+"."+KEY_APP_UPS_PUSH_ID);
+    }
+
+    public static void putUpsExpireTime(Context context,int expireTime){
+        PushPreferencesUtils.putIntBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+"."+KEY_APP_UPS_PUSH_ID_EXPIRE_TIME,expireTime);
+    }
+
+    public static int getUpsExpireTime(Context context){
+        return PushPreferencesUtils.getIntBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+"."+KEY_APP_UPS_PUSH_ID_EXPIRE_TIME);
+    }
 }

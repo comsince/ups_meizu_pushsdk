@@ -3,8 +3,13 @@ package com.meizu.upspushsdklib.handler.impl;
 import android.content.Context;
 
 import com.huawei.hms.api.HuaweiApiClient;
+import com.meizu.upspushsdklib.CommandType;
 import com.meizu.upspushsdklib.Company;
+import com.meizu.upspushsdklib.UpsCommandMessage;
+import com.meizu.upspushsdklib.handler.HandlerContext;
 import com.meizu.upspushsdklib.hw.HwPushClient;
+import com.meizu.upspushsdklib.receiver.dispatcher.CommandMessageDispatcher;
+import com.meizu.upspushsdklib.util.UpsConstantCode;
 import com.meizu.upspushsdklib.util.UpsLogger;
 import com.meizu.upspushsdklib.util.UpsUtils;
 
@@ -12,15 +17,24 @@ public class HuaWeiHandler extends AbstractHandler implements HuaweiApiClient.Co
     protected HwPushClient hwPushClient;
 
     @Override
-    public void onRegister(Context context, String appId, String appKey) {
+    public void register(HandlerContext ctx, String appId, String appKey) {
         if(hwPushClient == null){
-            hwPushClient = new HwPushClient(context,this);
+            hwPushClient = new HwPushClient(ctx.pipeline().context(),this);
         }
         hwPushClient.getTokenSync();
     }
 
     @Override
-    public void onUnRegister(Context context, String appId, String appKey) {
+    public void unRegister(HandlerContext ctx) {
+    }
+
+    @Override
+    public void setAlias(HandlerContext ctx, String alias) {
+    }
+
+    @Override
+    public void unSetAlias(HandlerContext ctx, String alias) {
+
     }
 
     @Override

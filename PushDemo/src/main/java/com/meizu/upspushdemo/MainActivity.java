@@ -9,8 +9,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.meizu.cloud.pushsdk.PushManager;
+import com.meizu.upspushsdklib.PushType;
 import com.meizu.upspushsdklib.UpsPushManager;
 import com.meizu.upspushsdklib.hw.HwPushClient;
+import com.meizu.upspushsdklib.receiver.dispatcher.UpsPushAPI;
 import com.meizu.upspushsdklib.util.UpsConstants;
 import com.meizu.upspushsdklib.util.UpsLogger;
 import com.meizu.upspushsdklib.util.UpsUtils;
@@ -37,6 +39,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private TextView mLogView = null;
 
     public static String xmToken;
+
+
+    public static String UPS_APP_ID = "1000000";
+    public static String UPS_APP_KEY = "38caef3fbc1347c1ba8e983226dc2c4f";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +80,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_register:
-                UpsPushManager.register(this,"","");
+                UpsPushManager.register(this,UPS_APP_ID,UPS_APP_KEY);
                 //MiPushClient.registerPush(this,xmAppId,xmAppKey);
-
                 break;
             case R.id.btn_unregister:
                 UpsPushManager.unRegister(this);

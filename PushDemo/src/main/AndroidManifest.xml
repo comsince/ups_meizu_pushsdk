@@ -40,22 +40,22 @@
 
         <activity android:name=".TestActivity"/>
 
-        <meta-data
-            android:name="XM_APP_ID"
-            android:value="${XM_APP_ID}"/>
+        <!--<meta-data-->
+            <!--android:name="XM_APP_ID"-->
+            <!--android:value="${XM_APP_ID}"/>-->
 
-        <meta-data
-            android:name="XM_APP_KEY"
-            android:value="${XM_APP_KEY}"/>
+        <!--<meta-data-->
+            <!--android:name="XM_APP_KEY"-->
+            <!--android:value="${XM_APP_KEY}"/>-->
 
 
-        <meta-data
-            android:name="MZ_APP_ID"
-            android:value="${MZ_APP_ID}"/>
+        <!--<meta-data-->
+            <!--android:name="MZ_APP_ID"-->
+            <!--android:value="${MZ_APP_ID}"/>-->
 
-        <meta-data
-            android:name="MZ_APP_KEY"
-            android:value="${MZ_APP_KEY}"/>
+        <!--<meta-data-->
+            <!--android:name="MZ_APP_KEY"-->
+            <!--android:value="${MZ_APP_KEY}"/>-->
 
         <!-- APPID 华为移动服务配置 请将value替换成实际的appid -->
         <meta-data
