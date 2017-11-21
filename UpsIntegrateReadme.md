@@ -5,7 +5,7 @@
 
 关于组件的基本配置将会全部打包到aar中的AndroidManifest中，用户只需要手动配置一些与报名相关的权限配置
 
-### 1.2 小米
+### 1.1 小米
 
 
 #### 混淆配置
@@ -194,6 +194,8 @@ intent://www.baidu.com#Intent;scheme=http;launchFlags=0x10000000;end
 目前仅仅华为与小米支持
 
 * 小米
+
+**NOTE:** 由于小米不提供远程仓库支持，ups_pushsdk不会将`MiPush_SDK_Client_3_4_5.jar`包含进最终的aar包中，此时需要开发者自己手动将此jar包引入到自己的工程中
 
 在推送时只要不指定notify_effect，即是代表自定义动作
 服务端推送代码如下

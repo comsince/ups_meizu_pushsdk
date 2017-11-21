@@ -50,6 +50,9 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':UpsPushSDKLib')
-
+    //compile project(':UpsPushSDKLib')
+    compile ('com.meizu.flyme.internet:push-ups:1.0.2-20171121.085103-2@aar'){
+        //当指定aar类型时注意要设置transitive设置为true，不然依赖关系无法传递
+        transitive=true
+    }
 }

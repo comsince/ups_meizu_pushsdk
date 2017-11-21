@@ -1,1 +1,2 @@
-include ':PushDemo', ':UpsPushSDKLib'
+include ':PushDemo'
+include ':UpsPushSDKLib'
