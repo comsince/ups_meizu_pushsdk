@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Message;
 
+import com.meizu.upspushsdklib.CommandType;
 import com.meizu.upspushsdklib.UpsCommandMessage;
 import com.meizu.upspushsdklib.UpsPushMessage;
 import com.meizu.upspushsdklib.UpsPushMessageReceiver;
@@ -37,9 +38,14 @@ public class UpsReceiver extends UpsPushMessageReceiver{
         UpsLogger.i(this,"UpsReceiver "+upsCommandMessage);
         switch (upsCommandMessage.getCompany()){
             case HUAWEI:
-                Bundle bundle = (Bundle) upsCommandMessage.getExtra();
-                String belongId = bundle.getString("belongId");
-                UpsLogger.i(this,"hw belongId "+belongId);
+                if(upsCommandMessage.getCommandType() == CommandType.REGISTER){
+                    Bundle bundle = (Bundle) upsCommandMessage.getExtra();
+                    String belongId = bundle.getString("belongId");
+                    UpsLogger.i(this,"hw belongId "+belongId);
+                } else if(upsCommandMessage.getCommandType() == CommandType.UNREGISTER){
+                    UpsLogger.i(this,"hw unregister "+upsCommandMessage);
+                }
+
                 break;
             default:
         }

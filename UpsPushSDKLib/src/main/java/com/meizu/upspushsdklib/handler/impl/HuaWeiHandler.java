@@ -24,18 +24,6 @@ public class HuaWeiHandler extends AbstractHandler implements HuaweiApiClient.Co
         hwPushClient.getTokenSync();
     }
 
-    @Override
-    public void unRegister(HandlerContext ctx) {
-    }
-
-    @Override
-    public void setAlias(HandlerContext ctx, String alias) {
-    }
-
-    @Override
-    public void unSetAlias(HandlerContext ctx, String alias) {
-
-    }
 
     @Override
     public boolean isCurrentModel() {
@@ -57,5 +45,21 @@ public class HuaWeiHandler extends AbstractHandler implements HuaweiApiClient.Co
     public void onConnectionSuspended(int i) {
         //HuaweiApiClient断开连接的时候，业务可以处理自己的事件
         UpsLogger.i(this, "HuaweiApiClient onConnectionSuspended code "+ i);
+    }
+
+    @Override
+    protected boolean dispatchToUpsReceiver(CommandType commandType) {
+        boolean flag;
+        switch (commandType){
+            case UNREGISTER:
+            case SUBALIAS:
+            case UNSUBALIAS:
+                flag = true;
+                break;
+            default:
+                flag = false;
+                break;
+        }
+        return flag;
     }
 }

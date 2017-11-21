@@ -3,11 +3,16 @@ package com.meizu.upspushsdklib.handler.impl;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.meizu.upspushsdklib.CommandType;
 import com.meizu.upspushsdklib.Company;
 import com.meizu.upspushsdklib.util.UpsLogger;
 import com.meizu.upspushsdklib.util.UpsUtils;
 import com.xiaomi.mipush.sdk.MiPushClient;
 
+/**
+ * 处理小米相关接口
+ * 反订阅接口由于没有相关Receiver回调,需要自己处理
+ * */
 public class XiaoMiHandler extends AbstractHandler{
 
 
@@ -45,5 +50,19 @@ public class XiaoMiHandler extends AbstractHandler{
     @Override
     public void onUnsetAlias(Context context, String appId, String appKey, String alias) {
         MiPushClient.unsetAlias(context,alias,null);
+    }
+
+    @Override
+    protected boolean dispatchToUpsReceiver(CommandType commandType) {
+        boolean flag;
+        switch (commandType){
+            case UNREGISTER:
+                flag = true;
+                break;
+            default:
+                flag = false;
+                break;
+        }
+        return flag;
     }
 }

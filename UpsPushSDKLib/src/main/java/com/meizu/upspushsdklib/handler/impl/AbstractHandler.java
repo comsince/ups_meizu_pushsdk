@@ -4,9 +4,15 @@ package com.meizu.upspushsdklib.handler.impl;
 import android.content.Context;
 
 import com.meizu.cloud.pushsdk.util.PushPreferencesUtils;
+import com.meizu.upspushsdklib.CommandType;
+import com.meizu.upspushsdklib.Company;
+import com.meizu.upspushsdklib.UpsCommandMessage;
 import com.meizu.upspushsdklib.handler.HandlerContext;
 import com.meizu.upspushsdklib.handler.UpsHandler;
 import com.meizu.upspushsdklib.hw.HwPushClient;
+import com.meizu.upspushsdklib.receiver.dispatcher.CommandMessageDispatcher;
+import com.meizu.upspushsdklib.util.UpsConstantCode;
+import com.meizu.upspushsdklib.util.UpsLogger;
 
 
 public abstract class AbstractHandler implements UpsHandler{
@@ -25,23 +31,44 @@ public abstract class AbstractHandler implements UpsHandler{
 
     @Override
     public void setAlias(HandlerContext ctx, String alias) {
-        String appId = getAppId(ctx.pipeline().context(), name());
-        String appKey = getAppKey(ctx.pipeline().context(), name());
-        onSetAlias(ctx.pipeline().context(),appId,appKey,alias);
+        if(Company.MEIZU.name().equals(name())){
+            String appId = getAppId(ctx.pipeline().context(), name());
+            String appKey = getAppKey(ctx.pipeline().context(), name());
+            onSetAlias(ctx.pipeline().context(),appId,appKey,alias);
+        } else {
+            onSetAlias(ctx.pipeline().context(),null,null,alias);
+        }
+        if(dispatchToUpsReceiver(CommandType.SUBALIAS)){
+            dispatcherToUpsReceiver(ctx.pipeline().context(),Company.valueOf(name()),CommandType.SUBALIAS);
+        }
     }
 
     @Override
     public void unSetAlias(HandlerContext ctx, String alias) {
-        String appId = getAppId(ctx.pipeline().context(), name());
-        String appKey = getAppKey(ctx.pipeline().context(), name());
-        onUnsetAlias(ctx.pipeline().context(),appId,appKey,alias);
+        if(Company.MEIZU.name().equals(name())){
+            String appId = getAppId(ctx.pipeline().context(), name());
+            String appKey = getAppKey(ctx.pipeline().context(), name());
+            onUnsetAlias(ctx.pipeline().context(),appId,appKey,alias);
+        } else {
+            onUnsetAlias(ctx.pipeline().context(),null,null,alias);
+        }
+        if(dispatchToUpsReceiver(CommandType.UNSUBALIAS)){
+            dispatcherToUpsReceiver(ctx.pipeline().context(),Company.valueOf(name()),CommandType.UNSUBALIAS);
+        }
     }
 
     @Override
     public void unRegister(HandlerContext ctx) {
-        String appId = getAppId(ctx.pipeline().context(), name());
-        String appKey = getAppKey(ctx.pipeline().context(), name());
-        onUnRegister(ctx.pipeline().context(),appId,appKey);
+        if(Company.MEIZU.name().equals(name())){
+            String appId = getAppId(ctx.pipeline().context(), name());
+            String appKey = getAppKey(ctx.pipeline().context(), name());
+            onUnRegister(ctx.pipeline().context(),appId,appKey);
+        } else {
+            onUnRegister(ctx.pipeline().context(),null,null);
+        }
+        if(dispatchToUpsReceiver(CommandType.UNREGISTER)){
+            dispatcherToUpsReceiver(ctx.pipeline().context(),Company.valueOf(name()),CommandType.UNREGISTER);
+        }
     }
 
     public void onRegister(Context context, String appId, String appKey){}
@@ -51,6 +78,30 @@ public abstract class AbstractHandler implements UpsHandler{
     public void onSetAlias(Context context, String appId, String appKey, String alias){}
 
     public void onUnsetAlias(Context context, String appId, String appKey, String alias){}
+
+    /**
+     * 是否将反订阅消息发送给UpsPushMessageReceiver
+     * */
+    protected boolean dispatchToUpsReceiver(CommandType commandType){
+        return false;
+    }
+
+
+    /**
+     * 发送消息至UpsPushReceiver,进行消息闭环
+     * @param context
+     * @param company cp 类型
+     * @param commandType
+     * */
+    public void dispatcherToUpsReceiver(Context context,Company company,CommandType commandType){
+        UpsLogger.i(this,"dispatcherToUpsReceiver to company "+company +" commandType "+commandType);
+        UpsCommandMessage upsCommandMessage = UpsCommandMessage.builder()
+                .code(UpsConstantCode.SUCCESS)
+                .company(company)
+                .commandType(commandType)
+                .build();
+        CommandMessageDispatcher.create(context,upsCommandMessage).dispatch();
+    }
 
     /**
      * 通过机型存储对应的平台的appId和appKey

@@ -3,14 +3,11 @@ package com.meizu.upspushsdklib.handler.impl;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.meizu.cloud.pushinternal.DebugLogger;
 import com.meizu.cloud.pushsdk.networking.common.ANResponse;
 import com.meizu.cloud.pushsdk.platform.message.BasicPushStatus;
-import com.meizu.cloud.pushsdk.util.MzSystemUtils;
 import com.meizu.upspushsdklib.Company;
 import com.meizu.upspushsdklib.handler.HandlerContext;
 import com.meizu.upspushsdklib.receiver.dispatcher.UpsPushAPI;
-import com.meizu.upspushsdklib.util.UpsConstants;
 import com.meizu.upspushsdklib.util.UpsLogger;
 import com.meizu.upspushsdklib.util.UpsUtils;
 
@@ -46,7 +43,7 @@ public class AppSettingHandler extends AbstractHandler{
         String cpAppKey = getAppKey(context,company.name());
         if(TextUtils.isEmpty(cpAppId) || TextUtils.isEmpty(cpAppKey)){
             //本地获取配置信息
-            cpAppId = UpsUtils.getMetaIntValueByName(context, company.name()+"_APP_ID");
+            cpAppId = UpsUtils.getMetaStringValueByName(context, company.name()+"_APP_ID");
             cpAppKey = UpsUtils.getMetaStringValueByName(context,company.name()+"_APP_KEY");
             if(!TextUtils.isEmpty(cpAppId) && !TextUtils.isEmpty(cpAppKey)){
                 UpsLogger.e(this,"store cpAppId "+cpAppId+" cpAppKey "+cpAppKey+" from manifest");

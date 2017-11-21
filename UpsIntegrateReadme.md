@@ -16,12 +16,12 @@
 
 ```
   <meta-data
-     android:name="XM_APP_ID"
-     android:value="${XM_APP_ID}"/>
+     android:name="XIAOMI_APP_ID"
+     android:value="${XIAOMI_APP_ID}"/>
 
   <meta-data
-     android:name="XM_APP_KEY"
-     android:value="${XM_APP_KEY}"/>
+     android:name="XIAOMI_APP_KEY"
+     android:value="${XIAOMI_APP_KEY}"/>
 ```
 
 #### Android Manifest 配置
@@ -43,12 +43,12 @@
 
 ```
   <meta-data
-       android:name="MZ_APP_ID"
-       android:value="${MZ_APP_ID}"/>
+       android:name="MEIZU_APP_ID"
+       android:value="${MEIZU_APP_ID}"/>
 
   <meta-data
-      android:name="MZ_APP_KEY"
-      android:value="${MZ_APP_KEY}"/>
+      android:name="MEIZU_APP_KEY"
+      android:value="${MEIZU_APP_KEY}"/>
 ```
 
 #### Android Manifest 配置
