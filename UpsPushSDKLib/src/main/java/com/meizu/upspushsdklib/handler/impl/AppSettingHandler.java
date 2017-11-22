@@ -43,7 +43,11 @@ public class AppSettingHandler extends AbstractHandler{
         String cpAppKey = getAppKey(context,company.name());
         if(TextUtils.isEmpty(cpAppId) || TextUtils.isEmpty(cpAppKey)){
             //本地获取配置信息
-            cpAppId = UpsUtils.getMetaStringValueByName(context, company.name()+"_APP_ID");
+            if(Company.MEIZU == company){
+                cpAppId = UpsUtils.getMetaIntValueByName(context, company.name()+"_APP_ID");
+            } else {
+                cpAppId = UpsUtils.getMetaStringValueByName(context, company.name()+"_APP_ID");
+            }
             cpAppKey = UpsUtils.getMetaStringValueByName(context,company.name()+"_APP_KEY");
             if(!TextUtils.isEmpty(cpAppId) && !TextUtils.isEmpty(cpAppKey)){
                 UpsLogger.e(this,"store cpAppId "+cpAppId+" cpAppKey "+cpAppKey+" from manifest");
@@ -66,6 +70,7 @@ public class AppSettingHandler extends AbstractHandler{
                 UpsLogger.e(this,"get meizu company info error "+anResponse.getError());
             }
         }
+        UpsLogger.i(this,"cpAppId "+cpAppId+" cpAppKey "+cpAppKey +" fireRegister");
         ctx.fireRegister(cpAppId,cpAppKey);
     }
 

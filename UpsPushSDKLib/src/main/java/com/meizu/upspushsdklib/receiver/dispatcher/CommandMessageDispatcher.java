@@ -3,8 +3,10 @@ package com.meizu.upspushsdklib.receiver.dispatcher;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 
 import com.meizu.cloud.pushsdk.platform.PlatformMessageSender;
+import com.meizu.cloud.pushsdk.util.MzSystemUtils;
 import com.meizu.upspushsdklib.CommandType;
 import com.meizu.upspushsdklib.Company;
 import com.meizu.upspushsdklib.UpsCommandMessage;
@@ -68,6 +70,38 @@ public abstract class CommandMessageDispatcher<T> {
 
     public String getUpsAppKey(){
         return AbstractHandler.getAppKey(context,Company.DEFAULT.name());
+    }
+
+    /**
+     * 获取设备唯一标志
+     * 在各个平台要求有读取设备信息状态的权限
+     * */
+    public String getDeviceId(){
+        String deviceId = null;
+        if(Company.HUAWEI == upsCommandMessage.getCompany()
+                && upsCommandMessage.getCommandType() == CommandType.REGISTER
+                && !TextUtils.isEmpty(upsCommandMessage.getCommandResult())){
+            AbstractHandler.putHWToken(context,upsCommandMessage.getCommandResult());
+            //get deviceId from huawei token
+            deviceId = upsCommandMessage.getCommandResult().substring(1,16);
+            UpsLogger.e(this,"get deviceId from hw token "+deviceId);
+        }
+
+        if(TextUtils.isEmpty(deviceId)){
+            try {
+                deviceId = MzSystemUtils.getDeviceId(context);
+            } catch (Exception e){
+                UpsLogger.e(this,"get deviceId error "+e.getMessage());
+            }
+        }
+        return deviceId;
+    }
+
+    /**
+     * 获取ups平台获取的pushId
+     * */
+    public String getUpsPushId(){
+        return AbstractHandler.getUpsPushId(context);
     }
 
 

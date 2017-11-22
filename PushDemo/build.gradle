@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
-def mzAppId = project.getProperties().get("MEIZU_APP_ID") ?:"111518"
-def mzAppKey = project.getProperties().get("MEIZU_APP_KEY") ?: "81db366f80b84a4f84915de07358bdea"
+def mzAppId = project.getProperties().get("MEIZU_APP_ID") ?:"111684"
+def mzAppKey = project.getProperties().get("MEIZU_APP_KEY") ?: "a16517ce04d64c3abdfbedb4873edf74"
 def xmAppId = project.getProperties().get("XIAOMI_APP_ID") ?:"\\02882303761517631454"
 def xmAppKey = project.getProperties().get("XIAOMI_APP_KEY") ?: "\\05581763188454"
 def hwAppId = project.getProperties().get("HUAWEI_APP_ID") ?: "100125059"
@@ -50,9 +50,9 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    //compile project(':UpsPushSDKLib')
-    compile ('com.meizu.flyme.internet:push-ups:1.0.2-20171121.085103-2@aar'){
-        //当指定aar类型时注意要设置transitive设置为true，不然依赖关系无法传递
-        transitive=true
-    }
+    compile project(':UpsPushSDKLib')
+//    compile ('com.meizu.flyme.internet:push-ups:1.0.2-20171121.085103-2@aar'){
+//        //当指定aar类型时注意要设置transitive设置为true，不然依赖关系无法传递
+//        transitive=true
+//    }
 }

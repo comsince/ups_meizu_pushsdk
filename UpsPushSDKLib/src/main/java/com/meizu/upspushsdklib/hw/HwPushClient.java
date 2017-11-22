@@ -15,6 +15,7 @@ import com.huawei.hms.support.api.push.HuaweiPush;
 import com.huawei.hms.support.api.push.PushException;
 import com.huawei.hms.support.api.push.TokenResult;
 import com.meizu.upspushsdklib.handler.UpsBootstrap;
+import com.meizu.upspushsdklib.handler.impl.AbstractHandler;
 import com.meizu.upspushsdklib.util.UpsLogger;
 
 import static android.os.Looper.getMainLooper;
@@ -78,7 +79,7 @@ public class HwPushClient implements HuaweiApiClient.OnConnectionFailedListener 
                 TokenResult result = tokenResult.await();
                 if(result.getTokenRes().getRetCode() == 0) {
                     //当返回值为0的时候表明获取token结果调用成功
-                    UpsLogger.i(this, "获取push token 成功，等待广播 并关闭链接");
+                    UpsLogger.w(this, "获取push token 成功，等待广播 并关闭链接");
                     client.disconnect();
                 }
             }
@@ -95,15 +96,24 @@ public class HwPushClient implements HuaweiApiClient.OnConnectionFailedListener 
             return;
         }
 
-        //调用删除token需要传入通过getToken接口获取到token，并且需要对token进行非空判断
-        /*if (!TextUtils.isEmpty(token)){
-            try {
-                HuaweiPush.HuaweiPushApi.deleteToken(client, token);
-            } catch (PushException e) {
-                UpsLogger.i(this, "删除Token失败:" + e.getMessage());
+        UpsBootstrap.executor().execute(new Runnable() {
+            @Override
+            public void run() {
+                //调用删除token需要传入通过getToken接口获取到token，并且需要对token进行非空判断
+                String token = AbstractHandler.getHwToken(mContext);
+                UpsLogger.e(this," delete hw token "+token);
+                if (!TextUtils.isEmpty(token)){
+                    try {
+                        HuaweiPush.HuaweiPushApi.deleteToken(client, token);
+                    } catch (PushException e) {
+                        UpsLogger.i(this, "删除Token失败:" + e.getMessage());
+                    } finally {
+                        UpsLogger.w(this,"删除Token 成功,关闭链接");
+                        client.disconnect();
+                    }
+                }
             }
-        }*/
-
+        });
     }
 
     /**

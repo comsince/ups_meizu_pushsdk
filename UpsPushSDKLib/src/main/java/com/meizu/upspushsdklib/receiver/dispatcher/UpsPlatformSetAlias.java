@@ -19,16 +19,21 @@ class UpsPlatformSetAlias extends CommandMessageDispatcher<SubAliasStatus>{
     @Override
     public SubAliasStatus upsPlatformMessage() {
         SubAliasStatus subAliasStatus = new SubAliasStatus();
-        String upsPushId = AbstractHandler.getUpsPushId(context);
         ANResponse<String> anResponse = UpsPushAPI.setAlias(getUpsAppId(),getUpsAppKey(),
                 upsCommandMessage.getCompany().code(),
                 context.getPackageName(),
-                MzSystemUtils.getDeviceId(context),
-                upsPushId,upsCommandMessage.getCommandResult());
+                getDeviceId(),
+                getUpsPushId(),
+                upsCommandMessage.getCommandResult());
 
         if(anResponse.isSuccess()){
             subAliasStatus = new SubAliasStatus(anResponse.getResult());
+            upsCommandMessage.setMessage(subAliasStatus.getMessage());
+            upsCommandMessage.setCode(Integer.parseInt(subAliasStatus.getCode()));
+            upsCommandMessage.setCommandResult(subAliasStatus.getAlias());
         } else {
+            upsCommandMessage.setCode(anResponse.getError().getErrorCode());
+            upsCommandMessage.setMessage(anResponse.getError().getErrorBody());
             UpsLogger.e(this,"ups set alias error "+anResponse.getError());
         }
         return subAliasStatus;

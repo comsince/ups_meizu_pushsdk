@@ -21,8 +21,9 @@ public abstract class AbstractHandler implements UpsHandler{
     private static final String KEY_APP_ID_PRFIX = ".app_id";
     private static final String KEY_APP_KEY_PREIX = ".app_key";
     private static final String KEY_APP_UPS_PUSH_ID = ".ups_push_id";
-    public static final String KEY_APP_UPS_PUSH_ID_EXPIRE_TIME = "ups_pushId_expire_time";
+    private static final String KEY_APP_UPS_PUSH_ID_EXPIRE_TIME = ".ups_pushId_expire_time";
 
+    private static final String KEY_APP_HW_TOKEN = ".hw_token";
 
     @Override
     public void register(HandlerContext ctx, String appId, String appKey) {
@@ -39,7 +40,7 @@ public abstract class AbstractHandler implements UpsHandler{
             onSetAlias(ctx.pipeline().context(),null,null,alias);
         }
         if(dispatchToUpsReceiver(CommandType.SUBALIAS)){
-            dispatcherToUpsReceiver(ctx.pipeline().context(),Company.valueOf(name()),CommandType.SUBALIAS);
+            dispatcherToUpsReceiver(ctx.pipeline().context(),Company.valueOf(name()),CommandType.SUBALIAS,alias);
         }
     }
 
@@ -53,7 +54,7 @@ public abstract class AbstractHandler implements UpsHandler{
             onUnsetAlias(ctx.pipeline().context(),null,null,alias);
         }
         if(dispatchToUpsReceiver(CommandType.UNSUBALIAS)){
-            dispatcherToUpsReceiver(ctx.pipeline().context(),Company.valueOf(name()),CommandType.UNSUBALIAS);
+            dispatcherToUpsReceiver(ctx.pipeline().context(),Company.valueOf(name()),CommandType.UNSUBALIAS,alias);
         }
     }
 
@@ -67,7 +68,7 @@ public abstract class AbstractHandler implements UpsHandler{
             onUnRegister(ctx.pipeline().context(),null,null);
         }
         if(dispatchToUpsReceiver(CommandType.UNREGISTER)){
-            dispatcherToUpsReceiver(ctx.pipeline().context(),Company.valueOf(name()),CommandType.UNREGISTER);
+            dispatcherToUpsReceiver(ctx.pipeline().context(),Company.valueOf(name()),CommandType.UNREGISTER,"");
         }
     }
 
@@ -92,13 +93,14 @@ public abstract class AbstractHandler implements UpsHandler{
      * @param context
      * @param company cp 类型
      * @param commandType
+     * @param commandResult 传递的参数
      * */
-    public void dispatcherToUpsReceiver(Context context,Company company,CommandType commandType){
-        UpsLogger.i(this,"dispatcherToUpsReceiver to company "+company +" commandType "+commandType);
+    public void dispatcherToUpsReceiver(Context context,Company company,CommandType commandType,String commandResult){
+        UpsLogger.i(this,"dispatcherToUpsReceiver to company "+company +" commandType "+commandType+" commandResult "+commandResult);
         UpsCommandMessage upsCommandMessage = UpsCommandMessage.builder()
-                .code(UpsConstantCode.SUCCESS)
                 .company(company)
                 .commandType(commandType)
+                .commandResult(commandResult)
                 .build();
         CommandMessageDispatcher.create(context,upsCommandMessage).dispatch();
     }
@@ -110,34 +112,42 @@ public abstract class AbstractHandler implements UpsHandler{
      * @param deviceModel 机型信息
      * */
     protected void putAppId(Context context, String deviceModel, String appId){
-        PushPreferencesUtils.putStringByKey(context,APP_PUSH_SETTING_PREFERENCE_NAME,deviceModel+"."+context.getPackageName()+"."+KEY_APP_ID_PRFIX,appId);
+        PushPreferencesUtils.putStringByKey(context,APP_PUSH_SETTING_PREFERENCE_NAME,deviceModel+"."+context.getPackageName() + KEY_APP_ID_PRFIX,appId);
     }
 
     protected void putAppKey(Context context,String deviceModel,String appKey){
-        PushPreferencesUtils.putStringByKey(context,APP_PUSH_SETTING_PREFERENCE_NAME,deviceModel+"."+context.getPackageName()+"."+KEY_APP_KEY_PREIX,appKey);
+        PushPreferencesUtils.putStringByKey(context,APP_PUSH_SETTING_PREFERENCE_NAME,deviceModel+"."+context.getPackageName() + KEY_APP_KEY_PREIX,appKey);
     }
 
     public static String getAppId(Context context,String deviceModel){
-        return PushPreferencesUtils.getStringBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,deviceModel+"."+context.getPackageName()+"."+KEY_APP_ID_PRFIX);
+        return PushPreferencesUtils.getStringBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,deviceModel+"."+context.getPackageName() + KEY_APP_ID_PRFIX);
     }
 
     public static String getAppKey(Context context,String deviceModel){
-        return PushPreferencesUtils.getStringBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,deviceModel+"."+context.getPackageName()+"."+KEY_APP_KEY_PREIX);
+        return PushPreferencesUtils.getStringBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,deviceModel+"."+context.getPackageName() + KEY_APP_KEY_PREIX);
     }
 
     public static void putUpsPushId(Context context,String pushId){
-        PushPreferencesUtils.putStringByKey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+"."+KEY_APP_UPS_PUSH_ID,pushId);
+        PushPreferencesUtils.putStringByKey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName() + KEY_APP_UPS_PUSH_ID,pushId);
     }
 
     public static String getUpsPushId(Context context){
-       return PushPreferencesUtils.getStringBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+"."+KEY_APP_UPS_PUSH_ID);
+       return PushPreferencesUtils.getStringBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName() + KEY_APP_UPS_PUSH_ID);
     }
 
     public static void putUpsExpireTime(Context context,int expireTime){
-        PushPreferencesUtils.putIntBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+"."+KEY_APP_UPS_PUSH_ID_EXPIRE_TIME,expireTime);
+        PushPreferencesUtils.putIntBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+KEY_APP_UPS_PUSH_ID_EXPIRE_TIME,expireTime);
     }
 
     public static int getUpsExpireTime(Context context){
-        return PushPreferencesUtils.getIntBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+"."+KEY_APP_UPS_PUSH_ID_EXPIRE_TIME);
+        return PushPreferencesUtils.getIntBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+KEY_APP_UPS_PUSH_ID_EXPIRE_TIME);
+    }
+
+    public static void putHWToken(Context context,String token){
+        PushPreferencesUtils.putStringByKey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+KEY_APP_HW_TOKEN,token);
+    }
+
+    public static String getHwToken(Context context){
+        return PushPreferencesUtils.getStringBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+KEY_APP_HW_TOKEN);
     }
 }

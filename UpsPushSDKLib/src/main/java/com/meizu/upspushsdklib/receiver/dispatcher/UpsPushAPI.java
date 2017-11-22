@@ -25,7 +25,7 @@ public class UpsPushAPI {
      * @param company  厂商信息
      * @param packageName 订阅的包名
      * */
-    public static ANResponse getCpInfo(String appId, String appKey,int company,String packageName){
+    public static ANResponse<String> getCpInfo(String appId, String appKey,int company,String packageName){
         HashMap<String,String> paramsMap = new LinkedHashMap<>();
         paramsMap.put("appId",appId);
         paramsMap.put("cp",String.valueOf(company));
@@ -48,7 +48,7 @@ public class UpsPushAPI {
      * @param packageName 订阅的包名
      * @param deviceId 手机唯一识别标志
      * */
-    public static ANResponse register(String appId,String appKey,int company,String packageName,String deviceId,String token){
+    public static ANResponse<String> register(String appId,String appKey,int company,String packageName,String deviceId,String token){
         HashMap<String,String> paramsMap = new LinkedHashMap<>();
         paramsMap.put("appId",appId);
         paramsMap.put("cp",String.valueOf(company));
@@ -73,7 +73,7 @@ public class UpsPushAPI {
      * @param packageName 订阅的包名
      * @param deviceId 手机唯一识别标志
      * */
-    public static ANResponse unRegister(String appId,String appKey,int company,String packageName,String deviceId){
+    public static ANResponse<String> unRegister(String appId,String appKey,int company,String packageName,String deviceId){
         HashMap<String,String> paramsMap = new LinkedHashMap<>();
         paramsMap.put("appId",appId);
         paramsMap.put("cp",String.valueOf(company));
@@ -98,7 +98,7 @@ public class UpsPushAPI {
      * @param deviceId 手机唯一识别标志
      * @param token ups token
      * */
-    public static ANResponse setAlias(String appId,String appKey,int company,String packageName,String deviceId,String token,String alias){
+    public static ANResponse<String> setAlias(String appId,String appKey,int company,String packageName,String deviceId,String token,String alias){
         HashMap<String,String> paramsMap = new LinkedHashMap<>();
         paramsMap.put("appId",appId);
         paramsMap.put("cp",String.valueOf(company));
@@ -125,7 +125,7 @@ public class UpsPushAPI {
      * @param packageName 订阅的包名
      * @param deviceId 手机唯一识别标志
      * */
-    public static ANResponse unSetAlias(String appId,String appKey,int company,String packageName,String deviceId,String token){
+    public static ANResponse<String> unSetAlias(String appId,String appKey,int company,String packageName,String deviceId,String token){
         HashMap<String,String> paramsMap = new LinkedHashMap<>();
         paramsMap.put("appId",appId);
         paramsMap.put("cp",String.valueOf(company));
