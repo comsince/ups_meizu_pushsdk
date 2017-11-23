@@ -166,7 +166,7 @@ intent:#Intent;component=com.meizu.upspushdemo/.TestActivity;S.key=value;end
 intent:#Intent;compo=com.meizu.upspushdemo/.TestActivity;S.key=传递给应用;end
 ```
 
-**NOTE:** 新方案：利用UriScheme的方式实现自定义打开应用内页面
+**NOTE:** 新方案：利用UriScheme的方式实现自定义打开应用内页面,即是：`打开应用自定义的Intent页面`
 
 * URI 原始格式如下
 
