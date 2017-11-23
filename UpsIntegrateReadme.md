@@ -144,36 +144,102 @@ intent:#Intent;component=com.meizu.upspushdemo/.TestActivity;S.key=value;end
   开发者。在接收到该自定义参数时，自行决定后续动作
 
 ### 3.1  打开应用
-  各个厂商使用方法一致
+
+* 魅族
+  * 点击动作：打开应用
+* 小米
+  * 点击动作：打开应用
+* 华为
+  * 点击通知：打开应用
+  * 后续动作：直接打开应用
+  
 ### 3.2 打开应用内页面
 
 * 魅族
-
+  * 点击动作：打开应用页面
+  * 页面名称：
  打开页面只需要填写应用页面的全路径名称，例如```com.meizu.upspushdemo.TestActivty```
  
 * 小米
-
-  打开页面需要获取Intent uri，具体获取方法如下
+  * 点击动作：打开应用内指定页面
+  * 页面地址：intent Uri
+  
+  通过如下代码打开页面需要获取Intent uri，具体获取方法如下
 ```
  Intent intent = new Intent(this,TestActivity.class);
  intent.putExtra("key","value");
  UpsLogger.i(this,"intent uri "+intent.toUri(Intent.URI_INTENT_SCHEME));
 ```
 
-  intent uri 例子如下：
+得到Intent uri字符传如下:
+
 ```
  intent:#Intent;component=com.meizu.upspushdemo/.TestActivity;S.key=value;end
 ```  
+  
+### 3.3 打开web页面
 
+* 魅族
+  * 点击动作：打开URI页面
+  * Url: 标准URI格式如下：`https://www.baidu.com`
+* 小米
+  * 点击动作：打开网页
+  * Url: 标准URI格式如下：`https://www.baidu.com`
 * 华为
+  * 点击动作：打开网页
+  * Url: 标准URI格式如下：`https://www.baidu.com`
 
-~~华为拼接的intent uri有点不同，主要是`component`缩写为`compo`，格式如下~~：
+### 3.4 应用客户端自定义
+
+目前仅仅魅族与小米支持
+
+* 魅族
+  * 点击动作：应用客户端自定义
+  * 自定义内容：完全由用户填写
+
+* 小米
+  * 点击动作：由应用客户端自定义
+  * 传输数据：由用户自己填写
+
+**NOTE:** 由于小米不提供远程仓库支持，ups_pushsdk不会将`MiPush_SDK_Client_3_4_5.jar`包含进最终的aar包中，此时需要开发者自己手动将此jar包引入到自己的工程中
+
+在推送时只要不指定notify_effect，即是代表自定义动作
+服务端推送代码如下
 
 ```
-intent:#Intent;compo=com.meizu.upspushdemo/.TestActivity;S.key=传递给应用;end
+    /**
+     * 创建自定义消息内容的格式
+     * **/
+    private static Message buildCustomMessage() throws Exception {
+        //自定义消息体
+        String messagePayload = "This is a message";
+        String title = "notification title";
+        String description = "notification description";
+        Message message = new Message.Builder()
+                .title(title)
+                .description(description)
+                .payload(messagePayload)
+                .restrictedPackageName(MY_PACKAGE_NAME)
+                .passThrough(0)  //消息使用通知栏方式
+                .notifyType(1)
+                .build();
+        return message;
+    }
 ```
 
-**NOTE:** 新方案：利用UriScheme的方式实现自定义打开应用内页面,即是：`打开应用自定义的Intent页面`
+### 3.5 打开自定Intent URI
+
+* 魅族
+  * 点击动作：打开URI页面
+  * Url: 标准URI格式如下：`https://www.baidu.com`
+* 小米
+  * 点击动作：打开应用内指定页面
+  * 页面地址: 标准URI经过Intent.toURI得出
+* 华为
+  * 点击通知：打开应用
+  * 后续行为->自定义动作: 标准URI经过Intent.toURI得出
+
+#### URI转换方式
 
 * URI 原始格式如下
 
@@ -208,43 +274,3 @@ intent://com.meizu.upspush/notify_detail?title=ups title&content=ups content#Int
  </intent-filter>           
 </activity>
 ```
-  
-### 3.3 打开web页面
-
-* 魅族小米华为
-
-只需填写要打开的uri即可
-
-
-### 3.4 应用客户端自定义
-
-目前仅仅华为与小米支持
-
-* 小米
-
-**NOTE:** 由于小米不提供远程仓库支持，ups_pushsdk不会将`MiPush_SDK_Client_3_4_5.jar`包含进最终的aar包中，此时需要开发者自己手动将此jar包引入到自己的工程中
-
-在推送时只要不指定notify_effect，即是代表自定义动作
-服务端推送代码如下
-
-```
-    /**
-     * 创建自定义消息内容的格式
-     * **/
-    private static Message buildCustomMessage() throws Exception {
-        //自定义消息体
-        String messagePayload = "This is a message";
-        String title = "notification title";
-        String description = "notification description";
-        Message message = new Message.Builder()
-                .title(title)
-                .description(description)
-                .payload(messagePayload)
-                .restrictedPackageName(MY_PACKAGE_NAME)
-                .passThrough(0)  //消息使用通知栏方式
-                .notifyType(1)
-                .build();
-        return message;
-    }
-```
-
