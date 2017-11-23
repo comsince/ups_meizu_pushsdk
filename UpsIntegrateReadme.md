@@ -130,6 +130,7 @@
 | 打开Web页面      | 支持| 支持|支持|只需填写web url地址即可|
 | 打开自定Intent URI  | 支持| 支持|支持|魅族可通过打开URL功能实现,小米可通过打开应用内页面传递转换的intentURI,华为通过自定义点击行为|
 | 应用客户端自定义  | 支持| 支持|不支持|魅族支持客户端自定义功能，小米可通过不指定notifyEffect实现|
+
 ### 统一传参方式
 
 传参的方式目前有两种方式
@@ -164,7 +165,8 @@ intent:#Intent;component=com.meizu.upspushdemo/.TestActivity;S.key=value;end
   * 点击动作：打开应用内指定页面
   * 页面地址：intent Uri
   
-  通过如下代码打开页面需要获取Intent uri，具体获取方法如下
+通过如下代码打开页面需要获取Intent uri，具体获取方法如下：
+
 ```
  Intent intent = new Intent(this,TestActivity.class);
  intent.putExtra("key","value");
@@ -203,6 +205,8 @@ intent:#Intent;component=com.meizu.upspushdemo/.TestActivity;S.key=value;end
 
 **NOTE:** 由于小米不提供远程仓库支持，ups_pushsdk不会将`MiPush_SDK_Client_3_4_5.jar`包含进最终的aar包中，此时需要开发者自己手动将此jar包引入到自己的工程中
 
+* 小米服务端客户端自定义API使用方式
+
 在推送时只要不指定notify_effect，即是代表自定义动作
 服务端推送代码如下
 
@@ -239,7 +243,7 @@ intent:#Intent;component=com.meizu.upspushdemo/.TestActivity;S.key=value;end
   * 点击通知：打开应用
   * 后续行为->自定义动作: 标准URI经过Intent.toURI得出
 
-#### URI转换方式
+#### 3.5.1 URI转换方式
 
 * URI 原始格式如下
 
