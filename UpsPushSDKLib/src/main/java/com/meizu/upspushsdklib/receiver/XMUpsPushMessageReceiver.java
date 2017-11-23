@@ -31,7 +31,7 @@ public final class XMUpsPushMessageReceiver extends PushMessageReceiver {
                 "onReceivePassThroughMessage is called. " + message.toString());
         UpsPushMessageDispatcher.dispatch(context, UpsPushMessage.builder()
                         .title(message.getTitle())
-                        .content(message.getDescription())
+                        .content(message.getContent())
                         .company(Company.XIAOMI)
                         .extra(message)
                         .pushType(PushType.THROUGH_MESSAGE)

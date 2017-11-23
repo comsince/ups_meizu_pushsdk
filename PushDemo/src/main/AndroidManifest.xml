@@ -38,7 +38,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".TestActivity"/>
+        <activity android:name=".TestActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="upspushscheme"
+                       android:host="com.meizu.upspush"
+                       android:path="/notify_detail"/>
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="XIAOMI_APP_ID"

@@ -4,6 +4,7 @@ package com.meizu.upspushdemo;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Message;
+import android.text.TextUtils;
 
 import com.meizu.upspushsdklib.CommandType;
 import com.meizu.upspushsdklib.UpsCommandMessage;
@@ -50,7 +51,8 @@ public class UpsReceiver extends UpsPushMessageReceiver{
             default:
         }
 
-        sendMessage("onUpsCommandResult commandResult-> "+upsCommandMessage.getCommandResult()+" message-> "+upsCommandMessage.getMessage());
+        sendMessage("onUpsCommandResult CommandResult-> "+upsCommandMessage.getCommandResult()+
+                (TextUtils.isEmpty(upsCommandMessage.getMessage()) ? "":" Error Message-> "+upsCommandMessage.getMessage()));
         MainActivity.xmToken = upsCommandMessage.getCommandResult();
     }
 

@@ -160,10 +160,46 @@ intent:#Intent;component=com.meizu.upspushdemo/.TestActivity;S.key=value;end
 
 * 华为
 
-华为拼接的intent uri有点不同，主要是`component`缩写为`compo`，格式如下：
+~~华为拼接的intent uri有点不同，主要是`component`缩写为`compo`，格式如下~~：
 
 ```
 intent:#Intent;compo=com.meizu.upspushdemo/.TestActivity;S.key=传递给应用;end
+```
+
+**NOTE:** 新方案：利用UriScheme的方式实现自定义打开应用内页面
+
+* URI 原始格式如下
+
+```
+upspushscheme://com.meizu.upspush/notify_detail?title=ups title&content=ups content
+```
+
+* Uri 经过如下代码
+
+```
+Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("upspushscheme://com.meizu.upspush/notify_detail?title=ups title&content=ups content"));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        UpsLogger.e(this,intent.toUri(Intent.URI_INTENT_SCHEME));
+```
+
+转换后格式如下
+
+```
+intent://com.meizu.upspush/notify_detail?title=ups title&content=ups content#Intent;scheme=upspushscheme;launchFlags=0x10000000;end
+```
+
+* Android Manifest TestActivity 必须如下配置如下
+
+```
+<activity android:name=".TestActivity">
+ <intent-filter>
+      <action android:name="android.intent.action.VIEW"/>
+      <category android:name="android.intent.category.DEFAULT"/>
+      <data android:scheme="upspushscheme" //scheme类型
+            android:host="com.meizu.upspush" //host全称
+            android:path="/notify_detail"/>  //path路径             
+ </intent-filter>           
+</activity>
 ```
   
 ### 3.3 打开web页面
@@ -183,10 +219,12 @@ intent:#Intent;compo=com.meizu.upspushdemo/.TestActivity;S.key=传递给应用;e
 ```
 
 规则如下：
+**NOTE:**
 
 ```
 intent://www.baidu.com#Intent;scheme=http;launchFlags=0x10000000;end
 ```
+
 
 
 ### 3.4 应用客户端自定义
