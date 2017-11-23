@@ -84,6 +84,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 UpsPushManager.register(this,UPS_APP_ID,UPS_APP_KEY);
                 //MiPushClient.registerPush(this,xmAppId,xmAppKey);
                 //hwIntentUri();
+                //intentToUri();
                 break;
             case R.id.btn_unregister:
                 UpsPushManager.unRegister(this);
@@ -108,9 +109,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
         intent.putExtra("key","value");
         UpsLogger.i(this,"intent uri "+intent.toUri(Intent.URI_INTENT_SCHEME));
 
-        Intent hwIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.baidu.com"));
+        Intent hwIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.baidu.com"));
         hwIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        UpsLogger.i(this,"hw uri "+hwIntent.toUri(Intent.URI_INTENT_SCHEME));
+        UpsLogger.i(this,"http uri "+hwIntent.toUri(Intent.URI_INTENT_SCHEME));
     }
 
     private void hwIntentUri(){
