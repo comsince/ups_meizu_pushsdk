@@ -178,8 +178,8 @@ upspushscheme://com.meizu.upspush/notify_detail?title=ups title&content=ups cont
 
 ```
 Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("upspushscheme://com.meizu.upspush/notify_detail?title=ups title&content=ups content"));
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        UpsLogger.e(this,intent.toUri(Intent.URI_INTENT_SCHEME));
+intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+UpsLogger.e(this,intent.toUri(Intent.URI_INTENT_SCHEME));
 ```
 
 转换后格式如下
@@ -204,27 +204,9 @@ intent://com.meizu.upspush/notify_detail?title=ups title&content=ups content#Int
   
 ### 3.3 打开web页面
 
-* 魅族小米
+* 魅族小米华为
 
 只需填写要打开的uri即可
-
-* 华为
-
-华为需要intent toUri转换，获取方法：
-
-```
- Intent hwIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.baidu.com"));
- hwIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
- UpsLogger.i(this,"hw uri "+hwIntent.toUri(Intent.URI_INTENT_SCHEME));
-```
-
-规则如下：
-**NOTE:**
-
-```
-intent://www.baidu.com#Intent;scheme=http;launchFlags=0x10000000;end
-```
-
 
 
 ### 3.4 应用客户端自定义

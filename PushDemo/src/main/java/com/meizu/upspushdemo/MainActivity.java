@@ -51,6 +51,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_main);
         initView();
         initMetaData();
+
     }
 
     private void initView(){
