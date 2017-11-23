@@ -123,6 +123,12 @@
 * [小米,提供JavaSDK](https://dev.mi.com/console/doc/detail?pId=40)
 * [华为,只提供api接口参数需要自己组装](http://developer.huawei.com/consumer/cn/service/hms/catalog/huaweipush.html?page=hmssdk_huaweipush_api_reference_s2)
 
+| 通知栏行为      | 魅族| 小米|华为|说明|
+| :--------: | :--------:| :--: |:--: |:--: |
+| 打开应用      | 支持| 支持|支持|无|
+| 打开应用页面      | 支持| 支持|不支持|魅族只需传递Activity名称,小米需要传递转换后的intentUri|
+| 打开Web页面      | 支持| 支持|支持|只需填写web url地址即可|
+| 打开自定Intent URI  | 支持| 支持|支持|魅族可通过打开URL功能实现,小米可通过打开应用内页面传递转换的intentURI,华为通过自定义点击行为|
 ### 统一传参方式
 
 传参的方式目前有两种方式
