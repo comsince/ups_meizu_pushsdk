@@ -186,8 +186,8 @@ intent:#Intent;component=com.meizu.upspushdemo/.TestActivity;S.key=value;end
   * 点击动作：打开网页
   * Url: 标准URI格式如下：`https://www.baidu.com`
 * 华为
-  * 点击动作：打开网页
-  * Url: 标准URI格式如下：`https://www.baidu.com`
+  * 点击通知：打开网页
+  * 输入网址: 标准URI格式如下：`https://www.baidu.com`
 
 ### 3.4 应用客户端自定义
 
