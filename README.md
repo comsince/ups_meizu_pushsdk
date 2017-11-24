@@ -38,10 +38,10 @@ UpsPushMessageReceiver是一个抽象的BroadcastReceiver类，为了统一各�
  
 | 接口名称      | 接口说明| 使用建议|是否已经废弃|
 | :--------: | :--------:| :--: |:--: |
-|onThroughMessage(Context context,UpsPushMessage upsPushMessage)| 透传消息回调|跟上面方法两者选其一实现,不要两个方法同时覆盖,否则一次透传消息会回调两次,此方法多一个平台参数,格式如下格式如下:```{"task_id":"1232"}```|否|                                                                                  
+|onThroughMessage(Context context,UpsPushMessage upsPushMessage)| 透传消息回调|无|否|                                                                                  
 |onNotificationClicked(Context context, UpsPushMessage upsPushMessage)|通知栏点击回调|无|否|
-|onNotificationArrived(Context context, UpsPushMessage upsPushMessage)|通知栏展示回调|Flyme6基于android6.0不再回调|否|
-|onNotificationDeleted(Context context, UpsPushMessage upsPushMessage)|通知栏删除回调|Flyme6基于android6.0不再回调|否|
+|onNotificationArrived(Context context, UpsPushMessage upsPushMessage)|通知栏展示回调|小米，魅族尽在应用进程在时回调，华为不回调|否|
+|onNotificationDeleted(Context context, UpsPushMessage upsPushMessage)|通知栏删除回调|仅仅Flyme基于android6.0以下版本会回调，小米华为均不支持|否|
 |onUpsCommandResult(Context context, UpsCommandMessage upsCommandMessage)||无|否|
 
 
@@ -131,6 +131,7 @@ UpsPushMessageReceiver是一个抽象的BroadcastReceiver类，为了统一各�
 |title|消息的标题，如果时通知栏消息，则为通知栏标题|
 |content|消息内容,如果时通知栏则为消息通知栏内容，如果为透传消息，则为透传消息体|
 |pushType|消息类型,0代表通知栏消息，1代表透传消息|
+|notifyId|通知栏消息Id|
 |company|厂商类型包括：UpsPushMessage.MEIZU,UpsPushMessage.HUAWEI,UpsPushMessage.XIAOMI|
 |extra|代表各个平台的传递的对象，魅族代表selfDefineContentString，小米代表MiPushMessage，华为代表bundle,需要通过判断company进行对象类型转化，如下：|
 
@@ -160,6 +161,7 @@ UpsPushMessageReceiver是一个抽象的BroadcastReceiver类，为了统一各�
 |title|消息的标题，如果时通知栏消息，则为通知栏标题|
 |content|消息内容,如果时通知栏则为消息通知栏内容，如果为透传消息，则为透传消息体|
 |pushType|消息类型,0代表通知栏消息，1代表透传消息|
+|notifyId|通知栏消息Id|
 |company|厂商类型包括：UpsPushMessage.MEIZU,UpsPushMessage.HUAWEI,UpsPushMessage.XIAOMI|
 |extra|代表各个平台的传递的对象，魅族代表selfDefineContentString，小米代表MiPushMessage，华为代表bundle,需要通过判断company进行对象类型转化，如下：|
 
@@ -190,6 +192,7 @@ UpsPushMessageReceiver是一个抽象的BroadcastReceiver类，为了统一各�
 |title|消息的标题，如果时通知栏消息，则为通知栏标题|
 |content|消息内容,如果时通知栏则为消息通知栏内容，如果为透传消息，则为透传消息体|
 |pushType|消息类型,0代表通知栏消息，1代表透传消息|
+|notifyId|通知栏消息Id|
 |company|厂商类型包括：UpsPushMessage.MEIZU,UpsPushMessage.HUAWEI,UpsPushMessage.XIAOMI|
 |extra|代表各个平台的传递的对象，魅族代表selfDefineContentString，小米代表MiPushMessage，华为代表bundle,需要通过判断company进行对象类型转化，如下：|
 
