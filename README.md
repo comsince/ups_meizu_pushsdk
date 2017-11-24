@@ -13,8 +13,8 @@
 
 ## 一 接入说明 
 
-[快速接入文档详见](UpsIntegrateReadme.md)
-[统一推送平台的规则说明](UpsIntegrateReadme.md)
+* [快速接入文档详见](UpsIntegrateReadme.md)
+* [统一推送平台的规则说明](UpsIntegrateReadme.md)
  
 ## 二 接口说明
 
