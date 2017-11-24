@@ -1,10 +1,10 @@
 本文档旨在说明如果快速的接入集成推送SDK,快速实现小米,华为,魅族的推送接入，有关详细的设计文档参考`集成推送设计说明文档`
 
-## AndroidManifest配置
+## 一 AndroidManifest配置
 
 由于三方SDK的权限,组件全部配置在`ups-push-sdk`的aar的`AndroidManifest`中,因此开发者只需关注各个平台与应用相关的配置即可,更加详细的配置参考`Ups_PushDemo`
 
-### 权限声明
+### 1.1 权限声明
 
 **NOTE:** 请将`${PACKAGE_NAME}`换成实际应用的包名
 
@@ -29,7 +29,7 @@
 ```
 
 
-### 基础组件
+### 1.2 基础组件
 
 ```
    <!-- 华为移动服务配置,将${PACKAGE_NAME}替换为实际包名 -->
@@ -50,7 +50,7 @@
 
 ```
 
-### 应用配置信息
+### 1.3 应用配置信息
 
 **NOTE:** 华为需要在AndroidManifest自行配置
 
@@ -63,17 +63,17 @@
 
 
 
-### 统一推送平台配置
+## 二 统一推送平台配置
 
-* 应用信息平台设置
+### 2.1 应用信息平台设置
 
-推荐到[魅族统一推送平台](mzups.meizu.com)应用配置-> 添加多渠道添加各个平台的`AppId`,`AppKey`,`AppSecret`,如下图所示:
+推荐到[魅族统一推送平台](http://mzups.meizu.com)应用配置-> 添加多渠道添加各个平台的`AppId`,`AppKey`,`AppSecret`,如下图所示:
 
 ![image](attach/app-setting.png)
 
 
 
-* 应用信息本地设置测试
+### 2.2 应用信息本地设置测试
 
 应用也可以在AndroidManifest配置`AppID`,`AppKey`信息方便本地测试，`ups-pushsdk`会优先读取本地`AndroidManifest`中的配置信息
 
@@ -100,6 +100,6 @@
 ```
 
 
-### 通知栏自定义行为使用方式
+## 三 通知栏自定义行为使用方式
 
 统一推送平台目前由五种方式，[详情参见](UpsIntegrateReadme.md)
