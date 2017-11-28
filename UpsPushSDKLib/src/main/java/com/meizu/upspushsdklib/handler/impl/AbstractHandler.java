@@ -150,4 +150,12 @@ public abstract class AbstractHandler implements UpsHandler{
     public static String getHwToken(Context context){
         return PushPreferencesUtils.getStringBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+KEY_APP_HW_TOKEN);
     }
+
+    public static void putDeviceId(Context context,String deviceId){
+        PushPreferencesUtils.putDeviceId(context,deviceId);
+    }
+
+    public static String getDeviceId(Context context){
+        return PushPreferencesUtils.getDeviceId(context);
+    }
 }

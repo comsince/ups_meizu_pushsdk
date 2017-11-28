@@ -85,11 +85,18 @@ public abstract class CommandMessageDispatcher<T> {
             //get deviceId from huawei token
             deviceId = upsCommandMessage.getCommandResult().substring(1,16);
             UpsLogger.e(this,"get deviceId from hw token "+deviceId);
+            AbstractHandler.putDeviceId(context,deviceId);
+        }
+
+        if(TextUtils.isEmpty(deviceId)){
+            deviceId = AbstractHandler.getDeviceId(context);
+            UpsLogger.e(this,"get deviceId from preference "+deviceId);
         }
 
         if(TextUtils.isEmpty(deviceId)){
             try {
                 deviceId = MzSystemUtils.getDeviceId(context);
+                UpsLogger.e(this,"get deviceId from telephony "+deviceId);
             } catch (Exception e){
                 UpsLogger.e(this,"get deviceId error "+e.getMessage());
             }
