@@ -83,15 +83,15 @@ public abstract class CommandMessageDispatcher<T> {
                 && !TextUtils.isEmpty(upsCommandMessage.getCommandResult())){
             AbstractHandler.putHWToken(context,upsCommandMessage.getCommandResult());
             //get deviceId from huawei token
-            deviceId = upsCommandMessage.getCommandResult().substring(1,16);
-            UpsLogger.e(this,"get deviceId from hw token "+deviceId);
-            AbstractHandler.putDeviceId(context,deviceId);
+            //deviceId = upsCommandMessage.getCommandResult().substring(1,16);
+            //UpsLogger.e(this,"get deviceId from hw token "+deviceId);
+            //AbstractHandler.putDeviceId(context,deviceId);
         }
 
-        if(TextUtils.isEmpty(deviceId)){
-            deviceId = AbstractHandler.getDeviceId(context);
-            UpsLogger.e(this,"get deviceId from preference "+deviceId);
-        }
+//        if(TextUtils.isEmpty(deviceId)){
+//            deviceId = AbstractHandler.getDeviceId(context);
+//            UpsLogger.e(this,"get deviceId from preference "+deviceId);
+//        }
 
         if(TextUtils.isEmpty(deviceId)){
             try {
