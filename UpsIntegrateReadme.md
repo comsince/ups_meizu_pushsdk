@@ -116,12 +116,14 @@
 ```
 
 
-## 三 消息自定义行为分析
+## 三 通知栏消息点击行为分析
 现在各个厂商目前支持以下四种类型，具体使用方式详见各个平台的服务端参考文档
 
 * [魅族,提供JavaSDK](https://github.com/MEIZUPUSH/JavaSdk)
 * [小米,提供JavaSDK](https://dev.mi.com/console/doc/detail?pId=40)
 * [华为,只提供api接口参数需要自己组装](http://developer.huawei.com/consumer/cn/service/hms/catalog/huaweipush.html?page=hmssdk_huaweipush_api_reference_s2)
+
+**NOTE:** 目前我们已经根据各个平台提供的策略，重新设计魅族统一推送平台的通知栏消息点击策略，目前有以下五种，对应各个平台的策略如下表：
 
 | 通知栏行为      | 魅族| 小米|华为|说明|
 | :--------: | :--------:| :--: |:--: |:--: |
