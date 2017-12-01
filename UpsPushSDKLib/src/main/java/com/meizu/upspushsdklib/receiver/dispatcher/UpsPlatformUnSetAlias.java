@@ -45,7 +45,7 @@ class UpsPlatformUnSetAlias extends CommandMessageDispatcher<SubAliasStatus>{
                 upsCommandMessage.getCompany().code(),
                 context.getPackageName(),
                 getDeviceId(),
-                getUpsPushId());
+                getCompanyToken());
 
         if(anResponse.isSuccess()){
             subAliasStatus = new SubAliasStatus(anResponse.getResult());

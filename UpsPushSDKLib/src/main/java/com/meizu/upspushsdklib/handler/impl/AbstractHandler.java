@@ -167,11 +167,11 @@ public abstract class AbstractHandler implements UpsHandler{
         return PushPreferencesUtils.getIntBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+KEY_APP_UPS_PUSH_ID_EXPIRE_TIME);
     }
 
-    public static void putHWToken(Context context,String token){
+    public static void putCompanyToken(Context context,String token){
         PushPreferencesUtils.putStringByKey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+KEY_APP_HW_TOKEN,token);
     }
 
-    public static String getHwToken(Context context){
+    public static String getCompanyToken(Context context){
         return PushPreferencesUtils.getStringBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+KEY_APP_HW_TOKEN);
     }
 

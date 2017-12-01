@@ -29,6 +29,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
+import com.meizu.cloud.pushsdk.base.ExecutorProxy;
 import com.meizu.cloud.pushsdk.platform.PlatformMessageSender;
 import com.meizu.cloud.pushsdk.util.MzSystemUtils;
 import com.meizu.upspushsdklib.CommandType;
@@ -75,9 +76,19 @@ public abstract class CommandMessageDispatcher<T> {
      * 根据消息类型上报到ups平台并将消息发送至upsPushReceiver
      * */
     public void dispatch(){
-        T upsPlatformMessage = upsPlatformMessage();
-        UpsLogger.i(this,"current upsCommandType "+upsCommandMessage.getCommandType() + " upsPlatformMessage "+upsPlatformMessage);
-        sendMessageToUpsReceiver();
+        ExecutorProxy.get().execute(new Runnable() {
+            @Override
+            public void run() {
+                if(CommandType.REGISTER == upsCommandMessage.getCommandType()){
+                    UpsLogger.e(CommandMessageDispatcher.class,"store company "+upsCommandMessage.getCompany()+" token "+upsCommandMessage.getCommandResult());
+                    AbstractHandler.putCompanyToken(context,upsCommandMessage.getCommandResult());
+                }
+                T upsPlatformMessage = upsPlatformMessage();
+                UpsLogger.i(CommandMessageDispatcher.class,"current upsCommandType "+upsCommandMessage.getCommandType() + " upsPlatformMessage "+upsPlatformMessage);
+                sendMessageToUpsReceiver();
+            }
+        });
+
     }
 
 
@@ -102,15 +113,15 @@ public abstract class CommandMessageDispatcher<T> {
      * */
     public String getDeviceId(){
         String deviceId = null;
-        if(Company.HUAWEI == upsCommandMessage.getCompany()
-                && upsCommandMessage.getCommandType() == CommandType.REGISTER
-                && !TextUtils.isEmpty(upsCommandMessage.getCommandResult())){
-            AbstractHandler.putHWToken(context,upsCommandMessage.getCommandResult());
-            //get deviceId from huawei token
-            //deviceId = upsCommandMessage.getCommandResult().substring(1,16);
-            //UpsLogger.e(this,"get deviceId from hw token "+deviceId);
-            //AbstractHandler.putDeviceId(context,deviceId);
-        }
+//        if(Company.HUAWEI == upsCommandMessage.getCompany()
+//                && upsCommandMessage.getCommandType() == CommandType.REGISTER
+//                && !TextUtils.isEmpty(upsCommandMessage.getCommandResult())){
+//            AbstractHandler.putCompanyToken(context,upsCommandMessage.getCommandResult());
+//            get deviceId from huawei token
+//            deviceId = upsCommandMessage.getCommandResult().substring(1,16);
+//            UpsLogger.e(this,"get deviceId from hw token "+deviceId);
+//            AbstractHandler.putDeviceId(context,deviceId);
+//        }
 
 //        if(TextUtils.isEmpty(deviceId)){
 //            deviceId = AbstractHandler.getDeviceId(context);
@@ -135,6 +146,9 @@ public abstract class CommandMessageDispatcher<T> {
         return AbstractHandler.getUpsPushId(context);
     }
 
+    public String getCompanyToken(){
+        return AbstractHandler.getCompanyToken(context);
+    }
 
     /**
      * 发送消息至UpsPushMessageReceiver

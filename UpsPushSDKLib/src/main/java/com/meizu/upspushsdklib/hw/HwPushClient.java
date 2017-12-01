@@ -124,7 +124,7 @@ public class HwPushClient implements HuaweiApiClient.OnConnectionFailedListener 
             @Override
             public void run() {
                 //调用删除token需要传入通过getToken接口获取到token，并且需要对token进行非空判断
-                String token = AbstractHandler.getHwToken(mContext);
+                String token = AbstractHandler.getCompanyToken(mContext);
                 UpsLogger.e(this," delete hw token "+token);
                 if (!TextUtils.isEmpty(token)){
                     try {

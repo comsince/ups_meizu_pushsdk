@@ -106,7 +106,7 @@ public class UpsPushAPI {
         HashMap<String,String> requestMap = new LinkedHashMap<>();
         requestMap.putAll(paramsMap);
         requestMap.put("sign", SignUtils.getSignature(paramsMap, appKey));
-        UpsLogger.i(UpsPushAPI.class, "register post map " + requestMap);
+        UpsLogger.i(UpsPushAPI.class, "unRegister post map " + requestMap);
         return AndroidNetworking.get(UNREGISTER_URL_PREFIX)
                 .addQueryParameter(requestMap)
                 .build()
@@ -133,7 +133,7 @@ public class UpsPushAPI {
         HashMap<String,String> requestMap = new LinkedHashMap<>();
         requestMap.putAll(paramsMap);
         requestMap.put("sign", SignUtils.getSignature(paramsMap, appKey));
-        UpsLogger.i(UpsPushAPI.class, "register post map " + requestMap);
+        UpsLogger.i(UpsPushAPI.class, "setAlias post map " + requestMap);
         return AndroidNetworking.get(SET_ALIAS_URL_PREFIX)
                 .addQueryParameter(requestMap)
                 .build()
@@ -159,7 +159,7 @@ public class UpsPushAPI {
         HashMap<String,String> requestMap = new LinkedHashMap<>();
         requestMap.putAll(paramsMap);
         requestMap.put("sign", SignUtils.getSignature(paramsMap, appKey));
-        UpsLogger.i(UpsPushAPI.class, "register post map " + requestMap);
+        UpsLogger.i(UpsPushAPI.class, "unSetAlias post map " + requestMap);
         return AndroidNetworking.get(UNSET_ALIAS_URL_PREFIX)
                 .addQueryParameter(requestMap)
                 .build()
