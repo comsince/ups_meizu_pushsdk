@@ -28,6 +28,6 @@ dependencies {
     //不再打包小米jar至aar中,开发者集成时需要手动加入小米的pushSDK jar包
     provided files('libs/MiPush_SDK_Client_3_4_5.jar')
     compile 'com.huawei.android.hms:push:2.5.2.300'
-    compile 'com.meizu.flyme.internet:push-internal:3.5.0@aar'
+    compile 'com.meizu.flyme.internet:push-internal:3.5.2@aar'
 
 }
