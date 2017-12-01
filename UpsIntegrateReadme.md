@@ -233,7 +233,7 @@ intent:#Intent;component=com.meizu.upspushdemo/.TestActivity;S.key=value;end
     }
 ```
 
-### 3.5 打开自定Intent URI
+### 3.5 打开自定义Intent URI
 
 * 魅族
   * 点击动作：打开URI页面
