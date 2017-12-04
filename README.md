@@ -1,6 +1,6 @@
 # 集成推送平台PushSDK设计文档
 
-[![License][license-image]][license]
+[![License][license-image]][license] [![Release][release-image]][releases]
 
 此文档在于向开发者介绍魅族统一推送平台PushSDK如何对各个厂家的PushSDK进行整合以及我们在统一接口设计中遵循的规则，由于各个厂家的API接口
 功能差异巨大我们只对各个厂商共用的接口进行统一封装，当然你也可以直接使用厂商提供的接口。UpsPushSDK设计初衷不仅仅是在帮助开发者接入魅族的统一推送
@@ -285,3 +285,6 @@ UpsPushMessageReceiver是一个抽象的BroadcastReceiver类，为了统一各�
  
  [license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
  [license]: https://opensource.org/licenses/MIT
+ 
+ [release-image]: http://img.shields.io/badge/release-1.0.2-blue.svg?style=flat
+ [releases]: https://bintray.com/meizupush/PushSDK/ups_meizu_pushsdk
