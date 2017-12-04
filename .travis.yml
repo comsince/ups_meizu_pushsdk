@@ -1,0 +1,36 @@
+sudo: required
+language: android
+jdk: oraclejdk8
+
+env:
+  matrix:
+    - ANDROID_SDKS=android-19 ANDROID_TARGET=android-19 ANDROID_ABI=armeabi-v7a ANDROID_TRAVIS=1
+  global:
+    - secure: "pkt0Y6LdYl2Fgd7h8Q/6RQvqWdRU0sUz5irvZwtonbEH7DPxMgZNv/hXQrrjT9PoaM4RGNPyLX3/FrUSeSnY+OLKfdbDhhWFkY/Wjd+h9JAw2vnzy7VG9/s7l7jDYcQXIZlBwSBsbwHjCKhtismXL6FDWcKl19GlFH8IkKKBSmRFKO7okBKDe2nk9u0MY/J9uuZLvvQTosWV1Gvm+TjMiLbGuQdjpKdq7Kn6MA+8PwHl/9ja1e3bSd0aXZuOm4KD55DyHUQoI/ZkgutFwx2yJqtTJNQsfLJ8E9IfHusZQIHe5QBVOJiwOTlYQXysbp+8j2Iw2uQ25bHTlu5ceCT+BymOsGAe/Ku/93Td88w3zAE4Wk9Ti7uXYyDSFLnwnAWJrunk8kCNUzpuPX39o/un6aZQGCRKYDTuIkGn0vHkxG0HfiCAoBMdb6HQ3JEcC9s/wIQZk6q8rx+o5GweYUKm8Y6VgJN/fZX7C5OO+N+4DAz48oO1xB1SRKloL0Db9X9wCovBa5I+FmuCrecPmXWzFPDMe19xas0PcrxLpQjTrTrB8InL62dYaZT2LjGE7WA2cjSqYSVpmCzLBpOknd7ce5N6xxapjCxNUZQSS+rxigB6DquNA2i7FJT26OoPYH3GuA7iOl34VGWj1IZQ7VQwxWNBT6Zy0IM/vchIvvi7Ddo="
+android:
+  components:
+    - tools
+    - platform-tools
+    - build-tools-26.0.1
+    - android-26
+    - extra-android-support
+    - extra-google-m2repository
+    - extra-google-google_play_services
+    - extra-android-m2repository
+
+before_script:
+  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - chmod +x ./ci/wait_for_emulator
+  - ./ci/wait_for_emulator
+  - adb shell input keyevent 82 &
+
+script:
+  - ./gradlew clean assemble
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: ./.travis/deploy.sh $TRAVIS_TAG
+  on:
+    tags: true
