@@ -33,9 +33,7 @@ import com.meizu.upspushsdklib.Company;
 import com.meizu.upspushsdklib.UpsCommandMessage;
 import com.meizu.upspushsdklib.handler.HandlerContext;
 import com.meizu.upspushsdklib.handler.UpsHandler;
-import com.meizu.upspushsdklib.hw.HwPushClient;
 import com.meizu.upspushsdklib.receiver.dispatcher.CommandMessageDispatcher;
-import com.meizu.upspushsdklib.util.UpsConstantCode;
 import com.meizu.upspushsdklib.util.UpsLogger;
 
 
