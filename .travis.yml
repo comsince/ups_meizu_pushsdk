@@ -23,6 +23,7 @@ before_script:
 
 script:
   - ./gradlew clean assemble
+  - ./gradlew -p UpsPushSDKLib/ -Partifactory.user=comsince -Partifactory.password=213d81ea85cb01760a11efa478ed316733e83850 aP
 
 deploy:
   skip_cleanup: true
