@@ -1,6 +1,6 @@
 # 集成推送平台PushSDK设计文档
 
-[![Build Status][travis-image]][travis] [![License][license-image]][license] [![Release][release-image]][releases]
+[![Build Status][travis-image]][travis] [![License][license-image]][license] [![Release][release-image]][releases] [![Javadoc][java-doc-image]][java-doc]
 
 此文档在于向开发者介绍魅族统一推送平台PushSDK如何对各个厂家的PushSDK进行整合以及我们在统一接口设计中遵循的规则，由于各个厂家的API接口
 功能差异巨大我们只对各个厂商共用的接口进行统一封装，当然你也可以直接使用厂商提供的接口。UpsPushSDK设计初衷不仅仅是在帮助开发者接入魅族的统一推送
@@ -294,3 +294,6 @@ UpsPushMessageReceiver是一个抽象的BroadcastReceiver类，为了统一各�
  
  [travis]: https://www.travis-ci.org/comsince/ups_meizu_pushsdk
  [travis-image]: https://www.travis-ci.org/comsince/ups_meizu_pushsdk.svg?branch=master
+ 
+ [java-doc-image]: https://img.shields.io/badge/javadoc-release-brightgreen.svg
+ [java-doc]: https://comsince.github.io/ups_meizu_pushsdk/index.html
