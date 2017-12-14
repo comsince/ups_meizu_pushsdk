@@ -121,7 +121,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 UpsPushManager.unSetAlias(this,"ups");
                 break;
             case R.id.btn_server_push:
-                MiServerPushUtil.openLauncherActivity(xmToken);
                 break;
             default:
                 break;

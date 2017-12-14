@@ -1,5 +1,12 @@
 本文档旨在说明如果快速的接入集成推送SDK,快速实现小米,华为,魅族的推送接入，有关详细的设计文档参考`集成推送设计说明文档`
 
+## 准备工作
+
+编译本项目,配置完android sdk后执行以下命令，或者你可以将本工程导入到android studio中
+```
+ ./gradlew clean assemble
+```
+
 ## 一 AndroidManifest配置
 
 由于三方SDK的权限,组件全部配置在`ups-push-sdk`的aar的`AndroidManifest`中,因此开发者只需关注各个平台与应用相关的配置即可,更加详细的配置参考`Ups_PushDemo`
@@ -61,7 +68,18 @@
       android:value="${HUAWEI_APP_ID}" />
 ```
 
+### 1.4  库引入说明
 
+魅族，华为的包默认依赖相关的artifactory库，需要在你的工程根目录加入如下maven url配置
+```
+       //魅族的pushsdk存放在jcenter中
+       jcenter()
+       //华为的库存放其私有仓库中
+       maven {
+            url 'http://developer.huawei.com/repo/'
+        }
+```
+小米的库需要手动将其jar放到工程的lib目录下，小米的pushsdk jar[下载](https://dev.mi.com/mipush/downpage/)
 
 ## 二 统一推送平台配置
 
