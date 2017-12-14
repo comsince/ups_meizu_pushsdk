@@ -17,7 +17,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 3
-        versionName "1.0.2"
+        versionName "1.0.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         manifestPlaceholders = [XIAOMI_APP_ID: xmAppId, XIAOMI_APP_KEY: xmAppKey,MEIZU_APP_ID: mzAppId, MEIZU_APP_KEY: mzAppKey, HUAWEI_APP_ID: hwAppId, PACKAGE_NAME: appPackageName]

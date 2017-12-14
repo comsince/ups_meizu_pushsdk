@@ -28,6 +28,8 @@ package com.meizu.upspushsdklib.receiver.dispatcher;
 import com.meizu.cloud.pushsdk.networking.AndroidNetworking;
 import com.meizu.cloud.pushsdk.networking.common.ANResponse;
 import com.meizu.cloud.pushsdk.platform.SignUtils;
+import com.meizu.upspushsdklib.network.Response;
+import com.meizu.upspushsdklib.network.Webb;
 import com.meizu.upspushsdklib.util.UpsLogger;
 
 import java.util.HashMap;
@@ -87,6 +89,30 @@ public class UpsPushAPI {
                 .addQueryParameter(requestMap)
                 .build()
                 .executeForString();
+    }
+
+    /**
+     * 同步订阅接口
+     * @param appId ups平台申请的appid
+     * @param appKey ups平台申请的appkey
+     * @param company  厂商信息
+     * @param packageName 订阅的包名
+     * @param deviceId 手机唯一识别标志
+     * */
+    public static Response<String> register0(String appId, String appKey, int company, String packageName, String deviceId, String token){
+        HashMap<String,String> paramsMap = new LinkedHashMap<>();
+        paramsMap.put("appId",appId);
+        paramsMap.put("cp",String.valueOf(company));
+        paramsMap.put("pkg",packageName);
+        paramsMap.put("deviceId",deviceId);
+        paramsMap.put("token",token);
+        HashMap<String,Object> requestMap = new LinkedHashMap<>();
+        requestMap.putAll(paramsMap);
+        requestMap.put("sign", SignUtils.getSignature(paramsMap, appKey));
+        UpsLogger.i(UpsPushAPI.class, "register post map " + requestMap);
+        return Webb.create().get(REGISTER_URL_PREFIX)
+                .params(requestMap)
+                .asString();
     }
 
     /**

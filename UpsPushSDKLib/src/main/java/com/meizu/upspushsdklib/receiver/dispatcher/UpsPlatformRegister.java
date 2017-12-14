@@ -31,6 +31,7 @@ import com.meizu.cloud.pushsdk.networking.common.ANResponse;
 import com.meizu.cloud.pushsdk.platform.message.RegisterStatus;
 import com.meizu.upspushsdklib.UpsCommandMessage;
 import com.meizu.upspushsdklib.handler.impl.AbstractHandler;
+import com.meizu.upspushsdklib.network.Response;
 import com.meizu.upspushsdklib.util.UpsConstantCode;
 import com.meizu.upspushsdklib.util.UpsLogger;
 
@@ -50,6 +51,13 @@ class UpsPlatformRegister extends CommandMessageDispatcher<RegisterStatus>{
         boolean flag = !TextUtils.isEmpty(upsPushId) && System.currentTimeMillis()/1000 < expireTime;
         if(!flag){
             UpsLogger.e(this,"retry register ups pushId ");
+
+            Response<String> response = UpsPushAPI.register0(getUpsAppId(),getUpsAppKey(),
+                    upsCommandMessage.getCompany().code(),
+                    context.getPackageName(),
+                    getDeviceId(),
+                    upsCommandMessage.getCommandResult());
+            UpsLogger.e(this,"web response "+response.getResponseMessage());
 
             ANResponse<String> anResponse = UpsPushAPI.register(getUpsAppId(),getUpsAppKey(),
                     upsCommandMessage.getCompany().code(),
