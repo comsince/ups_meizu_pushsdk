@@ -25,6 +25,8 @@
 package com.meizu.upspushsdklib.util;
 
 
+import android.util.Log;
+
 import com.meizu.cloud.pushinternal.DebugLogger;
 import com.meizu.upspushsdklib.UpsPushManager;
 
@@ -40,6 +42,10 @@ public class UpsLogger {
 
     public static void e(Object tag, String message){
         DebugLogger.e(getLogTAG(tag),message);
+    }
+
+    public static void e(Object tag, String message,Throwable e){
+        DebugLogger.e(getLogTAG(tag),message + Log.getStackTraceString(e));
     }
 
     public static void w(Object tag, String message){

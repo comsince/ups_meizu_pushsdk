@@ -22,25 +22,8 @@
  * SOFTWARE.
  */
 
-package com.meizu.upspushsdklib.handler;
+package com.meizu.upspushsdklib.util;
 
-final class DefaultHandlerContext extends AbstractHandlerContext{
+public class UpsSystemUtils {
 
-    private UpsHandler handler;
-
-    public DefaultHandlerContext(DefaultHandlerPipeline pipeline,String name, UpsHandler handler) {
-        super(name, pipeline);
-        this.handler = handler;
-    }
-
-
-    @Override
-    public boolean isNextHandlerContext() {
-        return handler.isCurrentModel(this);
-    }
-
-    @Override
-    public UpsHandler handler() {
-        return handler;
-    }
 }

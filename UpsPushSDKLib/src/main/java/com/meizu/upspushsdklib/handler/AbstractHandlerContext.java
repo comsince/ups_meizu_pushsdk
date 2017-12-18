@@ -73,7 +73,7 @@ abstract class AbstractHandlerContext implements HandlerContext{
         AbstractHandlerContext ctx = this;
         do {
             ctx = ctx.next;
-        } while (!ctx.isCurrentModel());
+        } while (!ctx.isNextHandlerContext());
         return ctx;
     }
 

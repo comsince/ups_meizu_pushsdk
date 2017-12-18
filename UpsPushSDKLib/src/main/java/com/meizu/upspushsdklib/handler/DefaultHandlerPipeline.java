@@ -147,8 +147,13 @@ final class DefaultHandlerPipeline implements HandlerPipeline {
         }
 
         @Override
-        public boolean isCurrentModel() {
+        public boolean isCurrentModel(HandlerContext ctx) {
             return true;
+        }
+
+        @Override
+        public boolean isNextHandlerContext() {
+            return isCurrentModel(null);
         }
 
         @Override
@@ -191,7 +196,12 @@ final class DefaultHandlerPipeline implements HandlerPipeline {
         }
 
         @Override
-        public boolean isCurrentModel() {
+        public boolean isCurrentModel(HandlerContext ctx) {
+            return false;
+        }
+
+        @Override
+        public boolean isNextHandlerContext() {
             return false;
         }
 

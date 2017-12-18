@@ -54,7 +54,7 @@ public class HuaWeiHandler extends AbstractHandler implements HuaweiApiClient.Co
     }
 
     @Override
-    public boolean isCurrentModel() {
+    public boolean isCurrentModel(HandlerContext ctx) {
         return UpsUtils.isHuaWei();
     }
 

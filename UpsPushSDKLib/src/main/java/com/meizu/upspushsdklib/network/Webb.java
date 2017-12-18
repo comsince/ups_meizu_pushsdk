@@ -99,7 +99,7 @@ public class Webb {
      * @param value value of the header. If <code>null</code> the header value is cleared (effectively not set).
      *
      * @see #setDefaultHeader(String, Object)
-     * @see com.goebl.david.Request#header(String, Object)
+     * @see com.meizu.upspushsdklib.network.Request#header(String, Object)
      */
     public static void setGlobalHeader(String name, Object value) {
         if (value != null) {
@@ -221,7 +221,7 @@ public class Webb {
      * Set the value for a named header which is valid for all requests created by this instance.
      * <br>
      * The value takes precedence over {@link Webb#setGlobalHeader(String, Object)} but can be overwritten by
-     * {@link com.goebl.david.Request#header(String, Object)}.
+     * {@link com.meizu.upspushsdklib.network.Request#header(String, Object)}.
      * <br>
      * For the supported types for values see {@link Request#header(String, Object)}.
      *
@@ -230,7 +230,7 @@ public class Webb {
      *              When setting the value to null, a value from global headers can shine through.
      *
      * @see #setGlobalHeader(String, Object)
-     * @see com.goebl.david.Request#header(String, Object)
+     * @see com.meizu.upspushsdklib.network.Request#header(String, Object)
      */
     public void setDefaultHeader(String name, Object value) {
         if (defaultHeaders == null) {
@@ -244,7 +244,7 @@ public class Webb {
     }
 
     /**
-     * Registers an alternative {@link com.goebl.david.RetryManager}.
+     * Registers an alternative {@link com.meizu.upspushsdklib.network.RetryManager}.
      * @param retryManager the new manager for deciding whether it makes sense to retry a request.
      */
     public void setRetryManager(RetryManager retryManager) {

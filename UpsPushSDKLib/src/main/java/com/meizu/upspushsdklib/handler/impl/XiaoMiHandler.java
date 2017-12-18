@@ -29,6 +29,7 @@ import android.text.TextUtils;
 
 import com.meizu.upspushsdklib.CommandType;
 import com.meizu.upspushsdklib.Company;
+import com.meizu.upspushsdklib.handler.HandlerContext;
 import com.meizu.upspushsdklib.util.UpsLogger;
 import com.meizu.upspushsdklib.util.UpsUtils;
 import com.xiaomi.mipush.sdk.MiPushClient;
@@ -41,7 +42,7 @@ public class XiaoMiHandler extends AbstractHandler{
 
 
     @Override
-    public boolean isCurrentModel() {
+    public boolean isCurrentModel(HandlerContext ctx) {
         return UpsUtils.isXiaoMi();
     }
 

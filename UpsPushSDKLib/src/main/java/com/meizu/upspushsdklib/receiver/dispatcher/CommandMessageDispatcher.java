@@ -28,14 +28,12 @@ package com.meizu.upspushsdklib.receiver.dispatcher;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
-
-import com.meizu.cloud.pushsdk.base.ExecutorProxy;
-import com.meizu.cloud.pushsdk.platform.PlatformMessageSender;
 import com.meizu.cloud.pushsdk.util.MzSystemUtils;
 import com.meizu.upspushsdklib.CommandType;
 import com.meizu.upspushsdklib.Company;
 import com.meizu.upspushsdklib.UpsCommandMessage;
 import com.meizu.upspushsdklib.handler.impl.AbstractHandler;
+import com.meizu.upspushsdklib.util.ExecutorProxy;
 import com.meizu.upspushsdklib.util.UpsConstants;
 import com.meizu.upspushsdklib.util.UpsLogger;
 
@@ -76,7 +74,7 @@ public abstract class CommandMessageDispatcher<T> {
      * 根据消息类型上报到ups平台并将消息发送至upsPushReceiver
      * */
     public void dispatch(){
-        ExecutorProxy.get().execute(new Runnable() {
+        ExecutorProxy.execute(new Runnable() {
             @Override
             public void run() {
                 if(CommandType.REGISTER == upsCommandMessage.getCommandType()){
@@ -158,7 +156,7 @@ public abstract class CommandMessageDispatcher<T> {
         Intent intent = new Intent(UpsConstants.UPS_MEIZU_PUSH_ON_MESSAGE_ACTION);
         intent.putExtra(UpsConstants.UPS_MEIZU_PUSH_METHOD,UpsConstants.UPS_MEIZU_PUSH_METHOD_ON_COMMAND_RESULT);
         intent.putExtra(UpsConstants.UPS_MEIZU_PUSH_EXTRA_UPS_MESSAGE,upsCommandMessage);
-        PlatformMessageSender.sendMessageFromBroadcast(context,intent,UpsConstants.UPS_MEIZU_PUSH_ON_MESSAGE_ACTION,context.getPackageName());
+        MzSystemUtils.sendMessageFromBroadcast(context,intent,UpsConstants.UPS_MEIZU_PUSH_ON_MESSAGE_ACTION,context.getPackageName());
     }
 
     static class DefaultCommandMessageDispatcher extends CommandMessageDispatcher{

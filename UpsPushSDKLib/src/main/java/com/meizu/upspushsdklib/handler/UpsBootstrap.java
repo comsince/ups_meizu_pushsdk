@@ -26,11 +26,11 @@ package com.meizu.upspushsdklib.handler;
 
 import android.content.Context;
 
-import com.meizu.cloud.pushsdk.base.ExecutorProxy;
 import com.meizu.upspushsdklib.handler.impl.AppSettingHandler;
 import com.meizu.upspushsdklib.handler.impl.HuaWeiHandler;
 import com.meizu.upspushsdklib.handler.impl.MeizuHandler;
 import com.meizu.upspushsdklib.handler.impl.XiaoMiHandler;
+import com.meizu.upspushsdklib.util.ExecutorProxy;
 
 import java.util.concurrent.Executor;
 
@@ -51,11 +51,11 @@ public class UpsBootstrap {
     }
 
     public static Executor executor(){
-        return ExecutorProxy.get();
+        return ExecutorProxy.getExecutor();
     }
 
     private UpsBootstrap(Context context){
-        executor = ExecutorProxy.get();
+        executor = ExecutorProxy.getExecutor();
         defaultHandlerPipeline = new DefaultHandlerPipeline(context);
         defaultHandlerPipeline
                 .addLast(new AppSettingHandler())

@@ -55,8 +55,9 @@ public interface UpsHandler {
 
     /**
      * 当前逻辑是否适配此机型或者时系统版本
+     * @param ctx
      * */
-    boolean isCurrentModel();
+    boolean isCurrentModel(HandlerContext ctx);
     /**
      * handle名称
      * */

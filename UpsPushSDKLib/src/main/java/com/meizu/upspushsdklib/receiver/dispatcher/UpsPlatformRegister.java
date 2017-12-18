@@ -27,7 +27,6 @@ package com.meizu.upspushsdklib.receiver.dispatcher;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.meizu.cloud.pushsdk.networking.common.ANResponse;
 import com.meizu.cloud.pushsdk.platform.message.RegisterStatus;
 import com.meizu.upspushsdklib.UpsCommandMessage;
 import com.meizu.upspushsdklib.handler.impl.AbstractHandler;
@@ -59,13 +58,13 @@ class UpsPlatformRegister extends CommandMessageDispatcher<RegisterStatus>{
                     upsCommandMessage.getCommandResult());
             UpsLogger.e(this,"web response "+response.getResponseMessage());
 
-            ANResponse<String> anResponse = UpsPushAPI.register(getUpsAppId(),getUpsAppKey(),
-                    upsCommandMessage.getCompany().code(),
-                    context.getPackageName(),
-                    getDeviceId(),
-                    upsCommandMessage.getCommandResult());
-            if(anResponse.isSuccess()){
-                registerStatus = new RegisterStatus(anResponse.getResult());
+//            ANResponse<String> anResponse = UpsPushAPI.register(getUpsAppId(),getUpsAppKey(),
+//                    upsCommandMessage.getCompany().code(),
+//                    context.getPackageName(),
+//                    getDeviceId(),
+//                    upsCommandMessage.getCommandResult());
+            if(response.isSuccess()){
+                registerStatus = new RegisterStatus(response.getBody());
                 UpsLogger.e(this,"platform register status "+registerStatus);
                 upsCommandMessage.setCommandResult(registerStatus.getPushId());
                 upsCommandMessage.setCode(Integer.valueOf(registerStatus.getCode()));
@@ -73,9 +72,9 @@ class UpsPlatformRegister extends CommandMessageDispatcher<RegisterStatus>{
                 AbstractHandler.putUpsPushId(context,registerStatus.getPushId());
                 AbstractHandler.putUpsExpireTime(context,registerStatus.getExpireTime()+(int) (System.currentTimeMillis()/1000));
             } else {
-                UpsLogger.e(this,"platform register error "+anResponse.getError());
-                upsCommandMessage.setCode(anResponse.getError().getErrorCode());
-                upsCommandMessage.setMessage(anResponse.getError().getErrorBody());
+                UpsLogger.e(this,"platform register error "+response.getErrorBody());
+                upsCommandMessage.setCode(response.getStatusCode());
+                upsCommandMessage.setMessage(response.getErrorBody().toString());
             }
         } else {
             upsCommandMessage.setCode(UpsConstantCode.SUCCESS);

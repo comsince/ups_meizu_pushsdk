@@ -29,6 +29,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.meizu.cloud.pushsdk.platform.PlatformMessageSender;
+import com.meizu.cloud.pushsdk.util.MzSystemUtils;
 import com.meizu.upspushsdklib.UpsPushMessage;
 import com.meizu.upspushsdklib.UpsPushMessageType;
 import com.meizu.upspushsdklib.util.UpsConstants;
@@ -59,7 +60,7 @@ public class UpsPushMessageDispatcher {
                  intent.putExtra(UpsConstants.UPS_MEIZU_PUSH_METHOD,UpsConstants.UPS_MEIZU_PUSH_METHOD_ON_THROUGH_MESSAGE);
                  break;
          }
-        PlatformMessageSender.sendMessageFromBroadcast(context,intent,UpsConstants.UPS_MEIZU_PUSH_ON_MESSAGE_ACTION,context.getPackageName());
+        MzSystemUtils.sendMessageFromBroadcast(context,intent,UpsConstants.UPS_MEIZU_PUSH_ON_MESSAGE_ACTION,context.getPackageName());
     }
 
 }

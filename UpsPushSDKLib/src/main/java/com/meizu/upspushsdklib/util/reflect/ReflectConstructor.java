@@ -22,25 +22,31 @@
  * SOFTWARE.
  */
 
-package com.meizu.upspushsdklib.handler;
+package com.meizu.upspushsdklib.util.reflect;
 
-final class DefaultHandlerContext extends AbstractHandlerContext{
+import com.meizu.upspushsdklib.util.UpsLogger;
 
-    private UpsHandler handler;
+import java.lang.reflect.Constructor;
+public class ReflectConstructor {
+    private String TAG = "ReflectConstructor";
+    private ReflectClass mReflectClass;
+    private Class<?>[] mTypes;
 
-    public DefaultHandlerContext(DefaultHandlerPipeline pipeline,String name, UpsHandler handler) {
-        super(name, pipeline);
-        this.handler = handler;
+    ReflectConstructor(ReflectClass reflectClass, Class<?>... types) {
+        mReflectClass = reflectClass;
+        mTypes = types;
     }
 
-
-    @Override
-    public boolean isNextHandlerContext() {
-        return handler.isCurrentModel(this);
-    }
-
-    @Override
-    public UpsHandler handler() {
-        return handler;
+    public <T> Result<T> newInstance(Object... args) {
+        Result<T> result = new Result<>();
+        try {
+            Constructor<?> constructor = mReflectClass.getRealClass().getDeclaredConstructor(mTypes);
+            constructor.setAccessible(true);
+            result.value = (T) constructor.newInstance(args);
+            result.ok = true;
+        } catch (Exception e) {
+            UpsLogger.e(TAG, "newInstance", e);
+        }
+        return result;
     }
 }

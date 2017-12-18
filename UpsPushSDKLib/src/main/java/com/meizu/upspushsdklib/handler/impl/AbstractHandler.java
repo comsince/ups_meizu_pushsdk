@@ -27,7 +27,6 @@ package com.meizu.upspushsdklib.handler.impl;
 
 import android.content.Context;
 
-import com.meizu.cloud.pushsdk.util.PushPreferencesUtils;
 import com.meizu.upspushsdklib.CommandType;
 import com.meizu.upspushsdklib.Company;
 import com.meizu.upspushsdklib.UpsCommandMessage;
@@ -35,6 +34,7 @@ import com.meizu.upspushsdklib.handler.HandlerContext;
 import com.meizu.upspushsdklib.handler.UpsHandler;
 import com.meizu.upspushsdklib.receiver.dispatcher.CommandMessageDispatcher;
 import com.meizu.upspushsdklib.util.UpsLogger;
+import com.meizu.upspushsdklib.util.UpsPreferenceUtils;
 
 
 public abstract class AbstractHandler implements UpsHandler{
@@ -134,50 +134,50 @@ public abstract class AbstractHandler implements UpsHandler{
      * @param deviceModel 机型信息
      * */
     protected void putAppId(Context context, String deviceModel, String appId){
-        PushPreferencesUtils.putStringByKey(context,APP_PUSH_SETTING_PREFERENCE_NAME,deviceModel+"."+context.getPackageName() + KEY_APP_ID_PRFIX,appId);
+        UpsPreferenceUtils.putStringByKey(context,APP_PUSH_SETTING_PREFERENCE_NAME,deviceModel+"."+context.getPackageName() + KEY_APP_ID_PRFIX,appId);
     }
 
     protected void putAppKey(Context context,String deviceModel,String appKey){
-        PushPreferencesUtils.putStringByKey(context,APP_PUSH_SETTING_PREFERENCE_NAME,deviceModel+"."+context.getPackageName() + KEY_APP_KEY_PREIX,appKey);
+        UpsPreferenceUtils.putStringByKey(context,APP_PUSH_SETTING_PREFERENCE_NAME,deviceModel+"."+context.getPackageName() + KEY_APP_KEY_PREIX,appKey);
     }
 
     public static String getAppId(Context context,String deviceModel){
-        return PushPreferencesUtils.getStringBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,deviceModel+"."+context.getPackageName() + KEY_APP_ID_PRFIX);
+        return UpsPreferenceUtils.getStringBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,deviceModel+"."+context.getPackageName() + KEY_APP_ID_PRFIX);
     }
 
     public static String getAppKey(Context context,String deviceModel){
-        return PushPreferencesUtils.getStringBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,deviceModel+"."+context.getPackageName() + KEY_APP_KEY_PREIX);
+        return UpsPreferenceUtils.getStringBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,deviceModel+"."+context.getPackageName() + KEY_APP_KEY_PREIX);
     }
 
     public static void putUpsPushId(Context context,String pushId){
-        PushPreferencesUtils.putStringByKey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName() + KEY_APP_UPS_PUSH_ID,pushId);
+        UpsPreferenceUtils.putStringByKey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName() + KEY_APP_UPS_PUSH_ID,pushId);
     }
 
     public static String getUpsPushId(Context context){
-       return PushPreferencesUtils.getStringBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName() + KEY_APP_UPS_PUSH_ID);
+       return UpsPreferenceUtils.getStringBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName() + KEY_APP_UPS_PUSH_ID);
     }
 
     public static void putUpsExpireTime(Context context,int expireTime){
-        PushPreferencesUtils.putIntBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+KEY_APP_UPS_PUSH_ID_EXPIRE_TIME,expireTime);
+        UpsPreferenceUtils.putIntBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+KEY_APP_UPS_PUSH_ID_EXPIRE_TIME,expireTime);
     }
 
     public static int getUpsExpireTime(Context context){
-        return PushPreferencesUtils.getIntBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+KEY_APP_UPS_PUSH_ID_EXPIRE_TIME);
+        return UpsPreferenceUtils.getIntBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+KEY_APP_UPS_PUSH_ID_EXPIRE_TIME);
     }
 
     public static void putCompanyToken(Context context,String token){
-        PushPreferencesUtils.putStringByKey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+KEY_APP_HW_TOKEN,token);
+        UpsPreferenceUtils.putStringByKey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+KEY_APP_HW_TOKEN,token);
     }
 
     public static String getCompanyToken(Context context){
-        return PushPreferencesUtils.getStringBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+KEY_APP_HW_TOKEN);
+        return UpsPreferenceUtils.getStringBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+KEY_APP_HW_TOKEN);
     }
 
     public static void putDeviceId(Context context,String deviceId){
-        PushPreferencesUtils.putDeviceId(context,deviceId);
+        UpsPreferenceUtils.putDeviceId(context,deviceId);
     }
 
     public static String getDeviceId(Context context){
-        return PushPreferencesUtils.getDeviceId(context);
+        return UpsPreferenceUtils.getDeviceId(context);
     }
 }

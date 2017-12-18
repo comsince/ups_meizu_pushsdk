@@ -22,25 +22,23 @@
  * SOFTWARE.
  */
 
-package com.meizu.upspushsdklib.handler;
-
-final class DefaultHandlerContext extends AbstractHandlerContext{
-
-    private UpsHandler handler;
-
-    public DefaultHandlerContext(DefaultHandlerPipeline pipeline,String name, UpsHandler handler) {
-        super(name, pipeline);
-        this.handler = handler;
-    }
+package com.meizu.upspushsdklib.util;
 
 
-    @Override
-    public boolean isNextHandlerContext() {
-        return handler.isCurrentModel(this);
-    }
+import com.meizu.upspushsdklib.util.reflect.ReflectClass;
+import com.meizu.upspushsdklib.util.reflect.Result;
 
-    @Override
-    public UpsHandler handler() {
-        return handler;
+public class SystemProperties {
+    private static final String CLASS_NAME = "android.os.SystemProperties";
+    private static final String METHOD_GET = "get";
+
+    public static String get(String name) {
+        Result<String> result = ReflectClass.forName(CLASS_NAME)
+                .method(METHOD_GET, String.class)
+                .invoke(name);
+        if(result.ok) {
+            return result.value;
+        }
+        return null;
     }
 }

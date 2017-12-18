@@ -28,6 +28,7 @@ import android.content.Context;
 
 import com.meizu.cloud.pushsdk.PushManager;
 import com.meizu.upspushsdklib.Company;
+import com.meizu.upspushsdklib.handler.HandlerContext;
 import com.meizu.upspushsdklib.util.UpsUtils;
 
 
@@ -54,8 +55,8 @@ public class MeizuHandler extends AbstractHandler{
     }
 
     @Override
-    public boolean isCurrentModel() {
-        return UpsUtils.isMeizu();
+    public boolean isCurrentModel(HandlerContext ctx) {
+        return UpsUtils.isMeizu(ctx.pipeline().context());
     }
 
     @Override

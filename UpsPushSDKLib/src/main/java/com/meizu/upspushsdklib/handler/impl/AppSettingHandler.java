@@ -27,10 +27,10 @@ package com.meizu.upspushsdklib.handler.impl;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.meizu.cloud.pushsdk.networking.common.ANResponse;
 import com.meizu.cloud.pushsdk.platform.message.BasicPushStatus;
 import com.meizu.upspushsdklib.Company;
 import com.meizu.upspushsdklib.handler.HandlerContext;
+import com.meizu.upspushsdklib.network.Response;
 import com.meizu.upspushsdklib.receiver.dispatcher.UpsPushAPI;
 import com.meizu.upspushsdklib.util.UpsLogger;
 import com.meizu.upspushsdklib.util.UpsUtils;
@@ -50,13 +50,15 @@ public class AppSettingHandler extends AbstractHandler{
             putAppKey(context,Company.DEFAULT.name(),appKey);
         }
 
-        if(UpsUtils.isMeizu()){
+        if(UpsUtils.isMeizu(context)){
             setAppInfo(ctx,appId,appKey,Company.MEIZU);
         } else if(UpsUtils.isXiaoMi()){
             setAppInfo(ctx,appId,appKey,Company.XIAOMI);
         } else if(UpsUtils.isHuaWei()){
             UpsLogger.e(this,"current device model is huawei");
             ctx.fireRegister(null,null);
+        } else {
+            UpsLogger.e(this,"other mode "+UpsUtils.deviceModel());
         }
     }
 
@@ -82,16 +84,17 @@ public class AppSettingHandler extends AbstractHandler{
 
         if(TextUtils.isEmpty(cpAppId) || TextUtils.isEmpty(cpAppKey)){
             //从统一push平台获取
-            ANResponse<String> anResponse = UpsPushAPI.getCpInfo(upsAppId,upsAppKey, Company.MEIZU.code(),context.getPackageName());
-            if(anResponse.isSuccess()){
-                CompanyInfo companyInfo = new CompanyInfo(anResponse.getResult());
+            //ANResponse<String> anResponse = UpsPushAPI.getCpInfo(upsAppId,upsAppKey, Company.MEIZU.code(),context.getPackageName());
+            Response<String> response = UpsPushAPI.getCpInfo0(upsAppId,upsAppKey, Company.MEIZU.code(),context.getPackageName());
+            if(response.isSuccess()){
+                CompanyInfo companyInfo = new CompanyInfo(response.getBody());
                 UpsLogger.i(this,"cp companyInfo "+companyInfo);
                 cpAppId = companyInfo.getCpAppId();
                 cpAppKey = companyInfo.getCpAppKey();
                 putAppId(context,company.name(),cpAppId);
                 putAppKey(context,company.name(),cpAppKey);
             } else {
-                UpsLogger.e(this,"get meizu company info error "+anResponse.getError());
+                UpsLogger.e(this,"get meizu company info error "+response.getErrorBody());
             }
         }
         UpsLogger.i(this,"cpAppId "+cpAppId+" cpAppKey "+cpAppKey +" fireRegister");
@@ -114,7 +117,7 @@ public class AppSettingHandler extends AbstractHandler{
     }
 
     @Override
-    public boolean isCurrentModel() {
+    public boolean isCurrentModel(HandlerContext ctx) {
         return true;
     }
 

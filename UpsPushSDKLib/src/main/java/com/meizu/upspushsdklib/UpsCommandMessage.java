@@ -26,12 +26,7 @@ package com.meizu.upspushsdklib;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import com.meizu.cloud.pushsdk.pushtracer.utils.Util;
-
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class UpsCommandMessage implements Parcelable{

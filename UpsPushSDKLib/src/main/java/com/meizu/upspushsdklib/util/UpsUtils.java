@@ -31,7 +31,6 @@ import android.os.Build;
 import android.text.TextUtils;
 
 import com.meizu.cloud.pushinternal.DebugLogger;
-import com.meizu.cloud.pushsdk.base.SystemProperties;
 import com.meizu.cloud.pushsdk.util.MzSystemUtils;
 import com.meizu.upspushsdklib.UpsPushManager;
 
@@ -106,8 +105,8 @@ public class UpsUtils {
     /**
      * 是否为魅族手机
      * */
-    public static boolean isMeizu(){
-        return MzSystemUtils.isBrandMeizu();
+    public static boolean isMeizu(Context context){
+        return MzSystemUtils.isBrandMeizu(context);
     }
 
     /**

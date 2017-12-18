@@ -16,8 +16,8 @@
 
 
     <!-- 魅族推送权限配置-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>-->
+    <!--<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
 
     <!-- 华为推送权限配置-->
     <!-- 同上公共权限配置，没有特殊权限-->

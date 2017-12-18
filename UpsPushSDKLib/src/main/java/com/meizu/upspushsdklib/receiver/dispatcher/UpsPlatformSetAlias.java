@@ -27,9 +27,9 @@ package com.meizu.upspushsdklib.receiver.dispatcher;
 
 import android.content.Context;
 
-import com.meizu.cloud.pushsdk.networking.common.ANResponse;
 import com.meizu.cloud.pushsdk.platform.message.SubAliasStatus;
 import com.meizu.upspushsdklib.UpsCommandMessage;
+import com.meizu.upspushsdklib.network.Response;
 import com.meizu.upspushsdklib.util.UpsLogger;
 
 class UpsPlatformSetAlias extends CommandMessageDispatcher<SubAliasStatus>{
@@ -41,22 +41,29 @@ class UpsPlatformSetAlias extends CommandMessageDispatcher<SubAliasStatus>{
     @Override
     public SubAliasStatus upsPlatformMessage() {
         SubAliasStatus subAliasStatus = new SubAliasStatus();
-        ANResponse<String> anResponse = UpsPushAPI.setAlias(getUpsAppId(),getUpsAppKey(),
+//        ANResponse<String> anResponse = UpsPushAPI.setAlias(getUpsAppId(),getUpsAppKey(),
+//                upsCommandMessage.getCompany().code(),
+//                context.getPackageName(),
+//                getDeviceId(),
+//                getCompanyToken(),
+//                upsCommandMessage.getCommandResult());
+
+        Response<String> response = UpsPushAPI.setAlias0(getUpsAppId(),getUpsAppKey(),
                 upsCommandMessage.getCompany().code(),
                 context.getPackageName(),
                 getDeviceId(),
                 getCompanyToken(),
                 upsCommandMessage.getCommandResult());
 
-        if(anResponse.isSuccess()){
-            subAliasStatus = new SubAliasStatus(anResponse.getResult());
+        if(response.isSuccess()){
+            subAliasStatus = new SubAliasStatus(response.getBody());
             upsCommandMessage.setMessage(subAliasStatus.getMessage());
             upsCommandMessage.setCode(Integer.parseInt(subAliasStatus.getCode()));
             upsCommandMessage.setCommandResult(subAliasStatus.getAlias());
         } else {
-            upsCommandMessage.setCode(anResponse.getError().getErrorCode());
-            upsCommandMessage.setMessage(anResponse.getError().getErrorBody());
-            UpsLogger.e(this,"ups set alias error "+anResponse.getError());
+            upsCommandMessage.setCode(response.getStatusCode());
+            upsCommandMessage.setMessage(response.getErrorBody().toString());
+            UpsLogger.e(this,"ups set alias error "+response.getErrorBody());
         }
         return subAliasStatus;
     }

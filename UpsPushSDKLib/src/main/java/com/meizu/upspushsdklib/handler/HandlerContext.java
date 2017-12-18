@@ -40,7 +40,7 @@ public interface HandlerContext {
     /**
      * 当前逻辑是否适配此机型或者时系统版本
      * */
-    boolean isCurrentModel();
+    boolean isNextHandlerContext();
 
     UpsHandler handler();
 
