@@ -26,7 +26,6 @@ package com.meizu.upspushsdklib.handler.impl;
 
 import android.content.Context;
 import android.text.TextUtils;
-
 import com.meizu.cloud.pushsdk.platform.message.BasicPushStatus;
 import com.meizu.upspushsdklib.Company;
 import com.meizu.upspushsdklib.handler.HandlerContext;
@@ -59,12 +58,14 @@ public class AppSettingHandler extends AbstractHandler{
             ctx.fireRegister(null,null);
         } else {
             UpsLogger.e(this,"other mode "+UpsUtils.deviceModel());
+            //非魅族，华为，小米机型仍然走魅族自有通道
+            setAppInfo(ctx,appId,appKey,Company.MEIZU);
         }
     }
 
     private void setAppInfo(HandlerContext ctx,String upsAppId,String upsAppKey,Company company){
         Context context = ctx.pipeline().context();
-        UpsLogger.e(this,"current device model is "+company.name());
+        UpsLogger.e(this,"use current cp "+company.name()+" appId and appKey");
         String cpAppId =  getAppId(context, company.name());
         String cpAppKey = getAppKey(context,company.name());
         if(TextUtils.isEmpty(cpAppId) || TextUtils.isEmpty(cpAppKey)){

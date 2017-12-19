@@ -26,7 +26,8 @@ package com.meizu.upspushsdklib;
 
 
 public enum Company {
-    DEFAULT(0),
+    DEFAULT(-1),
+    OTHER(0),
     MEIZU(1),
     XIAOMI(2),
     HUAWEI(3);

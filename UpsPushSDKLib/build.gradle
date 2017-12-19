@@ -9,7 +9,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0.3-SNAPSHOT"
+        versionName "1.0.5-SNAPSHOT"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -28,6 +28,8 @@ dependencies {
     //不再打包小米jar至aar中,开发者集成时需要手动加入小米的pushSDK jar包
     provided files('libs/MiPush_SDK_Client_3_4_5.jar')
     compile 'com.huawei.android.hms:push:2.5.2.300'
-    compile 'com.meizu.flyme.internet:push-internal:3.6.0-20171218.025516-17@aar'
+    //不要重复依赖push-internal包
+    compile 'com.meizu.flyme.internet:push-internal:3.6.0@aar'
+    compile(group: 'com.meizu.flyme.internet', name: 'push-open', version: '1.0.1-20171219.014529-1', ext: 'aar')
 
 }

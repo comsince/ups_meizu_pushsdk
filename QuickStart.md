@@ -129,3 +129,15 @@
   * 升级华为移动服务至最新版本，到华为应用商店更新即可
 * Ups平台报签名错误
   * 无法获取手机唯一识别码,需要到各个平台的手机管家中,打开获取手机信息的权限
+
+* 通知栏问题  
+  * OPPO ColorOS 需要打开通知栏权限才可展示通知栏
+  * Android O 平台没有设置channelId,无法展示通知栏问题
+ 
+* 判定厂商
+  * OPPO MANUFACTURER:OPPO model:R7Plusm
+  * VIVO MANUFACTURER:vivo model:vivo X6D
+  * HUAWEI MANUFACTURER:HUAWEI model:MHA-AL00 brand:MHA
+  * MEIZU MANUFACTURER:MEIZU
+ 
+   

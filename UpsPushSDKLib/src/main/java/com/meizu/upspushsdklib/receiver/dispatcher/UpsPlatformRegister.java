@@ -25,9 +25,12 @@
 package com.meizu.upspushsdklib.receiver.dispatcher;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 
 import com.meizu.cloud.pushsdk.platform.message.RegisterStatus;
+import com.meizu.cloud.pushsdk.pushservice.MzPushService;
+import com.meizu.cloud.pushsdk.util.MzSystemUtils;
 import com.meizu.upspushsdklib.UpsCommandMessage;
 import com.meizu.upspushsdklib.handler.impl.AbstractHandler;
 import com.meizu.upspushsdklib.network.Response;
@@ -84,6 +87,9 @@ class UpsPlatformRegister extends CommandMessageDispatcher<RegisterStatus>{
 
         return registerStatus;
     }
+
+
+
 
 
 

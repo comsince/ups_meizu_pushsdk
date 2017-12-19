@@ -25,14 +25,10 @@
 package com.meizu.upspushsdklib.hw;
 
 
-import android.app.Activity;
 import android.content.Context;
-import android.os.Handler;
 import android.text.TextUtils;
-import android.widget.TextView;
 
 import com.huawei.hms.api.ConnectionResult;
-import com.huawei.hms.api.HuaweiApiAvailability;
 import com.huawei.hms.api.HuaweiApiClient;
 import com.huawei.hms.support.api.client.PendingResult;
 import com.huawei.hms.support.api.push.HuaweiPush;
@@ -41,8 +37,6 @@ import com.huawei.hms.support.api.push.TokenResult;
 import com.meizu.upspushsdklib.handler.UpsBootstrap;
 import com.meizu.upspushsdklib.handler.impl.AbstractHandler;
 import com.meizu.upspushsdklib.util.UpsLogger;
-
-import static android.os.Looper.getMainLooper;
 
 public class HwPushClient implements HuaweiApiClient.OnConnectionFailedListener {
 

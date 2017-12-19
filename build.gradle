@@ -9,7 +9,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath "com.meizu.flyme.internet:publish-plugin:2.1-SNAPSHOT"
+        classpath "com.meizu.flyme.internet:publish-plugin:2.1"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -23,6 +23,9 @@ allprojects {
         jcenter()
         maven{
             url 'https://oss.jfrog.org/artifactory/oss-snapshot-local'
+        }
+        maven {
+            url 'http://artifactory.rnd.meizu.com/artifactory/libs-debug-local'
         }
         maven {
             url 'http://developer.huawei.com/repo/'

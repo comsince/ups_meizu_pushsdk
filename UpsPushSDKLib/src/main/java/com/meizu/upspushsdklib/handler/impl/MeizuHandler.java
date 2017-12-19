@@ -46,12 +46,12 @@ public class MeizuHandler extends AbstractHandler{
 
     @Override
     public void onSetAlias(Context context, String appId, String appKey, String alias) {
-        PushManager.subScribeAlias(context,appId,appKey,PushManager.getPushId(context),alias);
+        PushManager.subScribeAlias(context,appId,appKey,AbstractHandler.getCompanyToken(context),alias);
     }
 
     @Override
     public void onUnsetAlias(Context context, String appId, String appKey, String alias) {
-        PushManager.unSubScribeAlias(context,appId,appKey,PushManager.getPushId(context),alias);
+        PushManager.unSubScribeAlias(context,appId,appKey,AbstractHandler.getCompanyToken(context),alias);
     }
 
     @Override

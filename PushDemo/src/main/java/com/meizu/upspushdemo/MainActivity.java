@@ -27,6 +27,7 @@ package com.meizu.upspushdemo;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -109,6 +110,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 //MiPushClient.registerPush(this,xmAppId,xmAppKey);
                 //hwIntentUri();
                 //intentToUri();
+                UpsLogger.e(this,"MANUFACTURER:"+ Build.MANUFACTURER+" model:"+Build.MODEL+" brand:"+Build.BOARD);
                 break;
             case R.id.btn_unregister:
                 UpsPushManager.unRegister(this);

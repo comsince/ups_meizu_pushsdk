@@ -29,6 +29,7 @@ import android.content.Context;
 import com.meizu.upspushsdklib.handler.impl.AppSettingHandler;
 import com.meizu.upspushsdklib.handler.impl.HuaWeiHandler;
 import com.meizu.upspushsdklib.handler.impl.MeizuHandler;
+import com.meizu.upspushsdklib.handler.impl.OtherHandler;
 import com.meizu.upspushsdklib.handler.impl.XiaoMiHandler;
 import com.meizu.upspushsdklib.util.ExecutorProxy;
 
@@ -61,7 +62,8 @@ public class UpsBootstrap {
                 .addLast(new AppSettingHandler())
                 .addLast(new MeizuHandler())
                 .addLast(new XiaoMiHandler())
-                .addLast(new HuaWeiHandler());
+                .addLast(new HuaWeiHandler())
+                .addLast(new OtherHandler());
     }
 
     /**

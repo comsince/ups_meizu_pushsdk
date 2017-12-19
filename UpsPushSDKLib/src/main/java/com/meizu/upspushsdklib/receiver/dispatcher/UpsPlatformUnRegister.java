@@ -59,6 +59,7 @@ class UpsPlatformUnRegister extends CommandMessageDispatcher<UnRegisterStatus>{
             upsCommandMessage.setMessage(unRegisterStatus.getMessage());
             AbstractHandler.putUpsExpireTime(context,0);
             AbstractHandler.putUpsPushId(context,"");
+            AbstractHandler.putCompanyToken(context,"");
         } else {
             upsCommandMessage.setCode(response.getStatusCode());
             upsCommandMessage.setMessage(response.getErrorBody().toString());

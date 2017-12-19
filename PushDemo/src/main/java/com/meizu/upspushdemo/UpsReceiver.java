@@ -75,9 +75,8 @@ public class UpsReceiver extends UpsPushMessageReceiver{
             default:
         }
 
-        sendMessage("onUpsCommandResult CommandResult-> "+upsCommandMessage.getCommandResult()+
+        sendMessage("onUpsCommanType "+upsCommandMessage.getCommandType().name()+" CommandResult-> "+upsCommandMessage.getCommandResult()+
                 (TextUtils.isEmpty(upsCommandMessage.getMessage()) ? "":" Message-> "+upsCommandMessage.getMessage()));
-        MainActivity.xmToken = upsCommandMessage.getCommandResult();
     }
 
 

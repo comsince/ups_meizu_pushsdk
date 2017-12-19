@@ -59,7 +59,7 @@ class UpsPlatformSetAlias extends CommandMessageDispatcher<SubAliasStatus>{
             subAliasStatus = new SubAliasStatus(response.getBody());
             upsCommandMessage.setMessage(subAliasStatus.getMessage());
             upsCommandMessage.setCode(Integer.parseInt(subAliasStatus.getCode()));
-            upsCommandMessage.setCommandResult(subAliasStatus.getAlias());
+            upsCommandMessage.setCommandResult(Boolean.toString("200".equals(subAliasStatus.getCode())));
         } else {
             upsCommandMessage.setCode(response.getStatusCode());
             upsCommandMessage.setMessage(response.getErrorBody().toString());

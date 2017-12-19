@@ -24,6 +24,8 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+## 启用混淆，第三方应用不要在com.meizu.cloud.pushsdk相同包名下混淆自己的代码，不然容易出现类重复的问题
+
 ## 华为proguard配置
 -ignorewarning
 

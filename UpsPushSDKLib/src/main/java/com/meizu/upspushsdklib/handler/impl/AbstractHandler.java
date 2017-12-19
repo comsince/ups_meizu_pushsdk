@@ -45,7 +45,7 @@ public abstract class AbstractHandler implements UpsHandler{
     private static final String KEY_APP_UPS_PUSH_ID = ".ups_push_id";
     private static final String KEY_APP_UPS_PUSH_ID_EXPIRE_TIME = ".ups_pushId_expire_time";
 
-    private static final String KEY_APP_HW_TOKEN = ".hw_token";
+    private static final String KEY_APP_COMPANY_TOKEN = ".company_token";
 
     @Override
     public void register(HandlerContext ctx, String appId, String appKey) {
@@ -165,12 +165,12 @@ public abstract class AbstractHandler implements UpsHandler{
         return UpsPreferenceUtils.getIntBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+KEY_APP_UPS_PUSH_ID_EXPIRE_TIME);
     }
 
-    public static void putCompanyToken(Context context,String token){
-        UpsPreferenceUtils.putStringByKey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+KEY_APP_HW_TOKEN,token);
+    public static void putCompanyToken(Context context, String token){
+        UpsPreferenceUtils.putStringByKey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+ KEY_APP_COMPANY_TOKEN,token);
     }
 
     public static String getCompanyToken(Context context){
-        return UpsPreferenceUtils.getStringBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+KEY_APP_HW_TOKEN);
+        return UpsPreferenceUtils.getStringBykey(context,APP_PUSH_SETTING_PREFERENCE_NAME,context.getPackageName()+ KEY_APP_COMPANY_TOKEN);
     }
 
     public static void putDeviceId(Context context,String deviceId){
