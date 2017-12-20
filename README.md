@@ -286,7 +286,7 @@ UpsPushMessageReceiver是一个抽象的BroadcastReceiver类，为了统一各�
  [license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
  [license]: https://opensource.org/licenses/MIT
  
- [release-image]: http://img.shields.io/badge/release-1.0.2-blue.svg?style=flat
+ [release-image]: http://img.shields.io/badge/release-1.0.4-blue.svg?style=flat
  [releases]: https://bintray.com/meizupush/PushSDK/ups_meizu_pushsdk
  
  [coveralls-image]: https://www.travis-ci.org/comsince/ups_meizu_pushsdk.svg?branch=master
