@@ -254,14 +254,12 @@ public class UpsPushMessage implements Parcelable{
 
     @Override
     public String toString() {
-        return "UpsPushMessage{" +
-                "title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", notifyId=" + notifyId +
-                ", pushType=" + pushType +
-                ", company=" + company +
-                ", selfDefineString='" + selfDefineString + '\'' +
-                ", extra=" + extra +
-                '}';
+        return  "\n Title=" + title +
+                "\n Content=" + content +
+                "\n NotifyId=" + notifyId +
+                "\n PushType=" + pushType +
+                "\n Company=" + company +
+                "\n SelfDefineString= "+selfDefineString +
+                "\n Extra=" + extra;
     }
 }

@@ -40,22 +40,22 @@ import com.meizu.upspushsdklib.util.UpsLogger;
 public class UpsReceiver extends UpsPushMessageReceiver{
     @Override
     public void onThroughMessage(Context context, UpsPushMessage upsPushMessage) {
-         sendMessage("onThroughMessage "+upsPushMessage.getContent());
+         sendMessage("onThroughMessage: "+upsPushMessage.getContent());
     }
 
     @Override
     public void onNotificationClicked(Context context, UpsPushMessage upsPushMessage) {
-        sendMessage("onNotificationClicked "+upsPushMessage);
+        sendMessage("onNotificationClicked: "+upsPushMessage);
     }
 
     @Override
     public void onNotificationArrived(Context context, UpsPushMessage upsPushMessage) {
-        sendMessage("onNotificationArrived "+upsPushMessage);
+        sendMessage("onNotificationArrived: "+upsPushMessage);
     }
 
     @Override
     public void onNotificationDeleted(Context context, UpsPushMessage upsPushMessage) {
-        sendMessage("onNotificationDeleted "+upsPushMessage);
+        sendMessage("onNotificationDeleted: "+upsPushMessage);
     }
 
     @Override
@@ -75,8 +75,12 @@ public class UpsReceiver extends UpsPushMessageReceiver{
             default:
         }
 
-        sendMessage("onUpsCommanType "+upsCommandMessage.getCommandType().name()+" CommandResult-> "+upsCommandMessage.getCommandResult()+
-                (TextUtils.isEmpty(upsCommandMessage.getMessage()) ? "":" Message-> "+upsCommandMessage.getMessage()));
+        sendMessage("onUpsCommandResult 如下:"
+                +"\n CommandType-> "+upsCommandMessage.getCommandType().name()
+                +"\n Company-> "+upsCommandMessage.getCompany()
+                +"\n Code-> "+upsCommandMessage.getCode()
+                +"\n CommandResult-> "+upsCommandMessage.getCommandResult()
+                + (TextUtils.isEmpty(upsCommandMessage.getMessage()) ? "":"\n Message-> "+upsCommandMessage.getMessage()));
     }
 
 

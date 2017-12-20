@@ -27,13 +27,21 @@ package com.meizu.upspushsdklib.handler.impl;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+
+import com.meizu.cloud.pushsdk.platform.message.RegisterStatus;
+import com.meizu.cloud.pushsdk.platform.message.UnRegisterStatus;
 import com.meizu.cloud.pushsdk.pushservice.MzPushService;
 import com.meizu.cloud.pushsdk.util.MzSystemUtils;
 import com.meizu.upspushsdklib.CommandType;
 import com.meizu.upspushsdklib.Company;
 import com.meizu.upspushsdklib.handler.HandlerContext;
+import com.meizu.upspushsdklib.network.Response;
+import com.meizu.upspushsdklib.receiver.dispatcher.UpsPushAPI;
 import com.meizu.upspushsdklib.util.UpsLogger;
 import com.meizu.upspushsdklib.util.UpsUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * 支持非flyme手机的推送， 使用魅族自有通道
@@ -44,17 +52,14 @@ public class OtherHandler extends MeizuHandler {
 
     @Override
     public void register(HandlerContext ctx, String appId, String appKey) {
-        String connectId = null;
-        startPushService(ctx.pipeline().context(),connectId);
-        onRegister(ctx.pipeline().context(),appId,appKey);
-        //dispatcherToUpsReceiver(context, Company.MEIZU, CommandType.REGISTER,pushId);
+        nonFlymeRegister(ctx.pipeline().context(),appId,appKey);
     }
 
     @Override
     public void unRegister(HandlerContext ctx) {
         String appId = getAppId(ctx.pipeline().context(), meizuName());
         String appKey = getAppKey(ctx.pipeline().context(), meizuName());
-        onUnRegister(ctx.pipeline().context(),appId,appKey);
+        nonFlymeUnRegister(ctx.pipeline().context(),appId,appKey);
     }
 
     @Override
@@ -85,6 +90,11 @@ public class OtherHandler extends MeizuHandler {
         return Company.MEIZU.name();
     }
 
+    /**
+     * 启动推送服务
+     * @param context 应用context
+     * @param connectId 标记与服务端的长连接标记
+     * */
     private void startPushService(Context context,String connectId){
         if(TextUtils.isEmpty(connectId)){
             connectId = MzSystemUtils.getDeviceId(context);
@@ -102,6 +112,68 @@ public class OtherHandler extends MeizuHandler {
         } else {
             UpsLogger.e(this,"register to ups Platform error");
         }
+    }
 
+    /**
+     * 非Flyme订阅请求
+     * */
+    private void nonFlymeRegister(Context context,String appId,String appKey){
+        String deviceId = MzSystemUtils.getDeviceId(context);
+        Response<String> response = UpsPushAPI.registerNonFlyme(appId,appKey,Company.OTHER.code(),deviceId);
+        if(response.isSuccess()){
+            NonFlymeRegisterStatus nonFlymeRegisterStatus = new NonFlymeRegisterStatus(response.getBody());
+            dispatcherToUpsReceiver(context,Company.OTHER,CommandType.REGISTER,nonFlymeRegisterStatus.getPushId());
+            String connectId = nonFlymeRegisterStatus.getConnectId();
+            startPushService(context,connectId);
+        } else {
+            //订阅失败则走魅族正常订阅，使用imei作为链接Id
+            startPushService(context,null);
+            onRegister(context,appId,appKey);
+            //
+            //dispatcherToUpsReceiver(context,Company.OTHER,CommandType.REGISTER,"");
+        }
+    }
+
+    /**
+     * 非Flyme反订阅请求
+     * */
+    private void nonFlymeUnRegister(Context context,String appId,String appKey){
+        String deviceId = MzSystemUtils.getDeviceId(context);
+        Response<String> response = UpsPushAPI.unRegisterNonFlyme(appId,appKey,Company.OTHER.code(),deviceId);
+        if(response.isSuccess()){
+            UnRegisterStatus unRegisterStatus = new UnRegisterStatus(response.getBody());
+            dispatcherToUpsReceiver(context,Company.OTHER,CommandType.UNREGISTER,String.valueOf(unRegisterStatus.isUnRegisterSuccess()));
+        } else {
+            dispatcherToUpsReceiver(context,Company.OTHER,CommandType.UNREGISTER,"false");
+        }
+    }
+
+    private class NonFlymeRegisterStatus extends RegisterStatus{
+        String connectId;
+
+        public NonFlymeRegisterStatus(String json){
+            super(json);
+        }
+
+        @Override
+        public void parseValueData(JSONObject jsonObject) throws JSONException {
+            if(!jsonObject.isNull("pushId")){
+                setPushId(jsonObject.getString("pushId"));
+            }
+            if(!jsonObject.isNull("expireTime")){
+                setExpireTime(jsonObject.getInt("expireTime"));
+            }
+            if(!jsonObject.isNull("connectId")){
+                setConnectId(jsonObject.getString("connectId"));
+            }
+        }
+
+        public String getConnectId() {
+            return connectId;
+        }
+
+        public void setConnectId(String connectId) {
+            this.connectId = connectId;
+        }
     }
 }

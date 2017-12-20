@@ -81,6 +81,16 @@
 ```
 小米的库需要手动将其jar放到工程的lib目录下，小米的pushsdk jar[下载](https://dev.mi.com/mipush/downpage/)
 
+### 1.5 UpsPushSDK库引入
+
+```
+compile ('com.meizu.flyme.internet:push-ups:1.0.4@aar'){
+       //当指定aar类型时注意要设置transitive设置为true，不然依赖关系无法传递
+        transitive=true
+}
+```
+
+
 ## 二 统一推送平台配置
 
 ### 2.1 应用信息平台设置

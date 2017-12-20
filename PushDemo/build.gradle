@@ -16,8 +16,8 @@ android {
         applicationId appPackageName
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 105
-        versionName "1.0.5"
+        versionCode 110
+        versionName "1.1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         manifestPlaceholders = [XIAOMI_APP_ID: xmAppId, XIAOMI_APP_KEY: xmAppKey,MEIZU_APP_ID: mzAppId, MEIZU_APP_KEY: mzAppKey, HUAWEI_APP_ID: hwAppId, PACKAGE_NAME: appPackageName]
@@ -50,8 +50,9 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    //这里测试直接引用工程源码，你可以如下直接使用jcenter中的aar包
     compile project(':UpsPushSDKLib')
-//    compile ('com.meizu.flyme.internet:push-ups:1.0.2-20171121.085103-2@aar'){
+//    compile ('com.meizu.flyme.internet:push-ups:1.0.4@aar'){
 //        //当指定aar类型时注意要设置transitive设置为true，不然依赖关系无法传递
 //        transitive=true
 //    }
